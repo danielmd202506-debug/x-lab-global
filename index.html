@@ -177,7 +177,7 @@
 
     section { position: relative; }
     .section {
-      padding: clamp(74px, 10vw, 138px) 20px;
+      padding: clamp(82px, 9vw, 132px) 20px;
     }
     .wrap {
       width: min(var(--max), 100%);
@@ -185,21 +185,21 @@
     }
     .section-head {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .65fr);
-      gap: 42px;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .58fr);
+      gap: clamp(28px, 5vw, 64px);
       align-items: end;
-      margin-bottom: 42px;
+      margin-bottom: clamp(34px, 5vw, 56px);
     }
     h2 {
       margin: 0;
-      font-size: clamp(38px, 7vw, 88px);
-      line-height: .94;
+      font-size: clamp(36px, 6.4vw, 82px);
+      line-height: .98;
       letter-spacing: 0;
     }
     .lead {
       color: var(--muted);
-      font-size: 18px;
-      line-height: 1.62;
+      font-size: clamp(16px, 1.45vw, 19px);
+      line-height: 1.72;
       margin: 0;
     }
 
@@ -422,19 +422,18 @@
       gap: 14px;
     }
     .explode {
-      margin-top: 38px;
-      min-height: 520px;
+      margin-top: clamp(28px, 4vw, 44px);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, .82fr);
+      gap: clamp(26px, 4vw, 56px);
       align-items: center;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      padding: 32px 0;
+      padding: clamp(34px, 5vw, 64px) 0;
     }
     .bike-diagram {
       position: relative;
-      min-height: 360px;
+      min-height: 330px;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -443,7 +442,7 @@
     .bike-photo {
       width: 100%;
       height: auto;
-      max-height: 460px;
+      max-height: 520px;
       object-fit: contain;
       object-position: center;
       filter: drop-shadow(0 26px 42px rgba(0,0,0,.35));
@@ -452,12 +451,25 @@
     .bike-diagram:hover .bike-photo { transform: scale(1.025); }
     .hotspots {
       display: grid;
-      gap: 12px;
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
     }
     .hotspot {
-      padding: 18px;
-      border-left: 3px solid var(--red);
-      background: rgba(255,255,255,.055);
+      padding: clamp(18px, 2.2vw, 26px);
+      background: #0b0e11;
+      border-left: 3px solid transparent;
+      line-height: 1.58;
+    }
+    .hotspot:hover {
+      border-left-color: var(--red);
+      background: #10151a;
+    }
+    .hotspot strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(18px, 1.8vw, 24px);
+      line-height: 1.15;
     }
     .scenario-grid {
       display: grid;
