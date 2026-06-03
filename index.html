@@ -434,64 +434,22 @@
     }
     .bike-diagram {
       position: relative;
-      min-height: 390px;
+      min-height: 360px;
       overflow: hidden;
-      background: #0b0f13;
-      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .bike-photo {
       width: 100%;
-      height: 100%;
-      min-height: 390px;
-      object-fit: cover;
+      height: auto;
+      max-height: 460px;
+      object-fit: contain;
       object-position: center;
-      filter: contrast(1.04) saturate(1.08);
+      filter: drop-shadow(0 26px 42px rgba(0,0,0,.35));
       transition: transform .45s ease;
     }
-    .bike-diagram:hover .bike-photo { transform: scale(1.035); }
-    .photo-shade {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.64), rgba(0,0,0,.04) 58%);
-      pointer-events: none;
-    }
-    .photo-label {
-      position: absolute;
-      left: 22px;
-      bottom: 22px;
-      max-width: 360px;
-      padding: 14px 16px;
-      background: rgba(5,6,7,.72);
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(10px);
-    }
-    .photo-label strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-    .photo-label span {
-      color: rgba(255,255,255,.76);
-      line-height: 1.45;
-    }
-    .photo-pin {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      background: rgba(255,255,255,.9);
-      color: #08090a;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-    .photo-pin::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--red);
-    }
+    .bike-diagram:hover .bike-photo { transform: scale(1.025); }
     .hotspots {
       display: grid;
       gap: 12px;
@@ -610,8 +568,7 @@
       .race-gallery img:nth-child(1) { height: 270px; }
       .hero-inner { padding-bottom: 32px; }
       .bike-diagram,
-      .bike-photo { min-height: 310px; }
-      .photo-pin { display: none; }
+      .bike-photo { min-height: 0; }
     }
   </style>
 </head>
@@ -778,11 +735,7 @@
 
         <div class="explode">
           <div class="bike-diagram" aria-label="AD9 carbon road bike detail">
-            <img class="bike-photo" src="https://images.openai.com/static-rsc-4/9XzVGjESGZKCOW8XjIl5ZcTgfBbRqTNsZPhKIKzcKL11aiITrem6ZG0g3ZgE_OghfmtuLHI-Mwhob1STm8MnNINRtxbGLjbANg8Uey7qi89NTDivQQkN3HKVFL1JHI_c-Y1C8uxNRBe_EU52KwOjptrtPwR2pkgyhwVHhpEW4hLYwRmsCSrdgDNT3a41tYmT?purpose=fullsize" alt="X-LAB AD9 carbon road bike">
-            <div class="photo-shade"></div>
-            <div class="photo-pin" style="left: 62%; top: 22%;">Aero cockpit</div>
-            <div class="photo-pin" style="left: 36%; top: 48%;">Carbon frame</div>
-            <div class="photo-label"><strong>AD9 carbon platform</strong><span>用真实整车图承载技术热点，让产品细节从第一眼就更可信。</span></div>
+            <img class="bike-photo" src="assets/ad9-astana-side.png" alt="X-LAB AD9 Astana Team Edition side view">
           </div>
           <div class="hotspots">
             <div class="hotspot"><strong>碳布结构</strong><br>不同区域使用不同铺层逻辑，兼顾效率与舒适。</div>
