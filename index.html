@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-LAB Global | Born in the WorldTour</title>
+  <style>
+    :root {
+      --bg: #050607;
+      --panel: #111418;
+      --panel-2: #191d22;
+      --ink: #f5f7f8;
+      --muted: #aab1b8;
+      --line: rgba(255,255,255,.13);
+      --red: #d91f2d;
+      --cyan: #53c7df;
+      --gold: #d8b15f;
+      --green: #67c98f;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, "SF Pro Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button, input, select { font: inherit; }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      padding: 0 clamp(20px, 4vw, 56px);
+      background: linear-gradient(to bottom, rgba(5,6,7,.86), rgba(5,6,7,.46), transparent);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      width: 132px;
+      height: 30px;
+    }
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2.4vw, 34px);
+      color: rgba(255,255,255,.82);
+      font-size: 14px;
+    }
+    .nav-cta {
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.08);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,.94) 0%, rgba(5,6,7,.58) 39%, rgba(5,6,7,.18) 69%),
+        linear-gradient(to top, #050607 0%, rgba(5,6,7,.26) 36%, rgba(5,6,7,.18) 100%),
+        url("https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize");
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.02);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 58vw;
+      height: 4px;
+      background: linear-gradient(90deg, var(--red), var(--cyan), transparent);
+    }
+    .hero-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 150px 0 48px;
+    }
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+    h1 {
+      margin: 18px 0 0;
+      max-width: 790px;
+      font-size: clamp(56px, 13vw, 166px);
+      line-height: .82;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+    .hero-copy {
+      margin: 28px 0 0;
+      max-width: 590px;
+      color: rgba(255,255,255,.83);
+      font-size: clamp(18px, 2.2vw, 28px);
+      line-height: 1.28;
+      font-weight: 520;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 34px 0 0;
+    }
+    .btn {
+      min-height: 48px;
+      padding: 0 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+    .btn.primary { border-color: var(--red); background: var(--red); }
+    .btn.dark { background: #0d0f11; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 72px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .metric {
+      min-height: 104px;
+      padding: 22px;
+      background: rgba(5,6,7,.72);
+    }
+    .metric strong {
+      display: block;
+      font-size: clamp(26px, 4vw, 46px);
+      line-height: .95;
+    }
+    .metric span {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    section { position: relative; }
+    .section {
+      padding: clamp(74px, 10vw, 138px) 20px;
+    }
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .65fr);
+      gap: 42px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(38px, 7vw, 88px);
+      line-height: .94;
+      letter-spacing: 0;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.62;
+      margin: 0;
+    }
+
+    .story {
+      background: #07090b;
+      padding: 0;
+    }
+    .story-panel {
+      min-height: 86svh;
+      display: grid;
+      align-items: end;
+      padding: clamp(80px, 10vw, 130px) 20px;
+      border-top: 1px solid var(--line);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .story-panel:nth-child(1) {
+      background-image:
+        linear-gradient(90deg, rgba(5,6,7,.88), rgba(5,6,7,.34)),
+        url("https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize");
+    }
+    .story-panel:nth-child(2) {
+      background-image:
+        linear-gradient(90deg, rgba(5,6,7,.9), rgba(5,6,7,.24)),
+        url("https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize");
+    }
+    .story-panel:nth-child(3) {
+      background-image:
+        linear-gradient(90deg, rgba(5,6,7,.9), rgba(5,6,7,.22)),
+        url("https://images.openai.com/static-rsc-4/LRfwrAy-Eoe-zZ0N_pWQYOO_kjfmlwJ5cm7cC7pK0BIXvD2xgYhXHMC1CaRt2EWzxZhl4Ds2oT_4fZ-b6Nz0S7UCoRs3jP917IxiRERQ0XecVsjTQSVG6g_2Udwh6o4DQtwG6-GRryUiUU_hay59knxBYbnAc-ZGRjdn3DLhYEmVbIcNfYOLSv0nVsVEfezQ?purpose=fullsize");
+    }
+    .story-panel h2 {
+      max-width: 900px;
+      font-size: clamp(52px, 10vw, 138px);
+    }
+    .story-panel p {
+      max-width: 560px;
+      margin: 22px 0 0;
+      color: rgba(255,255,255,.76);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .tech-card,
+    .quote,
+    .detail-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+      padding: 24px;
+    }
+    .tech-card {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tech-card .num {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .tech-card h3,
+    .product h3,
+    .detail-card h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.08;
+    }
+    .tech-card p,
+    .product p,
+    .detail-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 16px 0 0;
+    }
+
+    .products {
+      background: #f4f5f3;
+      color: #090b0d;
+    }
+    .products .lead { color: #505961; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .product {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+      background: #111;
+      color: #fff;
+      isolation: isolate;
+    }
+    .product::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: var(--photo) center / cover no-repeat;
+      transition: transform .45s ease;
+    }
+    .product::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.16) 58%, rgba(0,0,0,.05));
+    }
+    .product:hover::before { transform: scale(1.06); }
+    .product-body { padding: 24px; }
+    .tag {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.24);
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .worldtour {
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #050607 0%, #101316 100%);
+    }
+    .race-layout {
+      display: grid;
+      grid-template-columns: minmax(310px, .85fr) minmax(0, 1.15fr);
+      gap: 38px;
+      align-items: start;
+    }
+    .race-sticky {
+      position: sticky;
+      top: 100px;
+    }
+    .race-sticky h2 { margin-bottom: 24px; }
+    .race-sticky p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+    .race-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .race-gallery img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      filter: saturate(1.08) contrast(1.04);
+    }
+    .race-gallery img:nth-child(1) {
+      grid-column: 1 / -1;
+      height: 430px;
+    }
+
+    .quotes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .quote {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .quote blockquote {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 720;
+    }
+    .quote cite {
+      color: var(--muted);
+      font-style: normal;
+      font-size: 14px;
+    }
+
+    .detail-hero {
+      min-height: 92svh;
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,.92), rgba(5,6,7,.28)),
+        linear-gradient(to top, #050607 0%, rgba(5,6,7,.1) 58%),
+        url("https://images.openai.com/static-rsc-4/9XzVGjESGZKCOW8XjIl5ZcTgfBbRqTNsZPhKIKzcKL11aiITrem6ZG0g3ZgE_OghfmtuLHI-Mwhob1STm8MnNINRtxbGLjbANg8Uey7qi89NTDivQQkN3HKVFL1JHI_c-Y1C8uxNRBe_EU52KwOjptrtPwR2pkgyhwVHhpEW4hLYwRmsCSrdgDNT3a41tYmT?purpose=fullsize") center / cover;
+    }
+    .detail-hero .wrap { padding: 120px 20px 56px; }
+    .detail-hero h2 { max-width: 740px; }
+    .config-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .choice {
+      min-width: 116px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      cursor: pointer;
+    }
+    .choice.active { border-color: var(--red); background: rgba(217,31,45,.24); }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .explode {
+      margin-top: 38px;
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 32px 0;
+    }
+    .bike-diagram {
+      position: relative;
+      min-height: 390px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, rgba(83,199,223,.13), transparent 55%);
+    }
+    .part {
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(8px);
+      transition: transform .25s ease;
+    }
+    .bike-diagram:hover .part.frame { transform: translate(-24px, -16px); }
+    .bike-diagram:hover .part.wheel-a { transform: translate(-34px, 28px); }
+    .bike-diagram:hover .part.wheel-b { transform: translate(34px, 28px); }
+    .bike-diagram:hover .part.bar { transform: translate(25px, -28px); }
+    .frame {
+      left: 28%;
+      top: 33%;
+      width: 42%;
+      height: 108px;
+      clip-path: polygon(5% 78%, 38% 10%, 64% 74%, 95% 20%, 98% 34%, 68% 91%, 38% 25%, 13% 88%);
+      background: linear-gradient(135deg, #f4f6f8, #7b828a);
+    }
+    .wheel-a, .wheel-b {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      bottom: 54px;
+    }
+    .wheel-a { left: 15%; }
+    .wheel-b { right: 15%; }
+    .bar {
+      right: 16%;
+      top: 23%;
+      width: 105px;
+      height: 42px;
+      border-radius: 26px 8px 26px 8px;
+    }
+    .hotspots {
+      display: grid;
+      gap: 12px;
+    }
+    .hotspot {
+      padding: 18px;
+      border-left: 3px solid var(--red);
+      background: rgba(255,255,255,.055);
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .scenario {
+      min-height: 320px;
+      display: flex;
+      align-items: end;
+      padding: 22px;
+      background: var(--photo) center / cover;
+      position: relative;
+      overflow: hidden;
+    }
+    .scenario::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.88), transparent);
+    }
+    .scenario div { position: relative; }
+    .scenario h3 { margin: 0; font-size: 28px; }
+    .scenario p { color: rgba(255,255,255,.76); }
+    .fit {
+      display: grid;
+      grid-template-columns: minmax(260px, .7fr) minmax(280px, .75fr) minmax(280px, .8fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .fit-form {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    label { color: var(--muted); font-size: 13px; }
+    input, select {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      background: #080a0c;
+      color: #fff;
+    }
+    .fit-result {
+      display: grid;
+      align-content: center;
+      padding: 34px;
+      background: linear-gradient(135deg, rgba(217,31,45,.22), rgba(83,199,223,.15));
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .fit-size {
+      font-size: clamp(82px, 13vw, 170px);
+      line-height: .85;
+      font-weight: 900;
+    }
+    footer {
+      padding: 48px 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 920px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .section-head,
+      .race-layout,
+      .explode,
+      .fit {
+        grid-template-columns: 1fr;
+      }
+      .tech-grid,
+      .product-grid,
+      .quotes,
+      .detail-grid,
+      .scenario-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .race-sticky { position: static; }
+      .story-panel { background-attachment: scroll; }
+    }
+
+    @media (max-width: 640px) {
+      .nav { height: 62px; }
+      .brand { width: 112px; height: 26px; }
+      .metrics,
+      .tech-grid,
+      .product-grid,
+      .quotes,
+      .detail-grid,
+      .scenario-grid,
+      .race-gallery {
+        grid-template-columns: 1fr;
+      }
+      .metric { min-height: 86px; }
+      .product { min-height: 430px; }
+      .race-gallery img,
+      .race-gallery img:nth-child(1) { height: 270px; }
+      .hero-inner { padding-bottom: 32px; }
+      .bike-diagram { min-height: 310px; }
+      .wheel-a, .wheel-b { width: 96px; height: 96px; }
+      .wheel-a { left: 8%; }
+      .wheel-b { right: 8%; }
+      .frame { left: 22%; width: 56%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Global navigation">
+    <a class="brand" href="#top" aria-label="X-LAB home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB"></a>
+    <div class="nav-links">
+      <a href="#technology">Technology</a>
+      <a href="#bikes">Bikes</a>
+      <a href="#worldtour">WorldTour</a>
+      <a href="#ad9">AD9</a>
+      <a class="nav-cta" href="#fit">Find Your Size</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">The world's advanced carbon bicycle platform</div>
+        <h1>X-LAB</h1>
+        <p class="hero-copy">Born in the WorldTour. Built for every rider who expects race-grade carbon engineering without compromise.</p>
+        <div class="actions">
+          <a class="btn primary" href="#bikes">Explore Bikes</a>
+          <a class="btn" href="#worldtour">Watch The Story</a>
+        </div>
+        <div class="metrics" aria-label="Brand metrics">
+          <div class="metric"><strong>31</strong><span>Years Engineering</span></div>
+          <div class="metric"><strong>8M</strong><span>Bikes Annually</span></div>
+          <div class="metric"><strong>WT</strong><span>WorldTour Proven</span></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="story" aria-label="Brand strength">
+      <article class="story-panel">
+        <div class="wrap">
+          <div class="eyebrow">01 / Vertical Integration</div>
+          <h2>Carbon Engineering</h2>
+          <p>From carbon layup to complete-bike assembly, X-LAB turns manufacturing depth into lighter frames, cleaner integration and tighter quality control.</p>
+        </div>
+      </article>
+      <article class="story-panel">
+        <div class="wrap">
+          <div class="eyebrow">02 / Test Lab</div>
+          <h2>Designed Tested Raced</h2>
+          <p>Every platform is shaped around aerodynamic efficiency, stiffness balance and real rider control before it reaches the start line.</p>
+        </div>
+      </article>
+      <article class="story-panel">
+        <div class="wrap">
+          <div class="eyebrow">03 / Race Validation</div>
+          <h2>From Factory To Finish Line</h2>
+          <p>The same engineering platform that leaves the factory is pushed through WorldTour roads, high-speed sprints and punishing mountain stages.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="technology">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Technology that earns trust.</h2>
+          <p class="lead">官网先回答“为什么值得买”，再进入参数。技术表达不堆配置，而是把用户能感知到的速度、轻量、稳定与赛事验证讲清楚。</p>
+        </div>
+        <div class="tech-grid">
+          <article class="tech-card">
+            <span class="num">01</span>
+            <div><h3>Carbon Technology</h3><p>T800/T1000 layup strategy tuned for stiffness, comfort and low weight across each riding scenario.</p></div>
+          </article>
+          <article class="tech-card">
+            <span class="num">02</span>
+            <div><h3>Aero System</h3><p>Frame, fork, cockpit and wheel interaction treated as one aerodynamic surface.</p></div>
+          </article>
+          <article class="tech-card">
+            <span class="num">03</span>
+            <div><h3>Integrated Platform</h3><p>Complete-bike engineering aligns geometry, fit, component choice and serviceability.</p></div>
+          </article>
+          <article class="tech-card">
+            <span class="num">04</span>
+            <div><h3>Race Validation</h3><p>WorldTour pressure turns claims into proof across climbs, crosswinds and sprint finishes.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section products" id="bikes">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Choose by the ride, not the catalog.</h2>
+          <p class="lead">从“Road / Gravel / Urban”的列表切换为大图产品矩阵，让用户按目标场景进入车型。</p>
+        </div>
+        <div class="product-grid">
+          <a class="product" href="#ad9" style="--photo:url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')">
+            <div class="product-body"><span class="tag">Aero</span><h3>AD9</h3><p>极速竞赛。为冲刺、横风与高速巡航而生。</p></div>
+          </a>
+          <a class="product" href="#ad9" style="--photo:url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')">
+            <div class="product-body"><span class="tag">Lightweight</span><h3>RS9</h3><p>爬坡神器。低重量、高刚性与长距离舒适。</p></div>
+          </a>
+          <a class="product" href="#ad9" style="--photo:url('https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize')">
+            <div class="product-body"><span class="tag">Gravel</span><h3>GT8</h3><p>全地形探索。更宽胎容、更强通过性。</p></div>
+          </a>
+          <a class="product" href="#ad9" style="--photo:url('https://images.openai.com/static-rsc-4/LRfwrAy-Eoe-zZ0N_pWQYOO_kjfmlwJ5cm7cC7pK0BIXvD2xgYhXHMC1CaRt2EWzxZhl4Ds2oT_4fZ-b6Nz0S7UCoRs3jP917IxiRERQ0XecVsjTQSVG6g_2Udwh6o4DQtwG6-GRryUiUU_hay59knxBYbnAc-ZGRjdn3DLhYEmVbIcNfYOLSv0nVsVEfezQ?purpose=fullsize')">
+            <div class="product-body"><span class="tag">Urban</span><h3>SP Series</h3><p>城市生活。轻快、可靠、适合日常出行。</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section worldtour" id="worldtour">
+      <div class="wrap race-layout">
+        <div class="race-sticky">
+          <div class="eyebrow">WorldTour Program</div>
+          <h2>Raced at the highest level.</h2>
+          <p>XDS Astana is not a logo placement. It is the proof layer of the website: race photos, rider stories, stage results and video should sit in one dedicated brand-trust zone.</p>
+          <div class="actions">
+            <a class="btn primary" href="#ad9">Meet AD9</a>
+            <a class="btn" href="#reviews">Media Reviews</a>
+          </div>
+        </div>
+        <div class="race-gallery" aria-label="WorldTour gallery">
+          <img src="https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize" alt="XDS Astana racing scene">
+          <img src="https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize" alt="Race bike detail">
+          <img src="https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize" alt="Rider in motion">
+          <img src="https://images.openai.com/static-rsc-4/9XzVGjESGZKCOW8XjIl5ZcTgfBbRqTNsZPhKIKzcKL11aiITrem6ZG0g3ZgE_OghfmtuLHI-Mwhob1STm8MnNINRtxbGLjbANg8Uey7qi89NTDivQQkN3HKVFL1JHI_c-Y1C8uxNRBe_EU52KwOjptrtPwR2pkgyhwVHhpEW4hLYwRmsCSrdgDNT3a41tYmT?purpose=fullsize" alt="Carbon road bike">
+          <img src="https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize" alt="Performance bicycle">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Proof from riders, media and community.</h2>
+          <p class="lead">补上官网缺失的口碑层，让用户在进入购买前听见专业车手、媒体与全球车友的判断。</p>
+        </div>
+        <div class="quotes">
+          <article class="quote"><blockquote>“Holds its own against WorldTour competitors.”</blockquote><cite>CyclingNews review</cite></article>
+          <article class="quote"><blockquote>“A carbon platform that feels composed when the speed rises.”</blockquote><cite>Media evaluation concept</cite></article>
+          <article class="quote"><blockquote>“The first ride changed what I expected from a new global race brand.”</blockquote><cite>Community story concept</cite></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-hero" id="ad9">
+      <div class="wrap">
+        <div class="eyebrow">Product Experience / AD9</div>
+        <h2>Why AD9. Faster, lighter, more stable.</h2>
+        <p class="hero-copy">产品详情页先讲价值，再讲参数。让用户理解这台车会如何改变自己的爬坡、冲刺和长距离骑行。</p>
+        <div class="config-bar" aria-label="Bike configuration">
+          <button class="choice active" type="button">Obsidian</button>
+          <button class="choice" type="button">Astana Blue</button>
+          <button class="choice" type="button">Silver</button>
+          <button class="choice active" type="button">Size M</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="detail-grid">
+          <article class="detail-card"><h3>更快</h3><p>气动车架、隐藏式走线与一体式前端，减少高速巡航时的风阻损耗。</p></article>
+          <article class="detail-card"><h3>更轻</h3><p>碳纤维铺层针对核心受力区优化，保持刚性同时降低整车重量。</p></article>
+          <article class="detail-card"><h3>更稳定</h3><p>几何、轮组与操控反馈共同调校，提升高速下坡与横风环境的信心。</p></article>
+        </div>
+
+        <div class="explode">
+          <div class="bike-diagram" aria-label="Exploded bike concept">
+            <div class="part wheel-a"></div>
+            <div class="part wheel-b"></div>
+            <div class="part frame"></div>
+            <div class="part bar"></div>
+          </div>
+          <div class="hotspots">
+            <div class="hotspot"><strong>碳布结构</strong><br>不同区域使用不同铺层逻辑，兼顾效率与舒适。</div>
+            <div class="hotspot"><strong>车架平台</strong><br>五通、头管和后下叉针对动力传递与操控稳定加强。</div>
+            <div class="hotspot"><strong>气动结构</strong><br>管型、前叉和座管共同降低阻力，而不是单点参数包装。</div>
+            <div class="hotspot"><strong>整车系统</strong><br>车架、轮组、把组和骑行姿态作为完整平台呈现。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for real riding scenes.</h2>
+          <p class="lead">把参数转换成使用场景：用户不是买 Frame/Fork/Groupset，而是买更快、更轻、更舒服、更有面子的骑行结果。</p>
+        </div>
+        <div class="scenario-grid">
+          <article class="scenario" style="--photo:url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')"><div><h3>Climbing</h3><p>轻量、高效、长坡不拖沓。</p></div></article>
+          <article class="scenario" style="--photo:url('https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize')"><div><h3>Sprint</h3><p>刚性输出，冲刺时每一脚都清晰。</p></div></article>
+          <article class="scenario" style="--photo:url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')"><div><h3>Endurance</h3><p>长距离舒适，速度与稳定兼得。</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="wrap fit">
+        <div>
+          <div class="eyebrow">Fit Assistant</div>
+          <h2>Find your race size.</h2>
+          <p class="lead">尺寸助手把行业里常见的复杂尺码表变成一次简单判断：输入身高、腿长和骑行习惯，直接给推荐尺码。</p>
+        </div>
+        <div class="fit-form">
+          <div class="field">
+            <label for="height">身高 / Height</label>
+            <input id="height" type="number" min="145" max="205" value="178">
+          </div>
+          <div class="field">
+            <label for="inseam">腿长 / Inseam</label>
+            <input id="inseam" type="number" min="60" max="105" value="82">
+          </div>
+          <div class="field">
+            <label for="habit">骑行习惯 / Riding Style</label>
+            <select id="habit">
+              <option value="race">Aggressive Race</option>
+              <option value="balanced" selected>Balanced Performance</option>
+              <option value="comfort">Endurance Comfort</option>
+            </select>
+          </div>
+          <button class="btn primary" type="button" id="fitButton">Recommend Size</button>
+        </div>
+        <div class="fit-result">
+          <span class="eyebrow">Recommended</span>
+          <div class="fit-size" id="fitSize">M</div>
+          <p class="lead" id="fitText">适合 174-181cm、偏均衡骑姿的骑手。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>X-LAB Global Concept Website</strong>
+      <span>Premium / Race / Technology / Performance</span>
+    </div>
+  </footer>
+
+  <script>
+    const choices = document.querySelectorAll(".choice");
+    choices.forEach((choice) => {
+      choice.addEventListener("click", () => {
+        const group = choice.textContent.includes("Size") ? "size" : "color";
+        choices.forEach((item) => {
+          const sameGroup = group === "size" ? item.textContent.includes("Size") : !item.textContent.includes("Size");
+          if (sameGroup) item.classList.remove("active");
+        });
+        choice.classList.add("active");
+      });
+    });
+
+    const height = document.getElementById("height");
+    const inseam = document.getElementById("inseam");
+    const habit = document.getElementById("habit");
+    const fitButton = document.getElementById("fitButton");
+    const fitSize = document.getElementById("fitSize");
+    const fitText = document.getElementById("fitText");
+
+    function recommendSize() {
+      const h = Number(height.value || 0);
+      const i = Number(inseam.value || 0);
+      let size = "M";
+      if (h < 164 || i < 74) size = "XS";
+      else if (h < 173 || i < 79) size = "S";
+      else if (h < 183 || i < 86) size = "M";
+      else size = "L";
+
+      if (habit.value === "race" && size !== "XS") {
+        size = size === "L" ? "M/L" : size;
+      }
+      if (habit.value === "comfort" && size === "M") {
+        size = "M/L";
+      }
+
+      fitSize.textContent = size;
+      fitText.textContent = `基于 ${h}cm 身高、${i}cm 腿长与 ${habit.options[habit.selectedIndex].text} 骑姿的初步推荐。`;
+    }
+
+    fitButton.addEventListener("click", recommendSize);
+    [height, inseam, habit].forEach((el) => el.addEventListener("input", recommendSize));
+  </script>
+</body>
+</html>
