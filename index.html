@@ -27,7 +27,10 @@
       color: var(--ink);
       font-family: Inter, "SF Pro Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
       letter-spacing: 0;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
+    ::selection { background: rgba(217,31,45,.82); color: #fff; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     button, input, select { font: inherit; }
@@ -43,6 +46,18 @@
       padding: 0 clamp(20px, 4vw, 56px);
       background: linear-gradient(to bottom, rgba(5,6,7,.86), rgba(5,6,7,.46), transparent);
       backdrop-filter: blur(12px);
+    }
+    .nav::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--cyan), var(--gold));
+      transform: scaleX(var(--scroll-progress, 0));
+      transform-origin: left center;
+      opacity: .95;
     }
     .brand {
       display: flex;
@@ -104,6 +119,17 @@
       margin: 0 auto;
       padding: 150px 0 48px;
     }
+    .hero-inner > * {
+      animation: heroRise .72s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .hero-inner > *:nth-child(2) { animation-delay: .08s; }
+    .hero-inner > *:nth-child(3) { animation-delay: .16s; }
+    .hero-inner > *:nth-child(4) { animation-delay: .24s; }
+    .hero-inner > *:nth-child(5) { animation-delay: .32s; }
+    @keyframes heroRise {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .eyebrow {
       color: var(--cyan);
       text-transform: uppercase;
@@ -161,7 +187,9 @@
       min-height: 104px;
       padding: 22px;
       background: rgba(5,6,7,.72);
+      transition: background .22s ease, transform .22s ease;
     }
+    .metric:hover { background: rgba(255,255,255,.08); transform: translateY(-2px); }
     .metric strong {
       display: block;
       font-size: clamp(26px, 4vw, 46px);
@@ -255,6 +283,14 @@
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
       padding: 24px;
+      transition: border-color .22s ease, transform .22s ease, background .22s ease;
+    }
+    .tech-card:hover,
+    .quote:hover,
+    .detail-card:hover {
+      border-color: rgba(255,255,255,.28);
+      background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.045));
+      transform: translateY(-4px);
     }
     .tech-card {
       min-height: 250px;
@@ -438,6 +474,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: clamp(12px, 2vw, 24px);
+    }
+    .bike-diagram::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+      pointer-events: none;
     }
     .bike-photo {
       width: 100%;
@@ -447,6 +494,8 @@
       object-position: center;
       filter: drop-shadow(0 26px 42px rgba(0,0,0,.35));
       transition: transform .45s ease;
+      position: relative;
+      z-index: 1;
     }
     .bike-diagram:hover .bike-photo { transform: scale(1.025); }
     .hotspots {
@@ -460,10 +509,12 @@
       background: #0b0e11;
       border-left: 3px solid transparent;
       line-height: 1.58;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
     }
     .hotspot:hover {
       border-left-color: var(--red);
       background: #10151a;
+      transform: translateX(3px);
     }
     .hotspot strong {
       display: block;
@@ -485,6 +536,15 @@
       position: relative;
       overflow: hidden;
     }
+    .scenario::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.12) 48%, transparent 58%);
+      transform: translateX(-120%);
+      transition: transform .65s ease;
+    }
+    .scenario:hover::after { transform: translateX(120%); }
     .scenario::before {
       content: "";
       position: absolute;
@@ -543,6 +603,26 @@
       flex-wrap: wrap;
     }
 
+    body.js-enabled .section-head,
+    body.js-enabled .tech-card,
+    body.js-enabled .product,
+    body.js-enabled .race-sticky,
+    body.js-enabled .race-gallery img,
+    body.js-enabled .quote,
+    body.js-enabled .detail-card,
+    body.js-enabled .bike-diagram,
+    body.js-enabled .hotspot,
+    body.js-enabled .scenario,
+    body.js-enabled .fit > * {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .62s ease, transform .62s ease;
+    }
+    body.js-enabled .is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 920px) {
       .nav-links a:not(.nav-cta) { display: none; }
       .section-head,
@@ -581,6 +661,30 @@
       .hero-inner { padding-bottom: 32px; }
       .bike-diagram,
       .bike-photo { min-height: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+      body.js-enabled .section-head,
+      body.js-enabled .tech-card,
+      body.js-enabled .product,
+      body.js-enabled .race-sticky,
+      body.js-enabled .race-gallery img,
+      body.js-enabled .quote,
+      body.js-enabled .detail-card,
+      body.js-enabled .bike-diagram,
+      body.js-enabled .hotspot,
+      body.js-enabled .scenario,
+      body.js-enabled .fit > * {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
@@ -816,6 +920,31 @@
   </footer>
 
   <script>
+    document.body.classList.add("js-enabled");
+
+    const nav = document.querySelector(".nav");
+    function updateScrollProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? window.scrollY / max : 0;
+      nav.style.setProperty("--scroll-progress", progress.toFixed(4));
+    }
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
+    const revealTargets = document.querySelectorAll(".section-head, .tech-card, .product, .race-sticky, .race-gallery img, .quote, .detail-card, .bike-diagram, .hotspot, .scenario, .fit > *");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    revealTargets.forEach((target, index) => {
+      target.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
+      revealObserver.observe(target);
+    });
+
     const choices = document.querySelectorAll(".choice");
     choices.forEach((choice) => {
       choice.addEventListener("click", () => {
