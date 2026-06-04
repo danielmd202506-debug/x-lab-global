@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="X-LAB Global concept website for race-proven carbon road, gravel and urban bicycles.">
-  <title>X-LAB Global | Born in the WorldTour</title>
+  <meta name="description" content="X-LAB Global website for riders, distributors, dealers and retail partners.">
+  <title>X-LAB Global | Race Proven. Business Ready.</title>
   <style>
     :root {
       --bg: #050607;
@@ -451,6 +451,123 @@
       font-size: 14px;
     }
 
+    .manufacturing {
+      background:
+        linear-gradient(180deg, rgba(5,6,7,.94), rgba(5,6,7,.82)),
+        radial-gradient(circle at 82% 22%, rgba(83,199,223,.18), transparent 36%);
+    }
+    .manufacturing-grid,
+    .partner-grid,
+    .dealer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .partner-grid { grid-template-columns: repeat(3, 1fr); }
+    .dealer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 14px;
+    }
+    .manufacturing-card,
+    .partner-card,
+    .dealer-card {
+      min-height: 250px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .manufacturing-card:hover,
+    .partner-card:hover,
+    .dealer-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.3);
+      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+    }
+    .manufacturing-card .num,
+    .partner-card .num,
+    .dealer-card .num {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .manufacturing-card h3,
+    .partner-card h3,
+    .dealer-card h3 {
+      margin: 0 0 12px;
+      font-size: clamp(24px, 2.2vw, 34px);
+      line-height: 1.08;
+    }
+    .manufacturing-card p,
+    .partner-card p,
+    .dealer-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .partner {
+      background: #f4f5f3;
+      color: #090b0d;
+    }
+    .partner .lead,
+    .partner-card p,
+    .dealer-card p {
+      color: #505961;
+    }
+    .partner-card,
+    .dealer-card {
+      background: #fff;
+      border-color: rgba(0,0,0,.12);
+      color: #090b0d;
+    }
+    .dealer-network {
+      background:
+        linear-gradient(135deg, rgba(217,31,45,.18), rgba(83,199,223,.09)),
+        #090b0d;
+    }
+    .dealer-panel {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
+      gap: clamp(28px, 5vw, 72px);
+      align-items: stretch;
+    }
+    .dealer-map {
+      min-height: 420px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 22% 28%, rgba(83,199,223,.42) 0 3px, transparent 4px),
+        radial-gradient(circle at 56% 45%, rgba(217,31,45,.52) 0 3px, transparent 4px),
+        radial-gradient(circle at 78% 34%, rgba(216,177,95,.48) 0 3px, transparent 4px),
+        radial-gradient(circle at 44% 68%, rgba(103,201,143,.42) 0 3px, transparent 4px),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      position: relative;
+      overflow: hidden;
+    }
+    .dealer-map::before {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      border: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(90deg, transparent 49%, rgba(255,255,255,.08) 50%, transparent 51%),
+        linear-gradient(0deg, transparent 49%, rgba(255,255,255,.08) 50%, transparent 51%);
+      background-size: 80px 80px;
+      opacity: .7;
+    }
+    .dealer-map::after {
+      content: "GLOBAL DEALER NETWORK";
+      position: absolute;
+      left: 28px;
+      bottom: 24px;
+      color: rgba(255,255,255,.72);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+
     .detail-hero {
       min-height: 92svh;
       display: grid;
@@ -652,6 +769,10 @@
     body.js-enabled .race-sticky,
     body.js-enabled .race-gallery img,
     body.js-enabled .quote,
+    body.js-enabled .manufacturing-card,
+    body.js-enabled .partner-card,
+    body.js-enabled .dealer-card,
+    body.js-enabled .dealer-map,
     body.js-enabled .detail-card,
     body.js-enabled .bike-diagram,
     body.js-enabled .hotspot,
@@ -671,14 +792,18 @@
       .section-head,
       .race-layout,
       .explode,
-      .fit {
+      .fit,
+      .dealer-panel {
         grid-template-columns: 1fr;
       }
       .tech-grid,
       .product-grid,
       .quotes,
       .detail-grid,
-      .scenario-grid {
+      .scenario-grid,
+      .manufacturing-grid,
+      .partner-grid,
+      .dealer-grid {
         grid-template-columns: repeat(2, 1fr);
       }
       .race-sticky { position: static; }
@@ -694,6 +819,9 @@
       .quotes,
       .detail-grid,
       .scenario-grid,
+      .manufacturing-grid,
+      .partner-grid,
+      .dealer-grid,
       .race-gallery {
         grid-template-columns: 1fr;
       }
@@ -746,54 +874,71 @@
   <nav class="nav" aria-label="Global navigation">
     <a class="brand" href="#top" aria-label="X-LAB home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
     <div class="nav-links">
-      <a href="#technology">Technology</a>
       <a href="#bikes">Bikes</a>
+      <a href="#technology">Technology</a>
       <a href="#worldtour">WorldTour</a>
-      <a href="ad9.html">AD9</a>
-      <a class="nav-cta" href="#fit">Find Your Size</a>
+      <a href="#partners">Partners</a>
+      <a href="#dealers">Dealers</a>
+      <a href="#fit">Support</a>
+      <a class="nav-cta" href="#partners">Become A Dealer</a>
     </div>
   </nav>
 
   <main id="top">
     <header class="hero">
       <div class="hero-inner">
-        <div class="eyebrow">The world's advanced carbon bicycle platform</div>
+        <div class="eyebrow">Race proven / Business ready</div>
         <h1>X-LAB</h1>
-        <p class="hero-copy">Born in the WorldTour. Built for every rider who expects race-grade carbon engineering without compromise.</p>
+        <p class="hero-copy">Born in the WorldTour. Built for global growth through carbon engineering, vertical manufacturing and a partner-ready dealer network.</p>
         <div class="actions">
           <a class="btn primary" href="#bikes">Explore Bikes</a>
-          <a class="btn" href="#worldtour">Watch The Story</a>
+          <a class="btn" href="#partners">Partner With Us</a>
         </div>
         <div class="metrics" aria-label="Brand metrics">
           <div class="metric"><strong>31</strong><span>Years Engineering</span></div>
           <div class="metric"><strong>8M</strong><span>Bikes Annually</span></div>
-          <div class="metric"><strong>WT</strong><span>WorldTour Proven</span></div>
+          <div class="metric"><strong>100+</strong><span>Markets To Grow</span></div>
         </div>
       </div>
     </header>
 
-    <section class="story" aria-label="Brand strength">
+    <section class="story" aria-label="Why X-LAB">
       <article class="story-panel">
         <div class="wrap">
-          <div class="eyebrow">01 / Vertical Integration</div>
-          <h2>Carbon Engineering</h2>
-          <p>From carbon layup to complete-bike assembly, X-LAB turns manufacturing depth into lighter frames, cleaner integration and tighter quality control.</p>
+          <div class="eyebrow">01 / Why X-LAB</div>
+          <h2>For Riders</h2>
+          <p>Race-grade carbon platforms, clear product stories and real performance proof help riders understand why the bike matters before they compare specs.</p>
         </div>
       </article>
       <article class="story-panel">
         <div class="wrap">
-          <div class="eyebrow">02 / Test Lab</div>
-          <h2 class="nowrap">Designed Tested Raced</h2>
-          <p>Every platform is shaped around aerodynamic efficiency, stiffness balance and real rider control before it reaches the start line.</p>
+          <div class="eyebrow">02 / Channel Confidence</div>
+          <h2 class="nowrap">For Dealers</h2>
+          <p>Product range, supply capability, marketing support and WorldTour visibility give retail partners a clearer business case.</p>
         </div>
       </article>
       <article class="story-panel">
         <div class="wrap">
-          <div class="eyebrow">03 / Race Validation</div>
-          <h2>From Factory To Finish Line</h2>
-          <p>The same engineering platform that leaves the factory is pushed through WorldTour roads, high-speed sprints and punishing mountain stages.</p>
+          <div class="eyebrow">03 / Distribution Growth</div>
+          <h2>For Distributors</h2>
+          <p>Manufacturing depth, complete-bicycle development and global brand momentum support national partners looking for scalable category growth.</p>
         </div>
       </article>
+    </section>
+
+    <section class="section manufacturing" id="manufacturing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built from the inside out.</h2>
+          <p class="lead">Vertical integration from carbon fiber to complete bicycle gives X-LAB the foundation partners need: quality control, development speed and dependable supply.</p>
+        </div>
+        <div class="manufacturing-grid">
+          <article class="manufacturing-card"><span class="num">01</span><div><h3>Factory</h3><p>Scaled production turns product ambition into repeatable delivery for global channels.</p></div></article>
+          <article class="manufacturing-card"><span class="num">02</span><div><h3>Carbon Lab</h3><p>Layup strategy, stiffness targets and weight control stay close to the engineering team.</p></div></article>
+          <article class="manufacturing-card"><span class="num">03</span><div><h3>Production Line</h3><p>Frame, fork, cockpit and complete-bike assembly are coordinated as one platform.</p></div></article>
+          <article class="manufacturing-card"><span class="num">04</span><div><h3>R&D Center</h3><p>Testing, race feedback and product updates flow back into the next model cycle.</p></div></article>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="technology">
@@ -848,11 +993,11 @@
       <div class="wrap race-layout">
         <div class="race-sticky">
           <div class="eyebrow">WorldTour Program</div>
-          <h2>Raced at the highest level.</h2>
-          <p>XDS Astana is not a logo placement. It is the proof layer of the website: race photos, rider stories, stage results and video should sit in one dedicated brand-trust zone.</p>
+          <h2>Tested at the highest level.</h2>
+          <p>Professional racing gives riders proof and gives channel partners confidence. XDS Astana turns product claims into visible, repeatable validation under real pressure.</p>
           <div class="actions">
             <a class="btn primary" href="ad9.html">Meet AD9</a>
-            <a class="btn" href="#reviews">Media Reviews</a>
+            <a class="btn" href="#partners">Partner With Us</a>
           </div>
         </div>
         <div class="race-gallery" aria-label="WorldTour gallery">
@@ -865,15 +1010,53 @@
       </div>
     </section>
 
+    <section class="section partner" id="partners">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Why partner with X-LAB.</h2>
+          <p class="lead">The partner story is practical: a credible race brand, a manufacturing base behind it and a channel model that helps dealers sell with confidence.</p>
+        </div>
+        <div class="partner-grid">
+          <article class="partner-card"><span class="num">01</span><div><h3>Manufacturing</h3><p>Vertical production capability supports quality control, cost discipline and faster product iteration.</p></div></article>
+          <article class="partner-card"><span class="num">02</span><div><h3>Supply Chain</h3><p>Complete-bike operations create a stronger foundation for availability, forecasting and after-sales planning.</p></div></article>
+          <article class="partner-card"><span class="num">03</span><div><h3>Marketing Support</h3><p>Launch assets, product stories and race content help retail teams explain the brand quickly.</p></div></article>
+          <article class="partner-card"><span class="num">04</span><div><h3>Product Innovation</h3><p>Carbon platforms, aero integration and fit tools give partners a more complete premium offer.</p></div></article>
+          <article class="partner-card"><span class="num">05</span><div><h3>WorldTour Exposure</h3><p>Professional racing gives stores and distributors a visible trust signal for new customers.</p></div></article>
+          <article class="partner-card"><span class="num">06</span><div><h3>Global Growth</h3><p>X-LAB is built for new markets where premium riders want performance and partners need momentum.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dealer-network" id="dealers">
+      <div class="wrap dealer-panel">
+        <div>
+          <div class="eyebrow">Dealer Network</div>
+          <h2>Find a store. Build a market.</h2>
+          <p class="lead">The dealer layer now has two jobs: help riders find local service, and help qualified retailers or distributors start a conversation with X-LAB.</p>
+          <div class="actions">
+            <a class="btn primary" href="#fit">Find Dealer</a>
+            <a class="btn" href="#partners">Become A Dealer</a>
+          </div>
+        </div>
+        <div>
+          <div class="dealer-grid">
+            <article class="dealer-card"><span class="num">01</span><div><h3>Retail Partner</h3><p>Stores with premium road cycling customers and service capability.</p></div></article>
+            <article class="dealer-card"><span class="num">02</span><div><h3>Distributor</h3><p>National or regional partners ready to build product, service and brand presence.</p></div></article>
+          </div>
+          <div class="dealer-map" aria-label="Global dealer network map concept"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="reviews">
       <div class="wrap">
         <div class="section-head single reviews-head">
-          <h2>Proof from riders, media and community.</h2>
+          <h2>Stories from riders, media and partners.</h2>
         </div>
         <div class="quotes">
-          <article class="quote"><blockquote>“Holds its own against WorldTour competitors.”</blockquote><cite>CyclingNews review</cite></article>
-          <article class="quote"><blockquote>“A carbon platform that feels composed when the speed rises.”</blockquote><cite>Media evaluation concept</cite></article>
-          <article class="quote"><blockquote>“The first ride changed what I expected from a new global race brand.”</blockquote><cite>Community story concept</cite></article>
+          <article class="quote"><blockquote>"Holds its own against WorldTour competitors."</blockquote><cite>Media review concept</cite></article>
+          <article class="quote"><blockquote>"A carbon platform that feels composed when the speed rises."</blockquote><cite>Rider evaluation concept</cite></article>
+          <article class="quote"><blockquote>"The brand story is easier to sell when manufacturing and racing sit together."</blockquote><cite>Dealer story concept</cite></article>
         </div>
       </div>
     </section>
@@ -979,7 +1162,7 @@
     updateScrollProgress();
     window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
-    const revealTargets = document.querySelectorAll(".section-head, .tech-card, .product, .race-sticky, .race-gallery img, .quote, .detail-card, .bike-diagram, .hotspot, .scenario, .fit > *");
+    const revealTargets = document.querySelectorAll(".section-head, .tech-card, .product, .race-sticky, .race-gallery img, .quote, .manufacturing-card, .partner-card, .dealer-card, .dealer-map, .detail-card, .bike-diagram, .hotspot, .scenario, .fit > *");
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
