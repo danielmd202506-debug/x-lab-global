@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="X-LAB Global website for riders, distributors, dealers and retail partners.">
   <title>X-LAB Global | Race Proven. Business Ready.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #050607;
@@ -18,6 +21,8 @@
       --gold: #d8b15f;
       --green: #67c98f;
       --max: 1180px;
+      --font-display: "Barlow Condensed", "Arial Narrow", "Impact", sans-serif;
+      --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -26,10 +31,14 @@
       margin: 0;
       background: var(--bg);
       color: var(--ink);
-      font-family: Inter, "SF Pro Display", "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.55;
       letter-spacing: 0;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
+      font-kerning: normal;
+      font-variant-numeric: tabular-nums;
     }
     ::selection { background: rgba(217,31,45,.82); color: #fff; }
     a { color: inherit; text-decoration: none; }
@@ -81,7 +90,8 @@
       align-items: center;
       gap: clamp(16px, 2.4vw, 34px);
       color: rgba(255,255,255,.82);
-      font-size: 14px;
+      font-size: .875rem;
+      font-weight: 700;
     }
     .nav-cta {
       padding: 10px 16px;
@@ -138,25 +148,28 @@
     .eyebrow {
       color: var(--cyan);
       text-transform: uppercase;
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: .16em;
+      font-family: var(--font-body);
+      font-weight: 900;
+      font-size: .75rem;
+      letter-spacing: .18em;
     }
     h1 {
       margin: 18px 0 0;
-      max-width: 790px;
-      font-size: clamp(56px, 13vw, 166px);
+      max-width: 13ch;
+      font-family: var(--font-display);
+      font-size: 8rem;
       line-height: .82;
       letter-spacing: 0;
       font-weight: 900;
+      text-transform: uppercase;
     }
     .hero-copy {
       margin: 28px 0 0;
-      max-width: 590px;
+      max-width: 34rem;
       color: rgba(255,255,255,.83);
-      font-size: clamp(18px, 2.2vw, 28px);
-      line-height: 1.28;
-      font-weight: 520;
+      font-size: 1.375rem;
+      line-height: 1.42;
+      font-weight: 600;
     }
     .actions {
       display: flex;
@@ -198,15 +211,19 @@
     .metric:hover { background: rgba(255,255,255,.08); transform: translateY(-2px); }
     .metric strong {
       display: block;
-      font-size: clamp(26px, 4vw, 46px);
+      font-family: var(--font-display);
+      font-size: 2.75rem;
       line-height: .95;
+      font-weight: 800;
     }
     .metric span {
       display: block;
       margin-top: 9px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: .8125rem;
+      font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: .08em;
     }
 
     section { position: relative; }
@@ -230,25 +247,30 @@
     .section-head.single h2 {
       white-space: nowrap;
       max-width: none;
-      font-size: clamp(40px, 5.3vw, 76px);
+      font-size: 4.5rem;
     }
     .reviews-head h2 {
-      font-size: clamp(40px, 5vw, 72px);
+      font-size: 4.25rem;
     }
     .scenes-head h2 {
-      font-size: clamp(40px, 5.6vw, 78px);
+      font-size: 4.5rem;
     }
     h2 {
       margin: 0;
-      font-size: clamp(36px, 6.4vw, 82px);
-      line-height: .98;
+      font-family: var(--font-display);
+      font-size: 4.75rem;
+      line-height: .94;
       letter-spacing: 0;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-wrap: balance;
     }
     .lead {
       color: var(--muted);
-      font-size: clamp(16px, 1.45vw, 19px);
-      line-height: 1.72;
+      font-size: 1.125rem;
+      line-height: 1.68;
       margin: 0;
+      max-width: 65ch;
     }
 
     .story {
@@ -286,20 +308,21 @@
         url("https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize");
     }
     .story-panel h2 {
-      max-width: 900px;
-      font-size: clamp(52px, 10vw, 138px);
+      max-width: 11ch;
+      font-size: 7.25rem;
     }
     .story-panel h2.nowrap {
       max-width: none;
       white-space: nowrap;
-      font-size: clamp(46px, 7.8vw, 118px);
+      font-size: 6.5rem;
     }
     .story-panel p {
-      max-width: 560px;
+      max-width: 34rem;
       margin: 22px 0 0;
       color: rgba(255,255,255,.76);
-      font-size: 18px;
-      line-height: 1.55;
+      font-size: 1.125rem;
+      line-height: 1.68;
+      font-weight: 500;
     }
 
     .tech-grid {
@@ -330,22 +353,28 @@
     }
     .tech-card .num {
       color: var(--cyan);
-      font-size: 13px;
-      font-weight: 800;
+      font-size: .8125rem;
+      font-weight: 900;
+      letter-spacing: .08em;
     }
     .tech-card h3,
     .product h3,
     .detail-card h3 {
       margin: 0;
-      font-size: 24px;
-      line-height: 1.08;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: .98;
+      font-weight: 800;
+      text-transform: uppercase;
     }
     .tech-card p,
     .product p,
     .detail-card p {
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.62;
       margin: 16px 0 0;
+      font-size: 1rem;
+      max-width: 62ch;
     }
 
     .products {
@@ -391,7 +420,9 @@
       padding: 6px 9px;
       border: 1px solid rgba(255,255,255,.24);
       color: rgba(255,255,255,.78);
-      font-size: 12px;
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
@@ -413,8 +444,9 @@
     .race-sticky h2 { margin-bottom: 24px; }
     .race-sticky p {
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 18px;
+      line-height: 1.66;
+      font-size: 1.125rem;
+      max-width: 35rem;
     }
     .race-gallery {
       display: grid;
@@ -446,14 +478,17 @@
     }
     .quote blockquote {
       margin: 0;
-      font-size: 24px;
-      line-height: 1.25;
-      font-weight: 720;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 1;
+      font-weight: 800;
+      text-transform: uppercase;
     }
     .quote cite {
       color: var(--muted);
       font-style: normal;
-      font-size: 14px;
+      font-size: .875rem;
+      font-weight: 700;
     }
 
     .manufacturing {
@@ -497,22 +532,27 @@
     .partner-card .num,
     .dealer-card .num {
       color: var(--cyan);
-      font-size: 13px;
+      font-size: .8125rem;
       font-weight: 900;
+      letter-spacing: .08em;
     }
     .manufacturing-card h3,
     .partner-card h3,
     .dealer-card h3 {
       margin: 0 0 12px;
-      font-size: clamp(24px, 2.2vw, 34px);
-      line-height: 1.08;
+      font-family: var(--font-display);
+      font-size: 2.125rem;
+      line-height: .98;
+      font-weight: 800;
+      text-transform: uppercase;
     }
     .manufacturing-card p,
     .partner-card p,
     .dealer-card p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.62;
+      font-size: 1rem;
     }
     .partner {
       background: #f4f5f3;
@@ -570,7 +610,7 @@
       bottom: 24px;
       color: rgba(255,255,255,.72);
       font-weight: 900;
-      font-size: 12px;
+      font-size: .75rem;
       letter-spacing: .16em;
     }
 
@@ -594,7 +634,7 @@
     .detail-hero h2 {
       max-width: none;
       white-space: nowrap;
-      font-size: clamp(42px, 6.2vw, 86px);
+      font-size: 4.75rem;
     }
     .config-bar {
       display: flex;
@@ -681,8 +721,10 @@
     .hotspot strong {
       display: block;
       margin-bottom: 8px;
-      font-size: clamp(18px, 1.8vw, 24px);
-      line-height: 1.15;
+      font-family: var(--font-display);
+      font-size: 1.625rem;
+      line-height: .98;
+      text-transform: uppercase;
     }
     .scenario-grid {
       display: grid;
@@ -714,8 +756,14 @@
       background: linear-gradient(to top, rgba(0,0,0,.88), transparent);
     }
     .scenario div { position: relative; }
-    .scenario h3 { margin: 0; font-size: 28px; }
-    .scenario p { color: rgba(255,255,255,.76); }
+    .scenario h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      line-height: .98;
+      text-transform: uppercase;
+    }
+    .scenario p { color: rgba(255,255,255,.76); line-height: 1.55; }
     .fit {
       display: grid;
       grid-template-columns: minmax(260px, .7fr) minmax(280px, .75fr) minmax(280px, .8fr);
@@ -732,7 +780,7 @@
       gap: 8px;
       margin-bottom: 16px;
     }
-    label { color: var(--muted); font-size: 13px; }
+    label { color: var(--muted); font-size: .875rem; font-weight: 700; }
     input, select {
       width: 100%;
       min-height: 48px;
@@ -753,7 +801,8 @@
       border: 1px solid rgba(255,255,255,.16);
     }
     .fit-size {
-      font-size: clamp(82px, 13vw, 170px);
+      font-family: var(--font-display);
+      font-size: 9rem;
       line-height: .85;
       font-weight: 900;
     }
@@ -795,6 +844,14 @@
 
     @media (max-width: 920px) {
       .nav-links a:not(.nav-cta) { display: none; }
+      h1 { font-size: 6.25rem; }
+      h2,
+      .detail-hero h2 { font-size: 3.75rem; }
+      .section-head.single h2,
+      .reviews-head h2,
+      .scenes-head h2 { font-size: 3.5rem; white-space: normal; }
+      .story-panel h2,
+      .story-panel h2.nowrap { font-size: 5rem; white-space: normal; }
       .section-head,
       .race-layout,
       .explode,
@@ -819,6 +876,23 @@
     @media (max-width: 640px) {
       .nav { height: 62px; }
       .brand { width: 112px; height: 26px; }
+      h1 { font-size: 4.25rem; max-width: 9ch; }
+      h2,
+      .detail-hero h2,
+      .section-head.single h2,
+      .reviews-head h2,
+      .scenes-head h2 { font-size: 3rem; }
+      .hero-copy,
+      .lead,
+      .race-sticky p,
+      .story-panel p { font-size: 1rem; line-height: 1.62; }
+      .metric strong { font-size: 2.25rem; }
+      .tech-card h3,
+      .product h3,
+      .detail-card h3,
+      .manufacturing-card h3,
+      .partner-card h3,
+      .dealer-card h3 { font-size: 1.75rem; }
       .metrics,
       .tech-grid,
       .product-grid,
@@ -840,15 +914,9 @@
       .bike-photo { min-height: 0; }
       .actions .btn { flex: 1 1 180px; }
       .choice { min-width: calc(50% - 8px); }
-      .story-panel h2.nowrap { font-size: clamp(34px, 10vw, 54px); }
-      .section-head.single h2 {
-        white-space: normal;
-        font-size: clamp(34px, 10vw, 54px);
-      }
-      .detail-hero h2 {
-        white-space: normal;
-        font-size: clamp(36px, 11vw, 58px);
-      }
+      .story-panel h2,
+      .story-panel h2.nowrap { font-size: 3.625rem; }
+      .fit-size { font-size: 7rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       *,
@@ -865,6 +933,10 @@
       body.js-enabled .race-sticky,
       body.js-enabled .race-gallery img,
       body.js-enabled .quote,
+      body.js-enabled .manufacturing-card,
+      body.js-enabled .partner-card,
+      body.js-enabled .dealer-card,
+      body.js-enabled .dealer-map,
       body.js-enabled .detail-card,
       body.js-enabled .bike-diagram,
       body.js-enabled .hotspot,
