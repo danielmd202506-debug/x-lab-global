@@ -31,6 +31,7 @@ Use race proof and real product photography to build trust.
 Make partner confidence visible through manufacturing, supply, marketing support and dealer-network pathways.
 Give partners a simple functional entry for pricing, RFQ, documents, onboarding and account access.
 Provide a separate logged-in supplier workspace for purchase-order lookup, shipment updates, material requests, compliance actions and message operations.
+Provide a custom bike studio where riders, dealers and partners can configure by riding scene, component system, paint and fit, then save the build or start an RFQ.
 
 ## Accessibility & Inclusion
 
