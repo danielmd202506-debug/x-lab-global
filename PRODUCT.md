@@ -10,7 +10,7 @@ Performance road cyclists, premium bike shoppers, overseas distributors, dealers
 
 ## Product Purpose
 
-The site introduces X-LAB as a rider-facing brand, a technology proof platform and a channel partnership destination for global dealer and distributor growth.
+The site introduces X-LAB as a rider-facing brand, a technology proof platform, a channel partnership destination and a B2B portal entry for global dealer, distributor, retail and supplier workflows.
 
 ## Brand Personality
 
@@ -27,6 +27,7 @@ Translate specifications into riding outcomes.
 Keep the experience premium, direct and easy to scan.
 Use race proof and real product photography to build trust.
 Make partner confidence visible through manufacturing, supply, marketing support and dealer-network pathways.
+Give partners a simple functional entry for pricing, RFQ, documents, onboarding and account access.
 
 ## Accessibility & Inclusion
 
