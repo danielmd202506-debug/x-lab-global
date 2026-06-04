@@ -218,7 +218,56 @@
       z-index: 1;
       width: min(96%, 980px);
       filter: drop-shadow(0 26px 42px rgba(0,0,0,.36)) saturate(1.08);
+      transition: transform .25s ease, filter .25s ease;
     }
+    .preview-pane[data-bike="lightweight"] .bike-stage img { transform: scale(.94) translateY(-4px); filter: drop-shadow(0 24px 38px rgba(0,0,0,.34)) saturate(1.02) brightness(1.08); }
+    .preview-pane[data-bike="endurance"] .bike-stage img { transform: scale(.98) translateY(8px); filter: drop-shadow(0 26px 42px rgba(0,0,0,.38)) saturate(.94); }
+    .preview-pane[data-bike="mountain"] .bike-stage img { transform: scale(.92) translateY(16px); filter: drop-shadow(0 30px 42px rgba(0,0,0,.42)) saturate(.9); }
+    .preview-pane[data-bike="commuter"] .bike-stage img { transform: scale(.9) translateY(18px); filter: drop-shadow(0 28px 42px rgba(0,0,0,.38)) saturate(.88); }
+    .model-badge {
+      position: absolute;
+      z-index: 4;
+      left: 30%;
+      top: 47%;
+      padding: 5px 8px;
+      background: rgba(5,6,7,.52);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .model-part {
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+      display: none;
+      background: color-mix(in srgb, var(--accent-paint) 80%, #fff);
+      box-shadow: 0 0 18px rgba(0,0,0,.3);
+    }
+    .model-part.flatbar { right: 22%; top: 29%; width: 112px; height: 8px; transform: rotate(-4deg); }
+    .model-part.rack { left: 14%; top: 43%; width: 98px; height: 10px; border-radius: 999px; }
+    .model-part.rack::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 10px;
+      height: 48px;
+      border-left: 3px solid color-mix(in srgb, var(--accent-paint) 70%, #fff);
+      border-right: 3px solid color-mix(in srgb, var(--accent-paint) 70%, #fff);
+    }
+    .model-part.suspension { right: 15%; top: 38%; width: 12px; height: 96px; transform: rotate(8deg); border-radius: 999px; }
+    .model-part.tire { border: 5px solid color-mix(in srgb, var(--accent-paint) 70%, #fff); background: transparent; border-radius: 999px; opacity: .78; }
+    .model-part.tire.front { right: 9%; bottom: 22%; width: 108px; height: 108px; }
+    .model-part.tire.rear { left: 12%; bottom: 22%; width: 108px; height: 108px; }
+    .preview-pane[data-bike="mountain"] .model-part.suspension,
+    .preview-pane[data-bike="mountain"] .model-part.tire { display: block; }
+    .preview-pane[data-bike="commuter"] .model-part.flatbar,
+    .preview-pane[data-bike="commuter"] .model-part.rack { display: block; }
+    .preview-pane[data-bike="flatbar"] .model-part.flatbar { display: block; }
     .paint-wash {
       position: absolute;
       inset: 0;
@@ -495,7 +544,13 @@
         <div class="scene-photo" aria-hidden="true"></div>
         <div class="bike-stage" aria-label="Configured X-LAB bike preview">
           <div class="paint-wash"></div>
-          <img src="assets/ad9-astana-side.png" alt="X-LAB custom bike side view preview">
+          <img id="bikeImage" src="assets/ad9-astana-side.png" alt="X-LAB custom bike side view preview">
+          <span class="model-badge" id="modelBadge">AD9 Aero Road</span>
+          <span class="model-part flatbar" aria-hidden="true"></span>
+          <span class="model-part rack" aria-hidden="true"></span>
+          <span class="model-part suspension" aria-hidden="true"></span>
+          <span class="model-part tire front" aria-hidden="true"></span>
+          <span class="model-part tire rear" aria-hidden="true"></span>
           <span class="paint-zone top" id="zoneTopTube" aria-hidden="true"></span>
           <span class="paint-zone down" id="zoneDownTube" aria-hidden="true"></span>
           <span class="paint-zone dropout" id="zoneDropout" aria-hidden="true"></span>
@@ -526,10 +581,10 @@
         <div class="option-panel" id="scenes">
           <div class="eyebrow">01 / Riding Scene</div>
           <div class="scene-grid">
-            <button class="scene active" type="button" data-scene="Race Day" data-visual="race" data-tone="Aero Priority" data-price="5299" data-copy="Empty race road, open tarmac and natural surroundings for a fast aero build." data-frame="AD9 Aero Road" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 55mm Aero" data-cockpit="Aero 420x110" data-saddle="Race Narrow" data-photo="url('https://images.pexels.com/photos/8596103/pexels-photo-8596103.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Race Day</h3><p>Open road race environment.</p></div></button>
-            <button class="scene" type="button" data-scene="Climbing" data-visual="climbing" data-tone="Weight Priority" data-price="4899" data-copy="Mountain road setting for a lightweight build made for gradient, rhythm and elevation." data-frame="RT9 Lightweight" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 35mm Climb" data-cockpit="Compact 380x90" data-saddle="Short-Nose Pro" data-photo="url('https://images.pexels.com/photos/7332777/pexels-photo-7332777.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Climbing</h3><p>Mountain road environment.</p></div></button>
-            <button class="scene" type="button" data-scene="Endurance" data-visual="endurance" data-tone="Control Priority" data-price="4599" data-copy="Long open-road landscape for stable handling, comfort and long-distance confidence." data-frame="GT All-Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Endurance Comfort" data-photo="url('https://images.pexels.com/photos/2994131/pexels-photo-2994131.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Endurance</h3><p>Long open-road environment.</p></div></button>
-            <button class="scene" type="button" data-scene="Dealer Demo" data-visual="demo" data-tone="Retail Priority" data-price="3999" data-copy="High-impact showroom build for test rides, launch events and staff training." data-frame="AD9 Aero Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Race Narrow" data-photo="url('https://images.pexels.com/photos/2817452/pexels-photo-2817452.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Demo</h3><p>Showroom conversion.</p></div></button>
+            <button class="scene active" type="button" data-scene="Race Day" data-bike="road" data-category="Road" data-visual="race" data-tone="Aero Priority" data-price="5299" data-copy="Empty race road, open tarmac and natural surroundings for a fast aero build." data-frame="AD9 Aero Road" data-groupset="Shimano Ultegra Di2 Kit" data-wheels="Carbon 55mm Aero" data-cockpit="Aero 420x110" data-saddle="Race Narrow" data-photo="url('https://images.pexels.com/photos/8596103/pexels-photo-8596103.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Race Day</h3><p>Open road race environment.</p></div></button>
+            <button class="scene" type="button" data-scene="Climbing" data-bike="lightweight" data-category="Road" data-visual="climbing" data-tone="Weight Priority" data-price="4899" data-copy="Mountain road setting for a lightweight build made for gradient, rhythm and elevation." data-frame="RT9 Lightweight" data-groupset="Shimano Ultegra Di2 Kit" data-wheels="Carbon 35mm Climb" data-cockpit="Compact 380x90" data-saddle="Short-Nose Pro" data-photo="url('https://images.pexels.com/photos/7332777/pexels-photo-7332777.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Climbing</h3><p>Mountain road environment.</p></div></button>
+            <button class="scene" type="button" data-scene="Endurance" data-bike="endurance" data-category="Flat-Bar Road" data-visual="endurance" data-tone="Control Priority" data-price="4599" data-copy="Long open-road landscape for stable handling, comfort and long-distance confidence." data-frame="GT All-Road" data-groupset="Shimano 105 Di2 Kit" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Endurance Comfort" data-photo="url('https://images.pexels.com/photos/2994131/pexels-photo-2994131.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Endurance</h3><p>Long open-road environment.</p></div></button>
+            <button class="scene" type="button" data-scene="Dealer Demo" data-bike="commuter" data-category="Commuter" data-visual="demo" data-tone="Retail Priority" data-price="3999" data-copy="High-impact showroom build for test rides, launch events and staff training." data-frame="CM Urban Alloy" data-groupset="Shimano 105 Di2 Kit" data-wheels="Carbon 45mm All-Round" data-cockpit="Flat Bar 680x80" data-saddle="Urban Comfort" data-photo="url('https://images.pexels.com/photos/2817452/pexels-photo-2817452.jpeg?auto=compress&cs=tinysrgb&w=1800')"><div><h3>Demo</h3><p>Showroom conversion.</p></div></button>
           </div>
         </div>
 
@@ -674,6 +729,7 @@
       tone: "Aero Priority",
       copy: "Aero-first build for sprints, fast groups and WorldTour-inspired buyers.",
       visual: "race",
+      bike: "road",
       photo: "",
       paint: "Astana Cyan",
       paintColor: "#17a7b8",
@@ -745,10 +801,19 @@
     }
     function updateScenePreview() {
       previewPane.dataset.scene = state.visual;
+      previewPane.dataset.bike = state.bike;
       if (state.photo) previewPane.style.setProperty("--scene-photo", state.photo);
       document.getElementById("previewEyebrow").textContent = `${state.scene} / ${state.tone}`;
       document.getElementById("previewTitle").textContent = `${state.scene} build`;
       document.getElementById("previewCopy").textContent = state.copy;
+    }
+    function bikeTypeFromFrame(frameValue, categoryValue) {
+      if (categoryValue === "Mountain" || frameValue.includes("Trail")) return "mountain";
+      if (categoryValue === "Commuter" || frameValue.includes("Urban")) return "commuter";
+      if (categoryValue === "Flat-Bar Road") return "flatbar";
+      if (frameValue.includes("Lightweight")) return "lightweight";
+      if (frameValue.includes("All-Road")) return "endurance";
+      return "road";
     }
     function updateBuild() {
       const frame = selected(document.getElementById("frame"));
@@ -761,6 +826,7 @@
       const stockTotal = ["baseCategory", "brake", "shifter", "frontDerailleur", "rearDerailleur", "cassette", "crankset", "hub", "spoke", "rim", "pedalBearing", "gripMaterial", "cableColor"].reduce((sum, id) => sum + selectPrice(id), 0);
       const packageTotal = featurePackages().reduce((sum, item) => sum + Number(item.dataset.price || 0), 0);
       const total = state.base + frame.price + groupset.price + wheels.price + cockpit.price + saddle.price + stockTotal + packageTotal;
+      state.bike = bikeTypeFromFrame(frame.value, selectValue("baseCategory"));
       document.documentElement.style.setProperty("--paint", state.paintColor);
       document.documentElement.style.setProperty("--accent-paint", state.accentColor);
       const activeZones = document.getElementById("paintZone").value;
@@ -797,6 +863,7 @@
       document.getElementById("tagGroupset").textContent = selectValue("rearDerailleur");
       document.getElementById("tagWheels").textContent = selectValue("rim");
       document.getElementById("tagCockpit").textContent = `${selectValue("stemLength")} ${selectValue("stemAngle")}`;
+      document.getElementById("modelBadge").textContent = frame.value;
       return { frame, groupset, wheels, cockpit, saddle, total, packages };
     }
     document.querySelectorAll(".scene").forEach((button) => {
@@ -808,7 +875,9 @@
         state.tone = button.dataset.tone || "";
         state.copy = button.dataset.copy || "";
         state.visual = button.dataset.visual || "race";
+        state.bike = button.dataset.bike || "road";
         state.photo = button.dataset.photo || "";
+        setSelectValue("baseCategory", button.dataset.category);
         setSelectValue("frame", button.dataset.frame);
         setSelectValue("groupset", button.dataset.groupset);
         setSelectValue("wheels", button.dataset.wheels);
@@ -890,7 +959,9 @@
       state.tone = activeScene.dataset.tone || state.tone;
       state.copy = activeScene.dataset.copy || state.copy;
       state.visual = activeScene.dataset.visual || state.visual;
+      state.bike = activeScene.dataset.bike || state.bike;
       state.photo = activeScene.dataset.photo || state.photo;
+      setSelectValue("baseCategory", activeScene.dataset.category);
       setSelectValue("frame", activeScene.dataset.frame);
       setSelectValue("groupset", activeScene.dataset.groupset);
       setSelectValue("wheels", activeScene.dataset.wheels);
