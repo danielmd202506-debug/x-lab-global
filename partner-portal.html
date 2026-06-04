@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB B2B portal entry for distributors, dealers, retail partners and suppliers.">
+  <title>X-LAB B2B Portal | Partners</title>
+  <style>
+    :root {
+      --bg: #050607;
+      --panel: #111418;
+      --panel-2: #191d22;
+      --ink: #f6f8fa;
+      --muted: #aab1b8;
+      --line: rgba(255,255,255,.14);
+      --red: #d91f2d;
+      --cyan: #53c7df;
+      --gold: #d8b15f;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, "SF Pro Display", "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 72px;
+      padding: 0 clamp(20px, 4vw, 56px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(5,6,7,.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { width: 132px; height: 30px; display: flex; align-items: center; }
+    .brand img { width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+    .nav-links { display: flex; gap: 22px; align-items: center; color: rgba(255,255,255,.8); font-size: 14px; }
+    .nav-cta { padding: 10px 16px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.08); }
+
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .hero {
+      min-height: 78svh;
+      display: grid;
+      align-items: end;
+      padding: clamp(92px, 10vw, 150px) 0 54px;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,.96), rgba(5,6,7,.62), rgba(5,6,7,.82)),
+        radial-gradient(circle at 72% 24%, rgba(83,199,223,.24), transparent 32%),
+        radial-gradient(circle at 88% 74%, rgba(217,31,45,.22), transparent 28%);
+    }
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 980px;
+      margin: 18px 0 0;
+      font-size: clamp(54px, 10vw, 128px);
+      line-height: .88;
+      letter-spacing: 0;
+    }
+    .hero-copy {
+      max-width: 720px;
+      margin: 26px 0 0;
+      color: rgba(255,255,255,.8);
+      font-size: clamp(18px, 2vw, 26px);
+      line-height: 1.35;
+    }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .btn {
+      min-height: 48px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+    .btn.primary { border-color: var(--red); background: var(--red); }
+    .btn.dark { background: #0b0d0f; color: #fff; }
+
+    .section { padding: clamp(76px, 8vw, 118px) 0; }
+    .section.light { background: #f4f5f3; color: #080a0d; }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+    }
+    .section.light .section-head { border-color: rgba(0,0,0,.12); }
+    h2 { margin-bottom: 0; font-size: clamp(38px, 6vw, 78px); line-height: .98; letter-spacing: 0; }
+    .lead { max-width: 560px; color: var(--muted); line-height: 1.65; }
+    .section.light .lead { color: #505961; }
+
+    .role-switch {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 44px;
+    }
+    .role-btn {
+      min-height: 92px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+    }
+    .role-btn.active {
+      border-color: var(--red);
+      background: linear-gradient(135deg, rgba(217,31,45,.32), rgba(83,199,223,.12));
+    }
+    .role-btn strong { display: block; font-size: 20px; margin-bottom: 8px; }
+    .role-btn span { color: var(--muted); font-size: 13px; }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr);
+      gap: 20px;
+    }
+    .sidebar,
+    .panel,
+    .summary-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .sidebar { padding: 12px; display: grid; gap: 8px; align-content: start; }
+    .tab {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.76);
+      text-align: left;
+      cursor: pointer;
+    }
+    .tab.active { background: rgba(255,255,255,.08); border-color: var(--line); color: #fff; }
+    .panel { padding: clamp(22px, 3vw, 34px); min-height: 560px; }
+    .panel-view { display: none; }
+    .panel-view.active { display: block; }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .tool-card {
+      min-height: 150px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+    }
+    .tool-card h3 { margin-bottom: 10px; font-size: 24px; }
+    .tool-card p { color: var(--muted); line-height: 1.55; margin-bottom: 0; }
+
+    .filters,
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    label { display: grid; gap: 8px; color: var(--muted); font-size: 13px; }
+    input, select, textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      background: #080a0c;
+      color: #fff;
+    }
+    textarea { min-height: 110px; padding-top: 12px; resize: vertical; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; }
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    td strong { display: block; margin-bottom: 4px; }
+    .status {
+      display: inline-flex;
+      padding: 5px 9px;
+      border: 1px solid rgba(83,199,223,.35);
+      color: var(--cyan);
+      font-size: 12px;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .summary-card { padding: 18px; }
+    .summary-card span { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .summary-card strong { display: block; margin-top: 8px; font-size: 28px; }
+    .checklist {
+      display: grid;
+      gap: 12px;
+    }
+    .check {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .check input { width: 18px; min-height: 18px; margin-top: 2px; }
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .doc {
+      min-height: 150px;
+      padding: 20px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .doc p { color: #505961; line-height: 1.55; }
+    .result {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid rgba(83,199,223,.35);
+      background: rgba(83,199,223,.08);
+      color: rgba(255,255,255,.86);
+      line-height: 1.6;
+    }
+    footer {
+      padding: 44px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 920px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .role-switch,
+      .dashboard,
+      .tool-grid,
+      .filters,
+      .form-grid,
+      .summary,
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head { display: grid; }
+    }
+    @media (max-width: 640px) {
+      .nav { height: 62px; }
+      .brand { width: 112px; height: 26px; }
+      .actions .btn { flex: 1 1 180px; }
+      th:nth-child(4), td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="B2B portal navigation">
+    <a class="brand" href="index.html" aria-label="X-LAB home"><img src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links">
+      <a href="#pricing">Pricing</a>
+      <a href="#rfq">RFQ</a>
+      <a href="#resources">Documents</a>
+      <a href="#access">Access</a>
+      <a class="nav-cta" href="index.html">Global Site</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="wrap">
+        <div class="eyebrow">X-LAB B2B Portal</div>
+        <h1>Partner tools in one place.</h1>
+        <p class="hero-copy">A dedicated entry for distributors, dealers, retail partners and suppliers to review pricing, build requests, access sales materials and start onboarding.</p>
+        <div class="actions">
+          <a class="btn primary" href="#workspace">Open Partner Workspace</a>
+          <a class="btn" href="#access">Request Access</a>
+        </div>
+        <div class="role-switch" aria-label="Partner role selector">
+          <button class="role-btn active" type="button" data-role="Distributor"><strong>Distributor</strong><span>Market plans, wholesale pricing and supply programs.</span></button>
+          <button class="role-btn" type="button" data-role="Dealer"><strong>Dealer</strong><span>Price lists, product kits, test-ride and retail support.</span></button>
+          <button class="role-btn" type="button" data-role="Retail Partner"><strong>Retail Partner</strong><span>Store onboarding, display materials and staff training.</span></button>
+          <button class="role-btn" type="button" data-role="Supplier"><strong>Supplier</strong><span>Vendor onboarding, compliance files and collaboration requests.</span></button>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="workspace">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>B2B workspace.</h2>
+          <p class="lead" id="roleIntro">Distributor mode: focus on landed pricing, market planning and supply programs.</p>
+        </div>
+        <div class="dashboard">
+          <aside class="sidebar" aria-label="B2B functions">
+            <button class="tab active" type="button" data-panel="pricing">Price List</button>
+            <button class="tab" type="button" data-panel="rfq">RFQ Builder</button>
+            <button class="tab" type="button" data-panel="documents">Documents</button>
+            <button class="tab" type="button" data-panel="onboarding">Onboarding</button>
+            <button class="tab" type="button" data-panel="access">Access Request</button>
+          </aside>
+
+          <section class="panel">
+            <div class="panel-view active" id="pricing">
+              <div class="eyebrow">Pricing</div>
+              <h2>Partner price list.</h2>
+              <div class="filters">
+                <label>Region
+                  <select id="region"><option value="EU">Europe</option><option value="NA">North America</option><option value="APAC">Asia Pacific</option><option value="MEA">Middle East & Africa</option></select>
+                </label>
+                <label>Currency
+                  <select id="currency"><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select>
+                </label>
+                <label>Partner Tier
+                  <select id="tier"><option value="standard">Standard</option><option value="growth">Growth Partner</option><option value="strategic">Strategic Distributor</option></select>
+                </label>
+              </div>
+              <table aria-label="Partner price list" id="priceTable">
+                <thead><tr><th>Model</th><th>Category</th><th>MSRP</th><th>Partner Price</th><th>Status</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div class="summary">
+                <div class="summary-card"><span>Average Margin</span><strong id="avgMargin">38%</strong></div>
+                <div class="summary-card"><span>MOQ Guidance</span><strong id="moq">12</strong></div>
+                <div class="summary-card"><span>Lead Time</span><strong id="leadTime">45d</strong></div>
+              </div>
+            </div>
+
+            <div class="panel-view" id="rfq">
+              <div class="eyebrow">RFQ Builder</div>
+              <h2>Build a request.</h2>
+              <div class="form-grid">
+                <label>Product
+                  <select id="rfqProduct"><option>AD9 Aero Road</option><option>RS9 Lightweight</option><option>GT8 Gravel</option><option>SP Series Urban</option></select>
+                </label>
+                <label>Quantity
+                  <input id="rfqQty" type="number" min="1" value="24">
+                </label>
+                <label>Target Market
+                  <input id="rfqMarket" value="Germany">
+                </label>
+              </div>
+              <label>Request Notes
+                <textarea id="rfqNotes">Need launch pricing, demo bike support and delivery schedule for Q3.</textarea>
+              </label>
+              <div class="actions"><button class="btn primary" type="button" id="buildRfq">Generate RFQ Summary</button></div>
+              <div class="result" id="rfqResult">RFQ summary will appear here.</div>
+            </div>
+
+            <div class="panel-view" id="documents">
+              <div class="eyebrow">Documents</div>
+              <h2>Sales materials.</h2>
+              <div class="tool-grid">
+                <article class="tool-card"><h3>Dealer Kit</h3><p>Product positioning, store talking points and launch checklist.</p></article>
+                <article class="tool-card"><h3>Price Book</h3><p>Regional MSRP, partner price bands and MOQ guidance.</p></article>
+                <article class="tool-card"><h3>Technical Pack</h3><p>Geometry, sizing, carbon platform notes and service overview.</p></article>
+              </div>
+              <div class="actions"><button class="btn primary" type="button" id="unlockDocs">Request Document Access</button></div>
+              <div class="result" id="docResult">Access is role-based. Request approval to unlock downloadable files.</div>
+            </div>
+
+            <div class="panel-view" id="onboarding">
+              <div class="eyebrow">Onboarding</div>
+              <h2>Partner checklist.</h2>
+              <div class="checklist" id="checklist">
+                <label class="check"><input type="checkbox" checked><span><strong>Company profile</strong><br>Business registration, market coverage and sales channels.</span></label>
+                <label class="check"><input type="checkbox"><span><strong>Commercial terms</strong><br>Partner tier, MOQ, warranty policy and payment terms.</span></label>
+                <label class="check"><input type="checkbox"><span><strong>Launch plan</strong><br>Demo fleet, store display, staff training and local event calendar.</span></label>
+                <label class="check"><input type="checkbox"><span><strong>Service readiness</strong><br>Workshop capability, spare parts plan and after-sales workflow.</span></label>
+              </div>
+              <div class="summary">
+                <div class="summary-card"><span>Progress</span><strong id="progress">25%</strong></div>
+                <div class="summary-card"><span>Next Step</span><strong id="nextStep">Terms</strong></div>
+                <div class="summary-card"><span>Owner</span><strong>BD Team</strong></div>
+              </div>
+            </div>
+
+            <div class="panel-view" id="access">
+              <div class="eyebrow">Access</div>
+              <h2>Request an account.</h2>
+              <div class="form-grid">
+                <label>Company
+                  <input id="company" value="Velocity Cycling GmbH">
+                </label>
+                <label>Role
+                  <select id="accessRole"><option>Distributor</option><option>Dealer</option><option>Retail Partner</option><option>Supplier</option></select>
+                </label>
+                <label>Email
+                  <input id="email" type="email" value="partner@example.com">
+                </label>
+              </div>
+              <label>Business Focus
+                <textarea id="businessFocus">Premium road cycling, dealer network development and product launch support.</textarea>
+              </label>
+              <div class="actions"><button class="btn primary" type="button" id="requestAccess">Create Access Request</button></div>
+              <div class="result" id="accessResult">Submit the form to prepare an access request summary.</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section light" id="resources">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What partners need first.</h2>
+          <p class="lead">The public entry keeps sensitive files gated, while still showing partners what the portal supports.</p>
+        </div>
+        <div class="doc-grid">
+          <article class="doc"><div><h3>Commercial</h3><p>Price bands, MOQ guidance, terms, warranty and distribution workflow.</p></div><a class="btn dark" href="#workspace">View Pricing</a></article>
+          <article class="doc"><div><h3>Product</h3><p>Catalog, technical sheets, geometry, sizing and visual assets for launch.</p></div><a class="btn dark" href="#workspace">Open Docs</a></article>
+          <article class="doc"><div><h3>Supplier</h3><p>Vendor profile, compliance checklist, material specs and collaboration intake.</p></div><a class="btn dark" href="#workspace">Start Onboarding</a></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>X-LAB B2B Portal Entry</strong>
+      <span>Pricing / RFQ / Documents / Onboarding / Access</span>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      { model: "AD9 Aero Road", category: "Road Race", msrp: 5299, base: 3290, status: "Priority" },
+      { model: "RS9 Lightweight", category: "Climbing", msrp: 4899, base: 3020, status: "Available" },
+      { model: "GT8 Gravel", category: "Gravel", msrp: 3199, base: 2050, status: "Forecast" },
+      { model: "SP Series Urban", category: "Urban", msrp: 1899, base: 1190, status: "Available" }
+    ];
+    const rates = { USD: 1, EUR: .92, GBP: .78 };
+    const tierDiscount = { standard: 1, growth: .96, strategic: .92 };
+    const symbols = { USD: "$", EUR: "€", GBP: "£" };
+    const roleCopy = {
+      Distributor: "Distributor mode: focus on landed pricing, market planning and supply programs.",
+      Dealer: "Dealer mode: focus on price list, demo bikes, product kits and local retail conversion.",
+      "Retail Partner": "Retail partner mode: focus on store setup, sales materials, training and service readiness.",
+      Supplier: "Supplier mode: focus on onboarding, compliance files and collaboration requests."
+    };
+    const tabs = document.querySelectorAll(".tab");
+    const views = document.querySelectorAll(".panel-view");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        openPanel(tab.dataset.panel);
+      });
+    });
+    function openPanel(panelId) {
+      const target = document.getElementById(panelId);
+      if (!target) return;
+      tabs.forEach((item) => item.classList.toggle("active", item.dataset.panel === panelId));
+      views.forEach((view) => view.classList.toggle("active", view.id === panelId));
+    }
+    function openHashPanel() {
+      const id = window.location.hash.replace("#", "");
+      if (["pricing", "rfq", "documents", "onboarding", "access"].includes(id)) {
+        openPanel(id);
+        document.getElementById("workspace").scrollIntoView();
+      }
+    }
+    window.addEventListener("hashchange", openHashPanel);
+    openHashPanel();
+
+    document.querySelectorAll(".role-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".role-btn").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById("roleIntro").textContent = roleCopy[button.dataset.role];
+        document.getElementById("accessRole").value = button.dataset.role;
+      });
+    });
+
+    function money(value, currency) {
+      return `${symbols[currency]}${Math.round(value * rates[currency]).toLocaleString()}`;
+    }
+    function renderPrices() {
+      const currency = document.getElementById("currency").value;
+      const tier = document.getElementById("tier").value;
+      const tbody = document.querySelector("#priceTable tbody");
+      tbody.innerHTML = products.map((item) => {
+        const partner = item.base * tierDiscount[tier];
+        return `<tr><td><strong>${item.model}</strong><span>${item.category}</span></td><td>${item.category}</td><td>${money(item.msrp, currency)}</td><td>${money(partner, currency)}</td><td><span class="status">${item.status}</span></td></tr>`;
+      }).join("");
+      const avg = products.reduce((sum, item) => sum + (1 - (item.base * tierDiscount[tier]) / item.msrp), 0) / products.length;
+      document.getElementById("avgMargin").textContent = `${Math.round(avg * 100)}%`;
+      document.getElementById("moq").textContent = tier === "strategic" ? "48" : tier === "growth" ? "24" : "12";
+      document.getElementById("leadTime").textContent = document.getElementById("region").value === "APAC" ? "30d" : "45d";
+    }
+    ["region", "currency", "tier"].forEach((id) => document.getElementById(id).addEventListener("input", renderPrices));
+    renderPrices();
+
+    document.getElementById("buildRfq").addEventListener("click", () => {
+      const product = document.getElementById("rfqProduct").value;
+      const qty = document.getElementById("rfqQty").value;
+      const market = document.getElementById("rfqMarket").value;
+      const notes = document.getElementById("rfqNotes").value;
+      document.getElementById("rfqResult").textContent = `RFQ prepared: ${qty} units of ${product} for ${market}. Notes: ${notes}`;
+    });
+    document.getElementById("unlockDocs").addEventListener("click", () => {
+      document.getElementById("docResult").textContent = "Document access request prepared. Suggested approval scope: Dealer Kit, Price Book and Technical Pack.";
+    });
+    document.getElementById("requestAccess").addEventListener("click", () => {
+      const company = document.getElementById("company").value;
+      const role = document.getElementById("accessRole").value;
+      const email = document.getElementById("email").value;
+      document.getElementById("accessResult").textContent = `Access request prepared for ${company} as ${role}. Confirmation will be sent to ${email}.`;
+    });
+    function updateProgress() {
+      const boxes = [...document.querySelectorAll("#checklist input")];
+      const complete = boxes.filter((box) => box.checked).length;
+      document.getElementById("progress").textContent = `${Math.round((complete / boxes.length) * 100)}%`;
+      document.getElementById("nextStep").textContent = complete >= boxes.length ? "Ready" : ["Profile", "Terms", "Launch", "Service"][complete];
+    }
+    document.querySelectorAll("#checklist input").forEach((box) => box.addEventListener("input", updateProgress));
+    updateProgress();
+  </script>
+</body>
+</html>
