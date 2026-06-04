@@ -458,12 +458,28 @@
         url("https://images.openai.com/static-rsc-4/9XzVGjESGZKCOW8XjIl5ZcTgfBbRqTNsZPhKIKzcKL11aiITrem6ZG0g3ZgE_OghfmtuLHI-Mwhob1STm8MnNINRtxbGLjbANg8Uey7qi89NTDivQQkN3HKVFL1JHI_c-Y1C8uxNRBe_EU52KwOjptrtPwR2pkgyhwVHhpEW4hLYwRmsCSrdgDNT3a41tYmT?purpose=fullsize") center / cover;
     }
     .detail-hero .wrap { padding: 120px 20px 56px; }
-    .detail-hero h2 { max-width: 740px; }
+    .detail-hero .eyebrow,
+    .detail-hero h2,
+    .detail-hero .hero-copy,
+    .detail-hero .config-bar {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .detail-hero h2 {
+      max-width: none;
+      white-space: nowrap;
+      font-size: clamp(42px, 6.2vw, 86px);
+    }
+    .detail-hero .hero-copy {
+      max-width: 860px;
+    }
     .config-bar {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 30px;
+      justify-content: center;
     }
     .choice {
       min-width: 116px;
@@ -695,6 +711,10 @@
       .section-head.single h2 {
         white-space: normal;
         font-size: clamp(34px, 10vw, 54px);
+      }
+      .detail-hero h2 {
+        white-space: normal;
+        font-size: clamp(36px, 11vw, 58px);
       }
     }
     @media (prefers-reduced-motion: reduce) {
