@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB AD9 product detail page for race-proven aero road performance.">
+  <title>AD9 | X-LAB Product Detail</title>
+  <style>
+    :root {
+      --bg: #050607;
+      --panel: #111418;
+      --ink: #f6f8fa;
+      --muted: #aab1b8;
+      --line: rgba(255,255,255,.14);
+      --red: #d91f2d;
+      --cyan: #53c7df;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, "SF Pro Display", "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button, input, select { font: inherit; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      height: 72px;
+      padding: 0 clamp(20px, 4vw, 56px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(5,6,7,.9), rgba(5,6,7,.54), transparent);
+      backdrop-filter: blur(12px);
+    }
+    .brand { width: 132px; height: 30px; display: flex; align-items: center; }
+    .brand-logo { width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: rgba(255,255,255,.82); font-size: 14px; }
+    .nav-cta { padding: 10px 16px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.08); }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 132px 20px 48px;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,.92), rgba(5,6,7,.35), rgba(5,6,7,.86)),
+        linear-gradient(to top, #050607 0%, rgba(5,6,7,.14) 58%),
+        url("assets/ad9-astana-side.png") center 52% / min(92vw, 1280px) auto no-repeat;
+      overflow: hidden;
+    }
+    .wrap { width: min(var(--max), 100%); margin: 0 auto; }
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 900px;
+      margin-bottom: 22px;
+      font-size: clamp(58px, 10vw, 140px);
+      line-height: .86;
+      letter-spacing: 0;
+    }
+    .hero-copy {
+      max-width: 620px;
+      color: rgba(255,255,255,.78);
+      font-size: clamp(18px, 2vw, 26px);
+      line-height: 1.35;
+    }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .btn {
+      min-height: 48px;
+      padding: 0 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+    .btn.primary { border-color: var(--red); background: var(--red); }
+
+    .section { padding: clamp(76px, 9vw, 132px) 20px; }
+    .section.alt { background: #f4f5f3; color: #080a0d; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: clamp(32px, 5vw, 58px);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 26px;
+    }
+    .section.alt .section-head { border-color: rgba(0,0,0,.12); }
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(38px, 6.5vw, 86px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+    .section-kicker { color: var(--muted); text-transform: uppercase; font-size: 12px; letter-spacing: .16em; font-weight: 900; }
+    .section.alt .section-kicker { color: #59616a; }
+
+    .value-grid, .tech-grid, .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card {
+      min-height: 260px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.3);
+      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+    }
+    .section.alt .card {
+      background: #fff;
+      border-color: rgba(0,0,0,.12);
+      color: #080a0d;
+    }
+    .num { color: var(--cyan); font-size: 13px; font-weight: 900; }
+    .card h3 { margin-bottom: 12px; font-size: clamp(24px, 2.2vw, 34px); line-height: 1.08; }
+    .card p { color: var(--muted); line-height: 1.6; margin-bottom: 0; }
+    .section.alt .card p { color: #4c5560; }
+
+    .product-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
+      gap: clamp(28px, 4vw, 58px);
+      align-items: center;
+    }
+    .bike-frame {
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border: 1px solid rgba(0,0,0,.1);
+      background: radial-gradient(circle at 50% 64%, rgba(0,0,0,.08), transparent 54%);
+    }
+    .bike-frame img { width: 100%; max-height: 520px; object-fit: contain; filter: drop-shadow(0 22px 34px rgba(0,0,0,.25)); }
+    .spec-list {
+      display: grid;
+      gap: 1px;
+      background: rgba(0,0,0,.12);
+      border: 1px solid rgba(0,0,0,.12);
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      background: #fff;
+      color: #080a0d;
+    }
+    .spec-row span { color: #5b6470; }
+    .spec-row strong { text-align: right; }
+
+    .ride-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .ride {
+      min-height: 360px;
+      display: flex;
+      align-items: end;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+      background: var(--photo) center / cover;
+    }
+    .ride::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.88), rgba(0,0,0,.1)); }
+    .ride > div { position: relative; }
+    .ride h3 { margin-bottom: 10px; font-size: 30px; }
+    .ride p { color: rgba(255,255,255,.76); line-height: 1.55; }
+
+    .fit-panel {
+      display: grid;
+      grid-template-columns: minmax(280px, .78fr) minmax(280px, .82fr) minmax(280px, .8fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    .fit-form, .fit-result {
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .fit-intro h2 { font-size: clamp(44px, 6vw, 78px); }
+    .field { display: grid; gap: 8px; margin-bottom: 16px; }
+    label { color: var(--muted); font-size: 13px; }
+    input, select {
+      min-height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      background: #080a0c;
+      color: #fff;
+    }
+    .fit-size { font-size: clamp(84px, 12vw, 160px); line-height: .86; font-weight: 900; }
+    .fit-result { display: grid; align-content: center; background: linear-gradient(135deg, rgba(217,31,45,.25), rgba(83,199,223,.13)); }
+
+    .dealer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: center;
+      border: 1px solid rgba(217,31,45,.38);
+      background: linear-gradient(135deg, rgba(217,31,45,.22), rgba(255,255,255,.04));
+      padding: clamp(28px, 5vw, 56px);
+    }
+    .dealer h2 { font-size: clamp(42px, 6vw, 82px); }
+    .dealer p { max-width: 760px; color: var(--muted); line-height: 1.65; }
+    footer { padding: 46px 20px; border-top: 1px solid var(--line); color: var(--muted); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 920px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .section-head, .product-stage, .fit-panel, .dealer { grid-template-columns: 1fr; display: grid; }
+      .value-grid, .tech-grid, .flow-grid, .ride-grid { grid-template-columns: repeat(2, 1fr); }
+      .dealer { justify-items: start; }
+    }
+    @media (max-width: 640px) {
+      .nav { height: 62px; }
+      .brand { width: 112px; height: 26px; }
+      .hero { padding-top: 110px; background-size: 150vw auto; background-position: center 34%; }
+      h1 { font-size: clamp(52px, 18vw, 88px); }
+      .value-grid, .tech-grid, .flow-grid, .ride-grid { grid-template-columns: 1fr; }
+      .bike-frame { min-height: 260px; padding: 8px; }
+      .actions .btn { flex: 1 1 180px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Product navigation">
+    <a class="brand" href="index.html" aria-label="X-LAB home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links">
+      <a href="#why">Why AD9</a>
+      <a href="#technology">Technology</a>
+      <a href="#ride">Ride</a>
+      <a href="#fit">Fit</a>
+      <a class="nav-cta" href="#dealer">Dealer</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="wrap">
+        <div class="eyebrow">AD9 / Aero Road Platform</div>
+        <h1>Race speed, made tangible.</h1>
+        <p class="hero-copy">AD9 translates WorldTour development into a clear product story: faster at speed, lighter under load and calmer when control matters.</p>
+        <div class="actions">
+          <a class="btn primary" href="#why">Explore AD9</a>
+          <a class="btn" href="index.html">Back to X-LAB</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Why this bike.</h2>
+          <span class="section-kicker">01 / Core Value</span>
+        </div>
+        <div class="value-grid">
+          <article class="card"><span class="num">01</span><div><h3>Faster</h3><p>Aero shaping and integration reduce drag when the pace rises.</p></div></article>
+          <article class="card"><span class="num">02</span><div><h3>Lighter</h3><p>Targeted carbon layup keeps the platform responsive without dulling comfort.</p></div></article>
+          <article class="card"><span class="num">03</span><div><h3>More Stable</h3><p>Race geometry and front-end stiffness give confidence in sprints, descents and crosswinds.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="product">
+      <div class="wrap product-stage">
+        <div class="bike-frame">
+          <img src="assets/ad9-astana-side.png" alt="X-LAB AD9 Astana Team Edition side view" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <div class="section-kicker">02 / Product View</div>
+          <h2>Side profile. Full platform.</h2>
+          <div class="spec-list">
+            <div class="spec-row"><span>Platform</span><strong>AD9 Aero Road</strong></div>
+            <div class="spec-row"><span>Frame</span><strong>Carbon Race Layup</strong></div>
+            <div class="spec-row"><span>Validation</span><strong>WorldTour Program</strong></div>
+            <div class="spec-row"><span>Use Case</span><strong>Sprint / Climb / Endurance</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="technology">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Technology decoded.</h2>
+          <span class="section-kicker">03 / Engineering</span>
+        </div>
+        <div class="tech-grid">
+          <article class="card"><span class="num">A</span><div><h3>Carbon Layup</h3><p>Zone-specific carbon schedules balance stiffness, ride feel and weight.</p></div></article>
+          <article class="card"><span class="num">B</span><div><h3>Aero System</h3><p>Frame, fork, cockpit and wheels are treated as one aerodynamic surface.</p></div></article>
+          <article class="card"><span class="num">C</span><div><h3>Race Feedback</h3><p>Professional use turns lab targets into practical handling and durability requirements.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ride">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for real rides.</h2>
+          <span class="section-kicker">04-06 / Experience</span>
+        </div>
+        <div class="ride-grid">
+          <article class="ride" style="--photo:url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')"><div><h3>Climbing</h3><p>Light response and efficient power transfer for sustained gradients.</p></div></article>
+          <article class="ride" style="--photo:url('https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize')"><div><h3>Sprint</h3><p>Direct stiffness and stable control when acceleration is decisive.</p></div></article>
+          <article class="ride" style="--photo:url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')"><div><h3>Endurance</h3><p>Composed geometry for long days without giving up race speed.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fit">
+      <div class="wrap fit-panel">
+        <div class="fit-intro">
+          <div class="eyebrow">Fit Assistant</div>
+          <h2>Find your race size.</h2>
+        </div>
+        <div class="fit-form">
+          <div class="field"><label for="height">Height</label><input id="height" type="number" min="145" max="205" value="178"></div>
+          <div class="field"><label for="inseam">Inseam</label><input id="inseam" type="number" min="60" max="105" value="82"></div>
+          <div class="field">
+            <label for="habit">Riding Style</label>
+            <select id="habit"><option value="race">Aggressive Race</option><option value="balanced" selected>Balanced Performance</option><option value="comfort">Endurance Comfort</option></select>
+          </div>
+          <button class="btn primary" type="button" id="fitButton">Recommend Size</button>
+        </div>
+        <div class="fit-result">
+          <span class="eyebrow">Recommended</span>
+          <div class="fit-size" id="fitSize">M</div>
+          <p id="fitText" aria-live="polite">Best suited to riders around 174-181cm with a balanced performance position.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dealer">
+      <div class="wrap dealer">
+        <div>
+          <div class="eyebrow">07 / Dealer Loop</div>
+          <h2>From interest to test ride.</h2>
+          <p>Connect product discovery to dealer consultation, availability and test-ride booking so the purchase journey moves from online interest to real-world confidence.</p>
+        </div>
+        <a class="btn primary" href="index.html#fit">Find Your Size</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>X-LAB AD9 Product Detail</strong>
+      <span>Value / Technology / Experience / Fit</span>
+    </div>
+  </footer>
+
+  <script>
+    const height = document.getElementById("height");
+    const inseam = document.getElementById("inseam");
+    const habit = document.getElementById("habit");
+    const fitButton = document.getElementById("fitButton");
+    const fitSize = document.getElementById("fitSize");
+    const fitText = document.getElementById("fitText");
+    function recommendSize() {
+      const h = Number(height.value || 0);
+      const i = Number(inseam.value || 0);
+      let size = "M";
+      if (h < 164 || i < 74) size = "XS";
+      else if (h < 173 || i < 79) size = "S";
+      else if (h < 183 || i < 86) size = "M";
+      else size = "L";
+      if (habit.value === "race" && size === "L") size = "M/L";
+      if (habit.value === "comfort" && size === "M") size = "M/L";
+      fitSize.textContent = size;
+      fitText.textContent = `Based on ${h}cm height, ${i}cm inseam and a ${habit.options[habit.selectedIndex].text} position.`;
+    }
+    fitButton.addEventListener("click", recommendSize);
+    [height, inseam, habit].forEach((el) => el.addEventListener("input", recommendSize));
+  </script>
+</body>
+</html>
