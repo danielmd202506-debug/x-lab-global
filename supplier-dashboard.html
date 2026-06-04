@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB supplier dashboard for logged-in operations.">
+  <title>X-LAB Supplier Dashboard</title>
+  <style>
+    :root {
+      --bg: #050607;
+      --panel: #111418;
+      --panel-2: #191d22;
+      --ink: #f6f8fa;
+      --muted: #aab1b8;
+      --line: rgba(255,255,255,.14);
+      --red: #d91f2d;
+      --cyan: #53c7df;
+      --green: #67c98f;
+      --gold: #d8b15f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    .app {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+    }
+    aside {
+      border-right: 1px solid var(--line);
+      background: #080a0c;
+      padding: 22px;
+      position: sticky;
+      top: 0;
+      height: 100svh;
+    }
+    .logo { width: 124px; height: 28px; object-fit: contain; object-position: left center; margin-bottom: 34px; }
+    .user {
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      margin-bottom: 18px;
+    }
+    .user strong { display: block; }
+    .user span { color: var(--muted); font-size: 13px; }
+    .nav { display: grid; gap: 8px; }
+    .tab {
+      min-height: 46px;
+      padding: 0 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(255,255,255,.76);
+      text-align: left;
+      cursor: pointer;
+    }
+    .tab.active { border-color: var(--line); background: rgba(255,255,255,.08); color: #fff; }
+    .logout {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 20px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      cursor: pointer;
+    }
+    main { padding: clamp(22px, 4vw, 46px); }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+    }
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .16em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 0; font-size: clamp(38px, 6vw, 76px); line-height: .95; }
+    h2 { font-size: 34px; margin-bottom: 18px; }
+    p { color: var(--muted); line-height: 1.6; }
+    .search {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 180px 180px;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    input, select, textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      background: #080a0c;
+      color: #fff;
+    }
+    textarea { min-height: 110px; padding-top: 12px; resize: vertical; }
+    .view { display: none; }
+    .view.active { display: block; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .card, .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .card { padding: 18px; }
+    .card span { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .card strong { display: block; margin-top: 8px; font-size: 28px; }
+    .panel { padding: 22px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      padding: 13px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .status {
+      display: inline-flex;
+      padding: 5px 9px;
+      border: 1px solid rgba(83,199,223,.35);
+      color: var(--cyan);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .status.done { border-color: rgba(103,201,143,.45); color: var(--green); }
+    .status.risk { border-color: rgba(216,177,95,.5); color: var(--gold); }
+    .btn {
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      cursor: pointer;
+    }
+    .btn.primary { border-color: var(--red); background: var(--red); }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    label { display: grid; gap: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .result {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid rgba(83,199,223,.35);
+      background: rgba(83,199,223,.08);
+      color: rgba(255,255,255,.86);
+    }
+    @media (max-width: 960px) {
+      .app { grid-template-columns: 1fr; }
+      aside { position: static; height: auto; }
+      .search, .cards, .form-grid { grid-template-columns: 1fr; }
+      .topbar { display: grid; }
+      th:nth-child(4), td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <img class="logo" src="assets/x-lab-logo.webp" alt="X-LAB">
+      <div class="user"><strong id="userName">Supplier</strong><span id="userEmail">Checking session...</span></div>
+      <nav class="nav" aria-label="Supplier dashboard">
+        <button class="tab active" type="button" data-view="overview">Overview</button>
+        <button class="tab" type="button" data-view="orders">Purchase Orders</button>
+        <button class="tab" type="button" data-view="shipments">Shipments</button>
+        <button class="tab" type="button" data-view="materials">Material Requests</button>
+        <button class="tab" type="button" data-view="compliance">Compliance Files</button>
+        <button class="tab" type="button" data-view="messages">Messages</button>
+      </nav>
+      <button class="logout" type="button" id="logout">Log Out</button>
+    </aside>
+    <main>
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">Logged-in supplier workspace</div>
+          <h1>Supplier operations.</h1>
+        </div>
+        <a class="btn" href="partner-portal.html">B2B Portal</a>
+      </div>
+
+      <section class="view active" id="overview">
+        <div class="cards">
+          <div class="card"><span>Open PO</span><strong id="openPo">0</strong></div>
+          <div class="card"><span>Shipments</span><strong id="shipmentCount">0</strong></div>
+          <div class="card"><span>Risk Items</span><strong id="riskCount">0</strong></div>
+          <div class="card"><span>Messages</span><strong id="messageCount">0</strong></div>
+        </div>
+        <div class="panel">
+          <h2>Action queue</h2>
+          <table id="queueTable"><thead><tr><th>Task</th><th>Owner</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table>
+        </div>
+      </section>
+
+      <section class="view" id="orders">
+        <div class="search">
+          <input id="poSearch" placeholder="Search PO, model or material">
+          <select id="poStatus"><option value="all">All Status</option><option>Open</option><option>In Production</option><option>Ready</option><option>Closed</option></select>
+          <button class="btn primary" type="button" id="addPo">Add PO</button>
+        </div>
+        <div class="panel">
+          <h2>Purchase orders</h2>
+          <table id="poTable"><thead><tr><th>PO</th><th>Item</th><th>Qty</th><th>Due</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table>
+        </div>
+      </section>
+
+      <section class="view" id="shipments">
+        <div class="search">
+          <input id="shipSearch" placeholder="Search shipment or destination">
+          <select id="shipStatus"><option value="all">All Status</option><option>Booked</option><option>In Transit</option><option>Delivered</option></select>
+          <button class="btn primary" type="button" id="newShipment">Create Shipment</button>
+        </div>
+        <div class="panel">
+          <h2>Shipments</h2>
+          <table id="shipTable"><thead><tr><th>ID</th><th>Destination</th><th>ETA</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table>
+        </div>
+      </section>
+
+      <section class="view" id="materials">
+        <div class="panel">
+          <h2>Material request</h2>
+          <div class="form-grid">
+            <label>Material
+              <select id="materialName"><option>T800 Carbon Fiber</option><option>Aero Rim Prepreg</option><option>Forged Alloy Inserts</option></select>
+            </label>
+            <label>Quantity
+              <input id="materialQty" type="number" min="1" value="600">
+            </label>
+            <label>Required Date
+              <input id="materialDate" type="date" value="2026-07-15">
+            </label>
+          </div>
+          <button class="btn primary" type="button" id="createMaterial">Submit Request</button>
+          <div class="result" id="materialResult">Material request summary will appear here.</div>
+        </div>
+      </section>
+
+      <section class="view" id="compliance">
+        <div class="panel">
+          <h2>Compliance files</h2>
+          <table id="fileTable"><thead><tr><th>File</th><th>Version</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table>
+        </div>
+      </section>
+
+      <section class="view" id="messages">
+        <div class="panel">
+          <h2>Send update</h2>
+          <div class="form-grid">
+            <label>Topic
+              <select id="messageTopic"><option>Production Update</option><option>Shipment Issue</option><option>Compliance Question</option></select>
+            </label>
+            <label>Priority
+              <select id="messagePriority"><option>Normal</option><option>High</option><option>Urgent</option></select>
+            </label>
+            <label>Recipient
+              <input id="messageTo" value="X-LAB Supply Team">
+            </label>
+          </div>
+          <label>Message
+            <textarea id="messageBody">Production is on schedule. Awaiting final packaging confirmation.</textarea>
+          </label>
+          <button class="btn primary" type="button" id="sendMessage">Send Message</button>
+          <div class="result" id="messageResult">Message log will appear here.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const session = JSON.parse(sessionStorage.getItem("xlabSupplierSession") || "null");
+    if (!session) window.location.replace("supplier-login.html");
+    const seed = {
+      pos: [
+        { id: "PO-24061", item: "AD9 carbon fork assembly", qty: 420, due: "2026-07-08", status: "Open" },
+        { id: "PO-24062", item: "Aero rim prepreg set", qty: 680, due: "2026-07-14", status: "In Production" },
+        { id: "PO-24063", item: "Seatpost clamp hardware", qty: 1200, due: "2026-07-20", status: "Ready" }
+      ],
+      shipments: [
+        { id: "SHP-8841", destination: "Rotterdam DC", eta: "2026-07-18", status: "Booked" },
+        { id: "SHP-8842", destination: "Los Angeles DC", eta: "2026-07-23", status: "In Transit" }
+      ],
+      files: [
+        { file: "Carbon Material Certificate", version: "v2.4", status: "Approved" },
+        { file: "RoHS Declaration", version: "v1.8", status: "Review" },
+        { file: "Factory Audit Form", version: "v3.1", status: "Action Required" }
+      ],
+      messages: [
+        { topic: "Production Update", priority: "Normal", body: "Initial supplier workspace created." }
+      ]
+    };
+    const storeKey = "xlabSupplierData";
+    let data = JSON.parse(localStorage.getItem(storeKey) || "null") || seed;
+    function save() { localStorage.setItem(storeKey, JSON.stringify(data)); renderAll(); }
+    document.getElementById("userName").textContent = session?.name || "Supplier";
+    document.getElementById("userEmail").textContent = session?.email || "";
+    document.getElementById("logout").addEventListener("click", () => {
+      sessionStorage.removeItem("xlabSupplierSession");
+      window.location.href = "supplier-login.html";
+    });
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === tab));
+        document.querySelectorAll(".view").forEach((view) => view.classList.toggle("active", view.id === tab.dataset.view));
+      });
+    });
+    function badge(status) {
+      const cls = status === "Closed" || status === "Delivered" || status === "Approved" ? "done" : status.includes("Risk") || status.includes("Required") || status === "Review" ? "risk" : "";
+      return `<span class="status ${cls}">${status}</span>`;
+    }
+    function renderOrders() {
+      const q = document.getElementById("poSearch").value.toLowerCase();
+      const s = document.getElementById("poStatus").value;
+      const rows = data.pos.filter((po) => (s === "all" || po.status === s) && `${po.id} ${po.item}`.toLowerCase().includes(q));
+      document.querySelector("#poTable tbody").innerHTML = rows.map((po) => `<tr><td>${po.id}</td><td>${po.item}</td><td>${po.qty}</td><td>${po.due}</td><td>${badge(po.status)}</td><td><button class="btn" data-po="${po.id}">Next Status</button></td></tr>`).join("");
+      document.querySelectorAll("[data-po]").forEach((btn) => btn.addEventListener("click", () => advancePo(btn.dataset.po)));
+    }
+    function advancePo(id) {
+      const flow = ["Open", "In Production", "Ready", "Closed"];
+      const po = data.pos.find((item) => item.id === id);
+      po.status = flow[Math.min(flow.indexOf(po.status) + 1, flow.length - 1)];
+      save();
+    }
+    function renderShipments() {
+      const q = document.getElementById("shipSearch").value.toLowerCase();
+      const s = document.getElementById("shipStatus").value;
+      const rows = data.shipments.filter((ship) => (s === "all" || ship.status === s) && `${ship.id} ${ship.destination}`.toLowerCase().includes(q));
+      document.querySelector("#shipTable tbody").innerHTML = rows.map((ship) => `<tr><td>${ship.id}</td><td>${ship.destination}</td><td>${ship.eta}</td><td>${badge(ship.status)}</td><td><button class="btn" data-ship="${ship.id}">Update</button></td></tr>`).join("");
+      document.querySelectorAll("[data-ship]").forEach((btn) => btn.addEventListener("click", () => advanceShipment(btn.dataset.ship)));
+    }
+    function advanceShipment(id) {
+      const flow = ["Booked", "In Transit", "Delivered"];
+      const ship = data.shipments.find((item) => item.id === id);
+      ship.status = flow[Math.min(flow.indexOf(ship.status) + 1, flow.length - 1)];
+      save();
+    }
+    function renderFiles() {
+      document.querySelector("#fileTable tbody").innerHTML = data.files.map((file, index) => `<tr><td>${file.file}</td><td>${file.version}</td><td>${badge(file.status)}</td><td><button class="btn" data-file="${index}">Mark Uploaded</button></td></tr>`).join("");
+      document.querySelectorAll("[data-file]").forEach((btn) => btn.addEventListener("click", () => {
+        data.files[Number(btn.dataset.file)].status = "Approved";
+        save();
+      }));
+    }
+    function renderQueue() {
+      const tasks = [
+        ...data.pos.filter((po) => po.status !== "Closed").map((po) => ({ task: `${po.id} ${po.item}`, owner: "Supplier", status: po.status })),
+        ...data.files.filter((file) => file.status !== "Approved").map((file) => ({ task: file.file, owner: "Compliance", status: file.status }))
+      ];
+      document.querySelector("#queueTable tbody").innerHTML = tasks.map((task) => `<tr><td>${task.task}</td><td>${task.owner}</td><td>${badge(task.status)}</td><td><button class="btn" type="button">Review</button></td></tr>`).join("");
+      document.getElementById("openPo").textContent = data.pos.filter((po) => po.status !== "Closed").length;
+      document.getElementById("shipmentCount").textContent = data.shipments.length;
+      document.getElementById("riskCount").textContent = data.files.filter((file) => file.status !== "Approved").length;
+      document.getElementById("messageCount").textContent = data.messages.length;
+    }
+    function renderAll() { renderOrders(); renderShipments(); renderFiles(); renderQueue(); }
+    document.getElementById("poSearch").addEventListener("input", renderOrders);
+    document.getElementById("poStatus").addEventListener("input", renderOrders);
+    document.getElementById("shipSearch").addEventListener("input", renderShipments);
+    document.getElementById("shipStatus").addEventListener("input", renderShipments);
+    document.getElementById("addPo").addEventListener("click", () => {
+      data.pos.unshift({ id: `PO-${24064 + data.pos.length}`, item: "New supplier item", qty: 100, due: "2026-08-01", status: "Open" });
+      save();
+    });
+    document.getElementById("newShipment").addEventListener("click", () => {
+      data.shipments.unshift({ id: `SHP-${8843 + data.shipments.length}`, destination: "New Distribution Center", eta: "2026-08-10", status: "Booked" });
+      save();
+    });
+    document.getElementById("createMaterial").addEventListener("click", () => {
+      const material = document.getElementById("materialName").value;
+      const qty = document.getElementById("materialQty").value;
+      const date = document.getElementById("materialDate").value;
+      data.messages.unshift({ topic: "Material Request", priority: "High", body: `${qty} units of ${material} required by ${date}.` });
+      document.getElementById("materialResult").textContent = `Submitted: ${qty} units of ${material}, required by ${date}.`;
+      save();
+    });
+    document.getElementById("sendMessage").addEventListener("click", () => {
+      const topic = document.getElementById("messageTopic").value;
+      const priority = document.getElementById("messagePriority").value;
+      const body = document.getElementById("messageBody").value;
+      data.messages.unshift({ topic, priority, body });
+      document.getElementById("messageResult").textContent = `Sent ${priority} message: ${topic}.`;
+      save();
+    });
+    renderAll();
+  </script>
+</body>
+</html>
