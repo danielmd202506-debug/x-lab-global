@@ -20,6 +20,7 @@
       --cyan: #53c7df;
       --gold: #d8b15f;
       --paint: #17a7b8;
+      --accent-paint: #d91f2d;
       --max: 1220px;
       --font-display: "Barlow Condensed", "Arial Narrow", "Impact", sans-serif;
       --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
@@ -221,11 +222,59 @@
     .paint-wash {
       position: absolute;
       inset: 0;
-      background: linear-gradient(125deg, transparent 20%, color-mix(in srgb, var(--paint) 28%, transparent) 48%, transparent 72%);
+      background:
+        linear-gradient(125deg, transparent 20%, color-mix(in srgb, var(--paint) 28%, transparent) 48%, transparent 72%),
+        linear-gradient(16deg, transparent 0 38%, color-mix(in srgb, var(--accent-paint) 42%, transparent) 39% 46%, transparent 47%),
+        linear-gradient(108deg, transparent 0 61%, color-mix(in srgb, var(--accent-paint) 34%, transparent) 62% 67%, transparent 68%);
       mix-blend-mode: screen;
       opacity: .7;
       pointer-events: none;
     }
+    .paint-zone {
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+      background: color-mix(in srgb, var(--accent-paint) 72%, transparent);
+      box-shadow: 0 0 18px color-mix(in srgb, var(--accent-paint) 30%, transparent);
+      opacity: .86;
+    }
+    .paint-zone.top { width: 26%; height: 8px; left: 33%; top: 39%; transform: rotate(3deg); }
+    .paint-zone.down { width: 24%; height: 10px; left: 38%; top: 58%; transform: rotate(-34deg); }
+    .paint-zone.dropout { width: 8%; height: 10px; right: 20%; top: 60%; transform: rotate(-9deg); }
+    .engraving,
+    .decal {
+      position: absolute;
+      z-index: 4;
+      pointer-events: none;
+      color: rgba(255,255,255,.88);
+      text-transform: uppercase;
+      font-weight: 900;
+      text-shadow: 0 2px 10px rgba(0,0,0,.58);
+    }
+    .engraving {
+      left: 45%;
+      top: 43%;
+      max-width: 190px;
+      font-size: .78rem;
+      letter-spacing: .16em;
+      transform: rotate(3deg);
+    }
+    .decal {
+      right: 24%;
+      top: 31%;
+      min-width: 54px;
+      padding: 5px 8px;
+      border: 1px solid rgba(255,255,255,.32);
+      background: rgba(5,6,7,.42);
+      font-size: .75rem;
+      letter-spacing: .12em;
+    }
+    .engraving[data-position="down-tube"] { left: 48%; top: 56%; transform: rotate(-32deg); }
+    .engraving[data-position="seat-tube"] { left: 58%; top: 44%; transform: rotate(82deg); }
+    .engraving[data-position="fork"] { left: 72%; top: 42%; transform: rotate(82deg); }
+    .decal[data-position="top-tube"] { right: 37%; top: 37%; }
+    .decal[data-position="seat-tube"] { right: 34%; top: 48%; transform: rotate(82deg); }
+    .decal[data-position="fork"] { right: 14%; top: 41%; transform: rotate(78deg); }
     .hotpoint {
       position: absolute;
       z-index: 2;
@@ -287,6 +336,13 @@
       align-items: start;
     }
     .option-panel { padding: 22px; display: grid; gap: 18px; }
+    .option-panel h3 { font-size: 2.35rem; }
+    .panel-note { margin: -6px 0 0; color: var(--muted); line-height: 1.55; }
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
     .control {
       display: grid;
       grid-template-columns: 150px minmax(0, 1fr);
@@ -304,6 +360,47 @@
       background: #080a0c;
       color: #fff;
       padding: 0 12px;
+    }
+    select:disabled, option:disabled {
+      color: rgba(255,255,255,.34);
+      background: #111418;
+    }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .check-card {
+      min-height: 86px;
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      color: rgba(255,255,255,.86);
+      cursor: pointer;
+    }
+    .check-card input { width: 18px; min-height: 18px; margin-top: 4px; accent-color: var(--red); }
+    .check-card strong { display: block; color: #fff; }
+    .check-card span { display: block; margin-top: 4px; color: var(--muted); font-size: .875rem; line-height: 1.35; }
+    .recommendation {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    .fit-metric {
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .fit-metric span { display: block; color: var(--muted); font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+    .fit-metric strong { display: block; margin-top: 4px; color: #fff; font-size: 1.125rem; }
+    .compatibility {
+      min-height: 28px;
+      color: var(--cyan);
+      font-weight: 800;
     }
     .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
     .swatch {
@@ -375,6 +472,7 @@
       .bike-stage { top: 12%; min-height: 260px; }
       .hotpoint { display: none; }
       .scene-grid, .part-grid, .support-grid { grid-template-columns: 1fr; }
+      .field-grid, .check-grid, .recommendation { grid-template-columns: 1fr; }
       .control { grid-template-columns: 1fr; }
       .actions .btn { flex: 1 1 180px; }
     }
@@ -398,6 +496,11 @@
         <div class="bike-stage" aria-label="Configured X-LAB bike preview">
           <div class="paint-wash"></div>
           <img src="assets/ad9-astana-side.png" alt="X-LAB custom bike side view preview">
+          <span class="paint-zone top" id="zoneTopTube" aria-hidden="true"></span>
+          <span class="paint-zone down" id="zoneDownTube" aria-hidden="true"></span>
+          <span class="paint-zone dropout" id="zoneDropout" aria-hidden="true"></span>
+          <span class="engraving" id="engravingPreview" data-position="top-tube">RIDE FAST</span>
+          <span class="decal" id="decalPreview" data-position="fork">X-LAB</span>
           <span class="hotpoint frame" id="tagFrame">AD9 Aero Road</span>
           <span class="hotpoint wheels" id="tagWheels">Carbon 45mm All-Round</span>
           <span class="hotpoint cockpit" id="tagCockpit">Integrated 400x100</span>
@@ -432,13 +535,85 @@
 
         <div class="builder">
           <div class="option-panel">
-            <div class="eyebrow">02 / Components</div>
-            <div class="control"><label for="frame">Frame</label><select id="frame"><option value="AD9 Aero Road" data-price="0">AD9 Aero Road</option><option value="RT9 Lightweight" data-price="-300">RT9 Lightweight</option><option value="GT All-Road" data-price="-900">GT All-Road</option></select></div>
-            <div class="control"><label for="groupset">Groupset</label><select id="groupset"><option value="Shimano 105 Di2" data-price="0">Shimano 105 Di2</option><option value="Shimano Ultegra Di2" data-price="850">Shimano Ultegra Di2</option><option value="SRAM Force AXS" data-price="1100">SRAM Force AXS</option><option value="Shimano Dura-Ace Di2" data-price="2300">Shimano Dura-Ace Di2</option></select></div>
-            <div class="control"><label for="wheels">Wheels</label><select id="wheels"><option value="Carbon 45mm All-Round" data-price="0">Carbon 45mm All-Round</option><option value="Carbon 55mm Aero" data-price="420">Carbon 55mm Aero</option><option value="Carbon 35mm Climb" data-price="300">Carbon 35mm Climb</option><option value="Carbon 65mm Sprint" data-price="680">Carbon 65mm Sprint</option></select></div>
-            <div class="control"><label for="cockpit">Cockpit</label><select id="cockpit"><option value="Integrated 400x100" data-price="0">Integrated 400x100</option><option value="Compact 380x90" data-price="120">Compact 380x90</option><option value="Aero 420x110" data-price="180">Aero 420x110</option></select></div>
-            <div class="control"><label for="saddle">Saddle</label><select id="saddle"><option value="Race Narrow" data-price="0">Race Narrow</option><option value="Endurance Comfort" data-price="90">Endurance Comfort</option><option value="Short-Nose Pro" data-price="160">Short-Nose Pro</option></select></div>
-            <div class="control"><label>Paint</label><div class="swatches"><button class="swatch active" type="button" data-paint="#17a7b8" data-name="Astana Cyan" style="--swatch:#17a7b8"></button><button class="swatch" type="button" data-paint="#d91f2d" data-name="Race Red" style="--swatch:#d91f2d"></button><button class="swatch" type="button" data-paint="#d8b15f" data-name="Champagne Gold" style="--swatch:#d8b15f"></button><button class="swatch" type="button" data-paint="#d7dde2" data-name="Silver Graphite" style="--swatch:#d7dde2"></button></div></div>
+            <div class="eyebrow">02 / Layer 1: Stock Platform</div>
+            <h3>Fixed molds and proven kits.</h3>
+            <p class="panel-note">Base selection keeps the mass-market flow simple: frame category, stock kit families, brake system, wheelset, cockpit and standard paint.</p>
+            <div class="control"><label for="baseCategory">Bike Type</label><select id="baseCategory"><option value="Road" data-price="0">Road</option><option value="Commuter" data-price="-1300">Commuter</option><option value="Mountain" data-price="-700">Mountain</option><option value="Flat-Bar Road" data-price="-850">Flat-Bar Road</option></select></div>
+            <div class="control"><label for="frame">Frame Mold</label><select id="frame"><option value="AD9 Aero Road" data-price="0">AD9 Aero Road</option><option value="RT9 Lightweight" data-price="-300">RT9 Lightweight</option><option value="GT All-Road" data-price="-900">GT All-Road</option><option value="CM Urban Alloy" data-price="-1800">CM Urban Alloy</option><option value="MT Trail Carbon" data-price="-600">MT Trail Carbon</option></select></div>
+            <div class="control"><label for="groupset">Kit Tier</label><select id="groupset"><option value="Shimano 105 Di2 Kit" data-price="0">Shimano 105 Di2 Kit</option><option value="Shimano Ultegra Di2 Kit" data-price="850">Shimano Ultegra Di2 Kit</option><option value="SRAM Force AXS Kit" data-price="1100">SRAM Force AXS Kit</option><option value="Shimano Dura-Ace Di2 Kit" data-price="2300">Shimano Dura-Ace Di2 Kit</option></select></div>
+            <div class="control"><label for="brake">Brake</label><select id="brake"><option value="Hydraulic Disc" data-price="0">Hydraulic Disc</option><option value="Mechanical Disc" data-price="-180">Mechanical Disc</option><option value="V-Brake" data-price="-420">V-Brake</option></select></div>
+            <div class="control"><label for="wheels">Stock Wheels</label><select id="wheels"><option value="Carbon 45mm All-Round" data-price="0">Carbon 45mm All-Round</option><option value="Carbon 55mm Aero" data-price="420">Carbon 55mm Aero</option><option value="Carbon 35mm Climb" data-price="300">Carbon 35mm Climb</option><option value="Carbon 65mm Sprint" data-price="680">Carbon 65mm Sprint</option><option value="Trail Alloy 29er" data-price="-260">Trail Alloy 29er</option></select></div>
+            <div class="control"><label for="cockpit">Cockpit Kit</label><select id="cockpit"><option value="Integrated 400x100" data-price="0">Integrated 400x100</option><option value="Compact 380x90" data-price="120">Compact 380x90</option><option value="Aero 420x110" data-price="180">Aero 420x110</option><option value="Flat Bar 680x80" data-price="-160">Flat Bar 680x80</option></select></div>
+            <div class="control"><label for="saddle">Saddle</label><select id="saddle"><option value="Race Narrow" data-price="0">Race Narrow</option><option value="Endurance Comfort" data-price="90">Endurance Comfort</option><option value="Short-Nose Pro" data-price="160">Short-Nose Pro</option><option value="Urban Comfort" data-price="-40">Urban Comfort</option></select></div>
+          </div>
+
+          <div class="option-panel">
+            <div class="eyebrow">03 / Layer 2: Fit Geometry</div>
+            <h3>Body data into frame numbers.</h3>
+            <p class="panel-note">A fixed mold stays in production, while stem, seatpost, fork travel and tube cutting move in 5mm or preset increments.</p>
+            <div class="field-grid">
+              <div class="control"><label for="height">Height</label><input id="height" type="number" min="145" max="205" value="178"></div>
+              <div class="control"><label for="inseam">Inseam</label><input id="inseam" type="number" min="62" max="98" value="82"></div>
+              <div class="control"><label for="arm">Arm Length</label><input id="arm" type="number" min="50" max="78" value="64"></div>
+              <div class="control"><label for="standover">Standover</label><input id="standover" type="number" min="65" max="94" value="78"></div>
+            </div>
+            <div class="control"><label for="posture">Posture</label><select id="posture"><option value="Balanced Performance">Balanced Performance</option><option value="Upright Commuting">Upright Commuting</option><option value="Aggressive Race">Aggressive Race</option></select></div>
+            <div class="field-grid">
+              <div class="control"><label for="stemLength">Stem</label><select id="stemLength"><option>70mm</option><option>75mm</option><option>80mm</option><option>85mm</option><option>90mm</option><option selected>100mm</option><option>110mm</option><option>120mm</option><option>130mm</option></select></div>
+              <div class="control"><label for="stemAngle">Angle</label><select id="stemAngle"><option>-6deg</option><option selected>0deg</option><option>+6deg</option></select></div>
+              <div class="control"><label for="seatpostLength">Seatpost</label><select id="seatpostLength"><option>Shortened</option><option selected>Standard</option><option>Extended</option></select></div>
+              <div class="control"><label for="seatpostOffset">Offset</label><select id="seatpostOffset"><option selected>Setback</option><option>Straight</option></select></div>
+              <div class="control"><label for="forkTravel">Fork Travel</label><select id="forkTravel"><option>50mm</option><option selected>100mm</option><option>120mm</option></select></div>
+            </div>
+            <div class="recommendation" aria-label="Recommended frame geometry">
+              <div class="fit-metric"><span>Seat Tube</span><strong id="recSeatTube">550mm</strong></div>
+              <div class="fit-metric"><span>Head Tube</span><strong id="recHeadTube">150mm</strong></div>
+              <div class="fit-metric"><span>Stem</span><strong id="recStem">100mm</strong></div>
+              <div class="fit-metric"><span>Stack</span><strong id="recStack">565mm</strong></div>
+              <div class="fit-metric"><span>Reach</span><strong id="recReach">390mm</strong></div>
+            </div>
+          </div>
+
+          <div class="option-panel">
+            <div class="eyebrow">04 / Split Components</div>
+            <h3>Break the kit apart.</h3>
+            <p class="panel-note">Shift parts, wheel parts and small parts can be mixed, while incompatible drivetrain choices are disabled by the system.</p>
+            <div class="compatibility" id="compatibility">Compatible drivetrain set.</div>
+            <div class="field-grid">
+              <div class="control"><label for="shifter">Shifter</label><select id="shifter"><option value="Shimano 105 Di2 Shifter" data-brand="Shimano" data-price="0">Shimano 105 Di2</option><option value="Shimano Ultegra Di2 Shifter" data-brand="Shimano" data-price="260">Shimano Ultegra Di2</option><option value="SRAM Force AXS Shifter" data-brand="SRAM" data-price="320">SRAM Force AXS</option></select></div>
+              <div class="control"><label for="frontDerailleur">Front Derailleur</label><select id="frontDerailleur"><option value="Shimano 105 Di2 FD" data-brand="Shimano" data-price="0">Shimano 105 Di2 FD</option><option value="Shimano Ultegra Di2 FD" data-brand="Shimano" data-price="120">Shimano Ultegra Di2 FD</option><option value="SRAM Force AXS FD" data-brand="SRAM" data-price="160">SRAM Force AXS FD</option></select></div>
+              <div class="control"><label for="rearDerailleur">Rear Derailleur</label><select id="rearDerailleur"><option value="Shimano 105 Di2 RD" data-brand="Shimano" data-price="0">Shimano 105 Di2 RD</option><option value="Shimano Ultegra Di2 RD" data-brand="Shimano" data-price="220">Shimano Ultegra Di2 RD</option><option value="SRAM Force AXS RD" data-brand="SRAM" data-price="280">SRAM Force AXS RD</option></select></div>
+              <div class="control"><label for="cassette">Cassette</label><select id="cassette"><option value="11-34T Road" data-price="0">11-34T Road</option><option value="10-33T Race" data-price="110">10-33T Race</option><option value="10-36T Climb" data-price="150">10-36T Climb</option></select></div>
+              <div class="control"><label for="crankset">Crankset</label><select id="crankset"><option value="50/34 Compact" data-price="0">50/34 Compact</option><option value="52/36 Semi-Compact" data-price="140">52/36 Semi-Compact</option><option value="48/35 Wide" data-price="180">48/35 Wide</option></select></div>
+              <div class="control"><label for="hub">Hub</label><select id="hub"><option value="Sealed Alloy Hub" data-price="0">Sealed Alloy Hub</option><option value="DT Swiss 350 Hub" data-price="260">DT Swiss 350 Hub</option><option value="Ceramic Race Hub" data-price="520">Ceramic Race Hub</option></select></div>
+              <div class="control"><label for="spoke">Spokes</label><select id="spoke"><option value="Aero Stainless" data-price="0">Aero Stainless</option><option value="Sapim CX-Ray" data-price="180">Sapim CX-Ray</option><option value="Carbon Spoke" data-price="420">Carbon Spoke</option></select></div>
+              <div class="control"><label for="rim">Rim</label><select id="rim"><option value="45mm Hookless Carbon" data-price="0">45mm Hookless Carbon</option><option value="35mm Climb Carbon" data-price="180">35mm Climb Carbon</option><option value="55mm Aero Carbon" data-price="240">55mm Aero Carbon</option></select></div>
+              <div class="control"><label for="pedalBearing">Pedal Bearing</label><select id="pedalBearing"><option value="Steel Bearing" data-price="0">Steel Bearing</option><option value="Ceramic Bearing" data-price="120">Ceramic Bearing</option></select></div>
+              <div class="control"><label for="gripMaterial">Grip</label><select id="gripMaterial"><option value="Rubber Grip" data-price="0">Rubber</option><option value="Foam Grip" data-price="30">Foam</option><option value="Lock-On Grip" data-price="55">Lock-On</option></select></div>
+              <div class="control"><label for="cableColor">Cable Color</label><select id="cableColor"><option value="Black Cable" data-price="0">Black</option><option value="White Cable" data-price="20">White</option><option value="Red Cable" data-price="20">Red</option><option value="Cyan Cable" data-price="20">Cyan</option></select></div>
+            </div>
+          </div>
+
+          <div class="option-panel">
+            <div class="eyebrow">05 / Semi-Custom Paint</div>
+            <h3>Beyond fixed swatches.</h3>
+            <div class="control"><label>Body Color</label><div class="swatches" data-swatch-group="paint"><button class="swatch active" type="button" data-paint="#17a7b8" data-name="Astana Cyan" style="--swatch:#17a7b8"></button><button class="swatch" type="button" data-paint="#d91f2d" data-name="Race Red" style="--swatch:#d91f2d"></button><button class="swatch" type="button" data-paint="#d8b15f" data-name="Champagne Gold" style="--swatch:#d8b15f"></button><button class="swatch" type="button" data-paint="#d7dde2" data-name="Silver Graphite" style="--swatch:#d7dde2"></button><button class="swatch" type="button" data-paint="#12151a" data-name="Obsidian Black" style="--swatch:#12151a"></button></div></div>
+            <div class="control"><label>Contrast Zone</label><select id="paintZone"><option value="top-down-dropout">Top tube / Down tube / Dropout</option><option value="top-tube">Top tube only</option><option value="down-tube">Down tube only</option><option value="dropout">Dropout only</option></select></div>
+            <div class="control"><label>Accent Color</label><div class="swatches" data-swatch-group="accent"><button class="swatch active" type="button" data-accent="#d91f2d" data-name="Race Red" style="--swatch:#d91f2d"></button><button class="swatch" type="button" data-accent="#53c7df" data-name="Electric Cyan" style="--swatch:#53c7df"></button><button class="swatch" type="button" data-accent="#d8b15f" data-name="Gold Line" style="--swatch:#d8b15f"></button><button class="swatch" type="button" data-accent="#f6f8fa" data-name="White Flash" style="--swatch:#f6f8fa"></button></div></div>
+            <div class="control"><label for="engravingText">Engraving</label><input id="engravingText" maxlength="22" value="RIDE FAST" aria-label="Custom engraving text"></div>
+            <div class="control"><label for="engravingPosition">Text Position</label><select id="engravingPosition"><option value="top-tube">Top tube</option><option value="down-tube">Down tube</option><option value="seat-tube">Seat tube</option><option value="fork">Fork</option></select></div>
+            <div class="control"><label for="decalStyle">Decal</label><select id="decalStyle"><option value="X-LAB">X-LAB Logo</option><option value="AERO">Aero Mark</option><option value="AD9">AD9 Badge</option><option value="RACE">Race Stripe</option></select></div>
+            <div class="control"><label for="decalPosition">Decal Position</label><select id="decalPosition"><option value="fork">Fork</option><option value="top-tube">Top tube</option><option value="seat-tube">Seat tube</option></select></div>
+          </div>
+
+          <div class="option-panel">
+            <div class="eyebrow">06 / Modular Scene Packages</div>
+            <h3>Add only what the use case needs.</h3>
+            <div class="check-grid">
+              <label class="check-card"><input type="checkbox" class="feature-pack" value="Commuter Pack" data-price="220"><span><strong>Commuter Pack</strong>Rack mounts, fender mounts, light bracket and quick basket interface.</span></label>
+              <label class="check-card"><input type="checkbox" class="feature-pack" value="Off-Road Pack" data-price="360"><span><strong>Off-Road Pack</strong>Larger rotor spec, chain keeper, chain guide and puncture-resistant tires.</span></label>
+              <label class="check-card"><input type="checkbox" class="feature-pack" value="Smart Pack" data-price="480"><span><strong>Smart Pack</strong>Internal routing channel, computer mount and battery bay reserve.</span></label>
+            </div>
           </div>
 
           <div class="part-grid" aria-label="Configured component explanation">
@@ -452,11 +627,16 @@
             <div class="eyebrow">Live build summary</div>
             <h3 id="summaryTitle">Race Day Build</h3>
             <div class="summary-row"><span>Scene</span><strong id="sumScene">Race Day</strong></div>
+            <div class="summary-row"><span>Bike Type</span><strong id="sumType">Road</strong></div>
             <div class="summary-row"><span>Frame</span><strong id="sumFrame">AD9 Aero Road</strong></div>
-            <div class="summary-row"><span>Groupset</span><strong id="sumGroupset">Shimano 105 Di2</strong></div>
+            <div class="summary-row"><span>Drivetrain</span><strong id="sumGroupset">Shimano 105 Di2</strong></div>
             <div class="summary-row"><span>Wheels</span><strong id="sumWheels">Carbon 45mm All-Round</strong></div>
             <div class="summary-row"><span>Cockpit</span><strong id="sumCockpit">Integrated 400x100</strong></div>
+            <div class="summary-row"><span>Fit</span><strong id="sumFit">100mm / 0deg</strong></div>
             <div class="summary-row"><span>Paint</span><strong id="sumPaint">Astana Cyan</strong></div>
+            <div class="summary-row"><span>Zones</span><strong id="sumZones">Top tube / Down tube / Dropout</strong></div>
+            <div class="summary-row"><span>Personal</span><strong id="sumPersonal">RIDE FAST / X-LAB</strong></div>
+            <div class="summary-row"><span>Packages</span><strong id="sumPackages">None</strong></div>
             <div class="total" id="totalPrice">$5,299</div>
             <div class="actions"><button class="btn primary" type="button" id="saveBuild">Save Build</button><a class="btn" href="partner-portal.html#rfq">Create RFQ</a></div>
             <div class="saved" id="saved"></div>
@@ -468,13 +648,13 @@
     <section class="section" id="support">
       <div class="wrap">
         <div class="section-head">
-          <h2>More than a paint option.</h2>
-          <p class="lead">A serious custom program needs artistry, fit logic, component planning and a commercial workflow for dealers.</p>
+          <h2>Two levels of customization.</h2>
+          <p class="lead">Keep fixed molds and proven stock kits for speed, then open the high-value layer: fit geometry, split components, semi-custom paint and modular function packs.</p>
         </div>
         <div class="support-grid">
-          <article class="support"><div class="eyebrow">01</div><div><h3>Curated Paint</h3><p>Paint choices create a premium emotional signal without losing X-LAB's race identity.</p></div></article>
-          <article class="support"><div class="eyebrow">02</div><div><h3>Fit Options</h3><p>Cockpit, saddle and wheel choices help riders land on a usable position, not just a prettier bike.</p></div></article>
-          <article class="support"><div class="eyebrow">03</div><div><h3>Dealer Workflow</h3><p>Saved builds can become a retail quote, demo bike plan or partner RFQ.</p></div></article>
+          <article class="support"><div class="eyebrow">01</div><div><h3>Stock Platform</h3><p>Commuter, mountain, road and flat-bar road molds stay fixed, with stable kit choices for mainstream users.</p></div></article>
+          <article class="support"><div class="eyebrow">02</div><div><h3>Micro Custom</h3><p>Body data, 5mm stem steps, seatpost choices, split drivetrains and wheel builds create the personal fit layer.</p></div></article>
+          <article class="support"><div class="eyebrow">03</div><div><h3>Function Packs</h3><p>Commuter, off-road and smart modules add real use-case value without changing the core frame mold.</p></div></article>
         </div>
       </div>
     </section>
@@ -483,7 +663,7 @@
   <footer>
     <div class="wrap">
       <strong>X-LAB Custom Bike Studio</strong>
-      <span>Scene / Frame / Wheels / Groupset / Fit / Paint</span>
+      <span>Scene / Stock Platform / Micro Fit / Split Parts / Paint / Function Packs</span>
     </div>
   </footer>
 
@@ -496,10 +676,17 @@
       visual: "race",
       photo: "",
       paint: "Astana Cyan",
-      paintColor: "#17a7b8"
+      paintColor: "#17a7b8",
+      accent: "Race Red",
+      accentColor: "#d91f2d"
     };
     const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
-    const controls = ["frame", "groupset", "wheels", "cockpit", "saddle"].map((id) => document.getElementById(id));
+    const controls = [
+      "baseCategory", "frame", "groupset", "brake", "wheels", "cockpit", "saddle",
+      "height", "inseam", "arm", "standover", "posture", "stemLength", "stemAngle", "seatpostLength", "seatpostOffset", "forkTravel",
+      "shifter", "frontDerailleur", "rearDerailleur", "cassette", "crankset", "hub", "spoke", "rim", "pedalBearing", "gripMaterial", "cableColor",
+      "paintZone", "engravingText", "engravingPosition", "decalStyle", "decalPosition"
+    ].map((id) => document.getElementById(id)).filter(Boolean);
     const previewPane = document.getElementById("previewPane");
     function setSelectValue(id, value) {
       const control = document.getElementById(id);
@@ -510,6 +697,51 @@
     function selected(control) {
       const option = control.options[control.selectedIndex];
       return { value: option.value, price: Number(option.dataset.price || 0) };
+    }
+    function selectPrice(id) {
+      const control = document.getElementById(id);
+      if (!control || !control.options) return 0;
+      return Number(control.options[control.selectedIndex].dataset.price || 0);
+    }
+    function selectValue(id) {
+      const control = document.getElementById(id);
+      if (!control) return "";
+      return control.value;
+    }
+    function featurePackages() {
+      return Array.from(document.querySelectorAll(".feature-pack:checked"));
+    }
+    function updateCompatibility() {
+      const shifter = document.getElementById("shifter");
+      const brand = shifter.options[shifter.selectedIndex].dataset.brand;
+      ["frontDerailleur", "rearDerailleur"].forEach((id) => {
+        const control = document.getElementById(id);
+        Array.from(control.options).forEach((option) => {
+          option.disabled = option.dataset.brand !== brand;
+        });
+        if (control.options[control.selectedIndex].disabled) {
+          const next = Array.from(control.options).find((option) => !option.disabled);
+          if (next) control.value = next.value;
+        }
+      });
+      document.getElementById("compatibility").textContent = `${brand} electronic controls selected. Incompatible derailleur options are disabled.`;
+    }
+    function updateFitRecommendation() {
+      const height = Number(document.getElementById("height").value || 178);
+      const inseam = Number(document.getElementById("inseam").value || 82);
+      const arm = Number(document.getElementById("arm").value || 64);
+      const posture = document.getElementById("posture").value;
+      const postureOffset = posture === "Aggressive Race" ? -12 : posture === "Upright Commuting" ? 14 : 0;
+      const seatTube = Math.round(inseam * 6.7);
+      const headTube = Math.round(height * .78 + postureOffset);
+      const stem = Math.max(70, Math.min(130, Math.round((arm * 1.45 + (posture === "Aggressive Race" ? 12 : posture === "Upright Commuting" ? -8 : 0)) / 5) * 5));
+      const stack = Math.round(height * 3.05 + (posture === "Upright Commuting" ? 28 : posture === "Aggressive Race" ? -18 : 0));
+      const reach = Math.round(arm * 5.8 + (posture === "Aggressive Race" ? 18 : posture === "Upright Commuting" ? -12 : 0));
+      document.getElementById("recSeatTube").textContent = `${seatTube}mm`;
+      document.getElementById("recHeadTube").textContent = `${headTube}mm`;
+      document.getElementById("recStem").textContent = `${stem}mm`;
+      document.getElementById("recStack").textContent = `${stack}mm`;
+      document.getElementById("recReach").textContent = `${reach}mm`;
     }
     function updateScenePreview() {
       previewPane.dataset.scene = state.visual;
@@ -524,26 +756,48 @@
       const wheels = selected(document.getElementById("wheels"));
       const cockpit = selected(document.getElementById("cockpit"));
       const saddle = selected(document.getElementById("saddle"));
-      const total = state.base + frame.price + groupset.price + wheels.price + cockpit.price + saddle.price;
+      updateCompatibility();
+      updateFitRecommendation();
+      const stockTotal = ["baseCategory", "brake", "shifter", "frontDerailleur", "rearDerailleur", "cassette", "crankset", "hub", "spoke", "rim", "pedalBearing", "gripMaterial", "cableColor"].reduce((sum, id) => sum + selectPrice(id), 0);
+      const packageTotal = featurePackages().reduce((sum, item) => sum + Number(item.dataset.price || 0), 0);
+      const total = state.base + frame.price + groupset.price + wheels.price + cockpit.price + saddle.price + stockTotal + packageTotal;
       document.documentElement.style.setProperty("--paint", state.paintColor);
+      document.documentElement.style.setProperty("--accent-paint", state.accentColor);
+      const activeZones = document.getElementById("paintZone").value;
+      document.getElementById("zoneTopTube").style.display = activeZones.includes("top") ? "block" : "none";
+      document.getElementById("zoneDownTube").style.display = activeZones.includes("down") ? "block" : "none";
+      document.getElementById("zoneDropout").style.display = activeZones.includes("dropout") ? "block" : "none";
+      const engraving = document.getElementById("engravingText").value.trim() || "X-LAB";
+      const engravingPreview = document.getElementById("engravingPreview");
+      engravingPreview.textContent = engraving;
+      engravingPreview.dataset.position = document.getElementById("engravingPosition").value;
+      const decalPreview = document.getElementById("decalPreview");
+      decalPreview.textContent = document.getElementById("decalStyle").value;
+      decalPreview.dataset.position = document.getElementById("decalPosition").value;
       updateScenePreview();
       document.getElementById("summaryTitle").textContent = `${state.scene} Build`;
       document.getElementById("sumScene").textContent = state.scene;
+      document.getElementById("sumType").textContent = selectValue("baseCategory");
       document.getElementById("sumFrame").textContent = frame.value;
-      document.getElementById("sumGroupset").textContent = groupset.value;
-      document.getElementById("sumWheels").textContent = wheels.value;
-      document.getElementById("sumCockpit").textContent = cockpit.value;
-      document.getElementById("sumPaint").textContent = state.paint;
+      document.getElementById("sumGroupset").textContent = `${selectValue("shifter")} / ${selectValue("rearDerailleur")}`;
+      document.getElementById("sumWheels").textContent = `${selectValue("hub")} / ${selectValue("rim")}`;
+      document.getElementById("sumCockpit").textContent = `${cockpit.value} / ${selectValue("stemLength")}`;
+      document.getElementById("sumFit").textContent = `${selectValue("stemLength")} / ${selectValue("stemAngle")}`;
+      document.getElementById("sumPaint").textContent = `${state.paint} + ${state.accent}`;
+      document.getElementById("sumZones").textContent = document.getElementById("paintZone").selectedOptions[0].textContent;
+      document.getElementById("sumPersonal").textContent = `${engraving} / ${document.getElementById("decalStyle").value}`;
+      const packages = featurePackages().map((item) => item.value);
+      document.getElementById("sumPackages").textContent = packages.length ? packages.join(", ") : "None";
       document.getElementById("totalPrice").textContent = money.format(total);
       document.getElementById("partFrame").textContent = frame.value;
-      document.getElementById("partGroupset").textContent = groupset.value;
-      document.getElementById("partWheels").textContent = wheels.value;
-      document.getElementById("partCockpit").textContent = cockpit.value;
+      document.getElementById("partGroupset").textContent = selectValue("rearDerailleur");
+      document.getElementById("partWheels").textContent = selectValue("rim");
+      document.getElementById("partCockpit").textContent = `${selectValue("stemLength")} ${selectValue("stemAngle")}`;
       document.getElementById("tagFrame").textContent = frame.value;
-      document.getElementById("tagGroupset").textContent = groupset.value;
-      document.getElementById("tagWheels").textContent = wheels.value;
-      document.getElementById("tagCockpit").textContent = cockpit.value;
-      return { frame, groupset, wheels, cockpit, saddle, total };
+      document.getElementById("tagGroupset").textContent = selectValue("rearDerailleur");
+      document.getElementById("tagWheels").textContent = selectValue("rim");
+      document.getElementById("tagCockpit").textContent = `${selectValue("stemLength")} ${selectValue("stemAngle")}`;
+      return { frame, groupset, wheels, cockpit, saddle, total, packages };
     }
     document.querySelectorAll(".scene").forEach((button) => {
       button.addEventListener("click", () => {
@@ -564,12 +818,20 @@
       });
     });
     controls.forEach((control) => control.addEventListener("input", updateBuild));
+    document.querySelectorAll(".feature-pack").forEach((control) => control.addEventListener("change", updateBuild));
     document.querySelectorAll(".swatch").forEach((button) => {
       button.addEventListener("click", () => {
-        document.querySelectorAll(".swatch").forEach((item) => item.classList.remove("active"));
+        const group = button.closest("[data-swatch-group]");
+        group.querySelectorAll(".swatch").forEach((item) => item.classList.remove("active"));
         button.classList.add("active");
-        state.paint = button.dataset.name;
-        state.paintColor = button.dataset.paint;
+        if (button.dataset.paint) {
+          state.paint = button.dataset.name;
+          state.paintColor = button.dataset.paint;
+        }
+        if (button.dataset.accent) {
+          state.accent = button.dataset.name;
+          state.accentColor = button.dataset.accent;
+        }
         updateBuild();
       });
     });
@@ -578,10 +840,43 @@
       const saved = {
         scene: state.scene,
         frame: build.frame.value,
-        groupset: build.groupset.value,
-        wheels: build.wheels.value,
+        bikeType: selectValue("baseCategory"),
+        kitTier: build.groupset.value,
+        brake: selectValue("brake"),
+        drivetrain: {
+          shifter: selectValue("shifter"),
+          frontDerailleur: selectValue("frontDerailleur"),
+          rearDerailleur: selectValue("rearDerailleur"),
+          cassette: selectValue("cassette"),
+          crankset: selectValue("crankset")
+        },
+        wheels: {
+          stock: build.wheels.value,
+          hub: selectValue("hub"),
+          spoke: selectValue("spoke"),
+          rim: selectValue("rim")
+        },
         cockpit: build.cockpit.value,
+        fit: {
+          height: selectValue("height"),
+          inseam: selectValue("inseam"),
+          arm: selectValue("arm"),
+          standover: selectValue("standover"),
+          posture: selectValue("posture"),
+          stemLength: selectValue("stemLength"),
+          stemAngle: selectValue("stemAngle"),
+          seatpostLength: selectValue("seatpostLength"),
+          seatpostOffset: selectValue("seatpostOffset"),
+          forkTravel: selectValue("forkTravel")
+        },
         paint: state.paint,
+        accent: state.accent,
+        paintZone: document.getElementById("paintZone").value,
+        engraving: document.getElementById("engravingText").value.trim(),
+        engravingPosition: document.getElementById("engravingPosition").value,
+        decal: document.getElementById("decalStyle").value,
+        decalPosition: document.getElementById("decalPosition").value,
+        packages: build.packages,
         total: build.total,
         savedAt: new Date().toISOString()
       };
