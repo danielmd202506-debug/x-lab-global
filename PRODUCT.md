@@ -12,6 +12,8 @@ Performance road cyclists, premium bike shoppers, overseas distributors, dealers
 
 The site introduces X-LAB as a rider-facing brand, a technology proof platform, a channel partnership destination and a B2B portal entry for global dealer, distributor, retail and supplier workflows.
 
+V2 positioning shifts the homepage from product-first promotion to trust-first ecosystem building: WorldTour validation, vertical integration, Dealer First partnership and global expansion.
+
 ## Brand Personality
 
 Precise, fast, race-tested.
