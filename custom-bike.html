@@ -92,6 +92,24 @@
       background: #050607;
     }
     .preview-pane {
+      --sky-1: #162a34;
+      --sky-2: #3b5660;
+      --ground: #20262a;
+      --mountain-1: rgba(109,132,140,.72);
+      --mountain-2: rgba(67,82,88,.86);
+      --road-top: #3d4448;
+      --road-bottom: #0d1012;
+      --lane: rgba(255,255,255,.72);
+      --barrier: rgba(255,255,255,.2);
+      --prop-1: rgba(40,48,52,.72);
+      --prop-2: rgba(31,38,42,.7);
+      --speed-opacity: .2;
+      --mountain-opacity: .78;
+      --post-opacity: .08;
+      --light-opacity: .1;
+      --ceiling-opacity: 0;
+      --road-y: 0%;
+      --road-scale: 1;
       position: sticky;
       top: 92px;
       height: calc(100svh - 112px);
@@ -99,9 +117,8 @@
       border: 1px solid var(--line);
       overflow: hidden;
       background:
-        linear-gradient(90deg, rgba(5,6,7,.92), rgba(5,6,7,.28), rgba(5,6,7,.88)),
-        radial-gradient(circle at 76% 28%, color-mix(in srgb, var(--paint) 35%, transparent), transparent 34%),
-        var(--scene-photo) center / cover no-repeat,
+        linear-gradient(90deg, rgba(5,6,7,.94), rgba(5,6,7,.18), rgba(5,6,7,.88)),
+        radial-gradient(circle at 76% 28%, color-mix(in srgb, var(--paint) 36%, transparent), transparent 34%),
         #050607;
     }
     .preview-pane::after {
@@ -120,6 +137,97 @@
       padding: clamp(24px, 4vw, 54px);
     }
     .preview-copy { max-width: 42rem; margin: 18px 0 0; color: rgba(255,255,255,.82); font-size: 1.125rem; line-height: 1.62; font-weight: 600; }
+    .virtual-scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background:
+        linear-gradient(to bottom, var(--sky-1), var(--sky-2) 45%, var(--ground) 45%, #090b0d 100%);
+      transition: background .35s ease;
+    }
+    .virtual-scene::before,
+    .virtual-scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .virtual-scene::before {
+      background:
+        radial-gradient(circle at 72% 16%, color-mix(in srgb, var(--paint) 32%, transparent), transparent 13%),
+        linear-gradient(150deg, transparent 0 38%, color-mix(in srgb, var(--paint) 24%, transparent) 39% 40%, transparent 41%),
+        repeating-linear-gradient(110deg, transparent 0 54px, rgba(255,255,255,.08) 55px 56px);
+      opacity: var(--speed-opacity);
+      mix-blend-mode: screen;
+    }
+    .virtual-scene::after {
+      background: linear-gradient(to top, rgba(5,6,7,.82), rgba(5,6,7,.12) 42%, rgba(5,6,7,.34));
+      z-index: 2;
+    }
+    .scene-skyline,
+    .scene-road,
+    .scene-props,
+    .scene-lights {
+      position: absolute;
+      inset: 0;
+    }
+    .scene-skyline {
+      z-index: 0;
+      background:
+        linear-gradient(138deg, transparent 0 41%, var(--mountain-1) 41.3% 50%, transparent 50.4%) left 34% bottom 37% / 48% 42% no-repeat,
+        linear-gradient(222deg, transparent 0 42%, var(--mountain-2) 42.3% 54%, transparent 54.4%) right 10% bottom 39% / 62% 46% no-repeat,
+        linear-gradient(145deg, transparent 0 40%, rgba(255,255,255,.28) 40.3% 43%, transparent 43.4%) left 22% bottom 52% / 24% 18% no-repeat;
+      opacity: var(--mountain-opacity);
+    }
+    .scene-road {
+      z-index: 1;
+      top: 36%;
+      background:
+        linear-gradient(110deg, transparent 0 44%, var(--lane) 44.3% 44.8%, transparent 45.1%),
+        linear-gradient(250deg, transparent 0 43%, var(--lane) 43.3% 43.8%, transparent 44.1%),
+        linear-gradient(90deg, transparent 0 12%, rgba(255,255,255,.2) 12.2% 12.6%, transparent 12.8% 87%, rgba(255,255,255,.18) 87.2% 87.6%, transparent 87.8%),
+        linear-gradient(180deg, var(--road-top), var(--road-bottom));
+      clip-path: polygon(34% 0, 66% 0, 96% 100%, 4% 100%);
+      transform: translateY(var(--road-y)) scaleX(var(--road-scale));
+      transform-origin: bottom center;
+    }
+    .scene-road::after {
+      content: "";
+      position: absolute;
+      left: 49.5%;
+      top: 0;
+      width: 1.5%;
+      height: 100%;
+      background: repeating-linear-gradient(to bottom, var(--lane) 0 42px, transparent 42px 78px);
+      opacity: .84;
+      transform: perspective(420px) rotateX(24deg);
+      transform-origin: bottom;
+    }
+    .scene-props {
+      z-index: 1;
+      background:
+        radial-gradient(ellipse at 19% 74%, var(--prop-1) 0 9%, transparent 9.2%),
+        radial-gradient(ellipse at 82% 75%, var(--prop-2) 0 11%, transparent 11.2%),
+        linear-gradient(90deg, transparent 0 12%, var(--barrier) 12.2% 12.7%, transparent 13% 87%, var(--barrier) 87.3% 87.8%, transparent 88%),
+        repeating-linear-gradient(90deg, transparent 0 94px, rgba(255,255,255,var(--post-opacity)) 96px 99px, transparent 101px);
+      opacity: .96;
+    }
+    .scene-lights {
+      z-index: 2;
+      background:
+        radial-gradient(ellipse at 18% 18%, rgba(255,255,255,var(--light-opacity)), transparent 20%),
+        radial-gradient(ellipse at 62% 14%, color-mix(in srgb, var(--paint) 30%, transparent), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,var(--ceiling-opacity)) 0 12%, transparent 12.5%);
+      mix-blend-mode: screen;
+    }
+    .preview-pane[data-scene="demo"] .scene-road {
+      clip-path: polygon(0 45%, 100% 45%, 100% 100%, 0 100%);
+      transform: none;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 78px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 58px),
+        linear-gradient(180deg, #20252b, #0d1013);
+    }
     .config-pane {
       min-height: calc(100svh - 112px);
       display: grid;
@@ -162,6 +270,7 @@
       background: radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--paint) 22%, transparent), transparent 44%);
       overflow: hidden;
       transition: opacity .2s ease, transform .2s ease;
+      z-index: 3;
     }
     .bike-stage::before {
       content: "";
@@ -198,6 +307,9 @@
       font-size: .8125rem;
       font-weight: 800;
     }
+    .preview-pane[data-scene="climbing"] .bike-stage { transform: translateY(-18px) rotate(-2deg); }
+    .preview-pane[data-scene="endurance"] .bike-stage { transform: translateY(8px) scale(.96); }
+    .preview-pane[data-scene="demo"] .bike-stage { transform: translateY(18px) scale(.98); }
     .hotpoint.frame { left: 42%; top: 28%; }
     .hotpoint.wheels { right: 11%; bottom: 25%; }
     .hotpoint.cockpit { right: 22%; top: 20%; }
@@ -351,6 +463,12 @@
   <main>
     <section class="studio" id="builder">
       <div class="preview-pane" id="previewPane" aria-label="Custom bike scene preview">
+        <div class="virtual-scene" aria-hidden="true">
+          <div class="scene-skyline"></div>
+          <div class="scene-road"></div>
+          <div class="scene-props"></div>
+          <div class="scene-lights"></div>
+        </div>
         <div class="bike-stage" aria-label="Configured X-LAB bike preview">
           <div class="paint-wash"></div>
           <img src="assets/ad9-astana-side.png" alt="X-LAB custom bike side view preview">
@@ -379,10 +497,10 @@
         <div class="option-panel" id="scenes">
           <div class="eyebrow">01 / Riding Scene</div>
           <div class="scene-grid">
-            <button class="scene active" type="button" data-scene="Race Day" data-tone="Aero Priority" data-price="5299" data-copy="Aero-first build for sprints, fast groups and WorldTour-inspired buyers." data-frame="AD9 Aero Road" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 55mm Aero" data-cockpit="Aero 420x110" data-saddle="Race Narrow" data-photo="url('https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize')"><div><h3>Race Day</h3><p>Sprint and fast group ride.</p></div></button>
-            <button class="scene" type="button" data-scene="Climbing" data-tone="Weight Priority" data-price="4899" data-copy="Low-weight setup for steep roads, long gradients and prestige road riders." data-frame="RT9 Lightweight" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 35mm Climb" data-cockpit="Compact 380x90" data-saddle="Short-Nose Pro" data-photo="url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')"><div><h3>Climbing</h3><p>Low weight for gradients.</p></div></button>
-            <button class="scene" type="button" data-scene="Endurance" data-tone="Control Priority" data-price="4599" data-copy="Balanced ride feel, stable handling and comfort for high-mileage customers." data-frame="GT All-Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Endurance Comfort" data-photo="url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')"><div><h3>Endurance</h3><p>Long distance stability.</p></div></button>
-            <button class="scene" type="button" data-scene="Dealer Demo" data-tone="Retail Priority" data-price="3999" data-copy="High-impact showroom build for test rides, launch events and staff training." data-frame="AD9 Aero Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Race Narrow" data-photo="url('https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize')"><div><h3>Demo</h3><p>Showroom conversion.</p></div></button>
+            <button class="scene active" type="button" data-scene="Race Day" data-visual="race" data-tone="Aero Priority" data-price="5299" data-copy="Aero-first build for sprints, fast groups and WorldTour-inspired buyers." data-frame="AD9 Aero Road" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 55mm Aero" data-cockpit="Aero 420x110" data-saddle="Race Narrow"><div><h3>Race Day</h3><p>Sprint and fast group ride.</p></div></button>
+            <button class="scene" type="button" data-scene="Climbing" data-visual="climbing" data-tone="Weight Priority" data-price="4899" data-copy="Low-weight setup for steep roads, long gradients and prestige road riders." data-frame="RT9 Lightweight" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 35mm Climb" data-cockpit="Compact 380x90" data-saddle="Short-Nose Pro"><div><h3>Climbing</h3><p>Low weight for gradients.</p></div></button>
+            <button class="scene" type="button" data-scene="Endurance" data-visual="endurance" data-tone="Control Priority" data-price="4599" data-copy="Balanced ride feel, stable handling and comfort for high-mileage customers." data-frame="GT All-Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Endurance Comfort"><div><h3>Endurance</h3><p>Long distance stability.</p></div></button>
+            <button class="scene" type="button" data-scene="Dealer Demo" data-visual="demo" data-tone="Retail Priority" data-price="3999" data-copy="High-impact showroom build for test rides, launch events and staff training." data-frame="AD9 Aero Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Race Narrow"><div><h3>Demo</h3><p>Showroom conversion.</p></div></button>
           </div>
         </div>
 
@@ -449,9 +567,91 @@
       base: 5299,
       tone: "Aero Priority",
       copy: "Aero-first build for sprints, fast groups and WorldTour-inspired buyers.",
-      photo: "",
+      visual: "race",
       paint: "Astana Cyan",
       paintColor: "#17a7b8"
+    };
+    const sceneVisuals = {
+      race: {
+        "--sky-1": "#102535",
+        "--sky-2": "#2b4853",
+        "--ground": "#23282d",
+        "--mountain-1": "rgba(94,114,120,.36)",
+        "--mountain-2": "rgba(43,55,60,.48)",
+        "--road-top": "#40464a",
+        "--road-bottom": "#0b0e10",
+        "--lane": "rgba(255,255,255,.82)",
+        "--barrier": "rgba(255,255,255,.24)",
+        "--prop-1": "rgba(25,31,35,.58)",
+        "--prop-2": "rgba(20,25,29,.55)",
+        "--speed-opacity": ".42",
+        "--mountain-opacity": ".42",
+        "--post-opacity": ".16",
+        "--light-opacity": ".08",
+        "--ceiling-opacity": "0",
+        "--road-y": "2%",
+        "--road-scale": "1.05"
+      },
+      climbing: {
+        "--sky-1": "#173246",
+        "--sky-2": "#6f8993",
+        "--ground": "#273027",
+        "--mountain-1": "rgba(129,154,146,.86)",
+        "--mountain-2": "rgba(67,89,78,.94)",
+        "--road-top": "#53605a",
+        "--road-bottom": "#131914",
+        "--lane": "rgba(245,248,238,.72)",
+        "--barrier": "rgba(216,177,95,.24)",
+        "--prop-1": "rgba(44,82,61,.72)",
+        "--prop-2": "rgba(28,62,47,.68)",
+        "--speed-opacity": ".14",
+        "--mountain-opacity": ".96",
+        "--post-opacity": ".04",
+        "--light-opacity": ".16",
+        "--ceiling-opacity": "0",
+        "--road-y": "-8%",
+        "--road-scale": ".86"
+      },
+      endurance: {
+        "--sky-1": "#23394a",
+        "--sky-2": "#7d9295",
+        "--ground": "#313534",
+        "--mountain-1": "rgba(108,123,119,.55)",
+        "--mountain-2": "rgba(78,88,84,.62)",
+        "--road-top": "#4f5555",
+        "--road-bottom": "#111515",
+        "--lane": "rgba(255,255,255,.64)",
+        "--barrier": "rgba(255,255,255,.16)",
+        "--prop-1": "rgba(42,58,52,.62)",
+        "--prop-2": "rgba(38,50,48,.58)",
+        "--speed-opacity": ".08",
+        "--mountain-opacity": ".7",
+        "--post-opacity": ".06",
+        "--light-opacity": ".18",
+        "--ceiling-opacity": "0",
+        "--road-y": "5%",
+        "--road-scale": "1.18"
+      },
+      demo: {
+        "--sky-1": "#16191d",
+        "--sky-2": "#252a31",
+        "--ground": "#15181c",
+        "--mountain-1": "rgba(0,0,0,0)",
+        "--mountain-2": "rgba(0,0,0,0)",
+        "--road-top": "#20252b",
+        "--road-bottom": "#0d1013",
+        "--lane": "rgba(255,255,255,.2)",
+        "--barrier": "rgba(217,31,45,.38)",
+        "--prop-1": "rgba(217,31,45,.32)",
+        "--prop-2": "rgba(83,199,223,.26)",
+        "--speed-opacity": ".18",
+        "--mountain-opacity": "0",
+        "--post-opacity": ".14",
+        "--light-opacity": ".38",
+        "--ceiling-opacity": ".1",
+        "--road-y": "0%",
+        "--road-scale": "1"
+      }
     };
     const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
     const controls = ["frame", "groupset", "wheels", "cockpit", "saddle"].map((id) => document.getElementById(id));
@@ -467,7 +667,10 @@
       return { value: option.value, price: Number(option.dataset.price || 0) };
     }
     function updateScenePreview() {
-      if (state.photo) previewPane.style.setProperty("--scene-photo", state.photo);
+      previewPane.dataset.scene = state.visual;
+      Object.entries(sceneVisuals[state.visual] || sceneVisuals.race).forEach(([key, value]) => {
+        previewPane.style.setProperty(key, value);
+      });
       document.getElementById("previewEyebrow").textContent = `${state.scene} / ${state.tone}`;
       document.getElementById("previewTitle").textContent = `${state.scene} build`;
       document.getElementById("previewCopy").textContent = state.copy;
@@ -507,7 +710,7 @@
         state.base = Number(button.dataset.price || 5299);
         state.tone = button.dataset.tone || "";
         state.copy = button.dataset.copy || "";
-        state.photo = button.dataset.photo || "";
+        state.visual = button.dataset.visual || "race";
         setSelectValue("frame", button.dataset.frame);
         setSelectValue("groupset", button.dataset.groupset);
         setSelectValue("wheels", button.dataset.wheels);
@@ -547,7 +750,7 @@
       state.base = Number(activeScene.dataset.price || state.base);
       state.tone = activeScene.dataset.tone || state.tone;
       state.copy = activeScene.dataset.copy || state.copy;
-      state.photo = activeScene.dataset.photo || state.photo;
+      state.visual = activeScene.dataset.visual || state.visual;
       setSelectValue("frame", activeScene.dataset.frame);
       setSelectValue("groupset", activeScene.dataset.groupset);
       setSelectValue("wheels", activeScene.dataset.wheels);
