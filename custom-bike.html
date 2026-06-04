@@ -83,24 +83,59 @@
     h3 { margin: 0; font-size: 2rem; line-height: .98; font-weight: 800; }
     .lead { max-width: 64ch; color: var(--muted); font-size: 1.125rem; line-height: 1.68; margin: 0; }
 
-    .hero {
+    .studio {
       min-height: 100svh;
       display: grid;
-      align-items: end;
-      padding: 132px 0 46px;
-      background:
-        linear-gradient(90deg, rgba(5,6,7,.96), rgba(5,6,7,.58), rgba(5,6,7,.88)),
-        radial-gradient(circle at 76% 28%, color-mix(in srgb, var(--paint) 35%, transparent), transparent 34%),
-        #050607;
+      grid-template-columns: minmax(0, 1.12fr) minmax(380px, .88fr);
+      padding: 92px 20px 20px;
+      gap: 20px;
+      background: #050607;
+    }
+    .preview-pane {
+      position: sticky;
+      top: 92px;
+      height: calc(100svh - 112px);
+      min-height: 620px;
+      border: 1px solid var(--line);
       overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,.92), rgba(5,6,7,.28), rgba(5,6,7,.88)),
+        radial-gradient(circle at 76% 28%, color-mix(in srgb, var(--paint) 35%, transparent), transparent 34%),
+        var(--scene-photo) center / cover no-repeat,
+        #050607;
     }
-    .hero-layout {
+    .preview-pane::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,6,7,.96) 0%, transparent 42%);
+      pointer-events: none;
+    }
+    .preview-content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      padding: clamp(24px, 4vw, 54px);
+    }
+    .preview-copy { max-width: 42rem; margin: 18px 0 0; color: rgba(255,255,255,.82); font-size: 1.125rem; line-height: 1.62; font-weight: 600; }
+    .config-pane {
+      min-height: calc(100svh - 112px);
       display: grid;
-      grid-template-columns: minmax(0, .82fr) minmax(420px, 1.18fr);
-      gap: clamp(28px, 5vw, 70px);
-      align-items: end;
+      align-content: start;
+      gap: 14px;
     }
-    .hero-copy { max-width: 36rem; margin: 26px 0 0; color: rgba(255,255,255,.8); font-size: 1.375rem; line-height: 1.42; font-weight: 600; }
+    .config-intro {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+    }
+    .config-intro h1 {
+      font-size: 4.25rem;
+      max-width: 10ch;
+    }
+    .hero-copy { max-width: 36rem; margin: 20px 0 0; color: rgba(255,255,255,.8); font-size: 1.125rem; line-height: 1.62; font-weight: 600; }
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
     .btn {
       min-height: 48px;
@@ -117,15 +152,16 @@
     .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
     .btn.primary { border-color: var(--red); background: var(--red); }
     .bike-stage {
-      position: relative;
-      min-height: 440px;
+      position: absolute;
+      left: clamp(18px, 3vw, 42px);
+      right: clamp(18px, 3vw, 42px);
+      top: 14%;
+      min-height: 48%;
       display: grid;
       place-items: center;
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--paint) 18%, transparent), transparent 42%),
-        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+      background: radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--paint) 22%, transparent), transparent 44%);
       overflow: hidden;
+      transition: opacity .2s ease, transform .2s ease;
     }
     .bike-stage::before {
       content: "";
@@ -139,7 +175,7 @@
     .bike-stage img {
       position: relative;
       z-index: 1;
-      width: min(96%, 900px);
+      width: min(96%, 980px);
       filter: drop-shadow(0 26px 42px rgba(0,0,0,.36)) saturate(1.08);
     }
     .paint-wash {
@@ -187,40 +223,24 @@
       background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
     }
     .scene {
-      min-height: 310px;
-      padding: 22px;
-      display: flex;
-      align-items: end;
+      min-height: auto;
+      padding: 16px;
+      display: grid;
       position: relative;
-      overflow: hidden;
       cursor: pointer;
       color: #fff;
       text-align: left;
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
     }
-    .scene::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: var(--photo) center / cover;
-      filter: saturate(1.08);
-      transition: transform .45s ease;
-    }
-    .scene::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.12));
-    }
-    .scene.active { border-color: var(--red); }
-    .scene:hover::before { transform: scale(1.06); }
+    .scene:hover { transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .scene.active { border-color: var(--red); background: linear-gradient(180deg, rgba(217,31,45,.18), rgba(255,255,255,.035)); }
     .scene > div { position: relative; z-index: 1; }
     .scene p { margin: 12px 0 0; color: rgba(255,255,255,.76); line-height: 1.55; }
 
     .builder {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .72fr);
-      gap: 20px;
+      grid-template-columns: 1fr;
+      gap: 14px;
       align-items: start;
     }
     .option-panel { padding: 22px; display: grid; gap: 18px; }
@@ -256,8 +276,6 @@
     .part span { color: var(--cyan); font-size: .75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
     .part p { color: var(--muted); margin: 12px 0 0; line-height: 1.58; }
     .summary {
-      position: sticky;
-      top: 92px;
       padding: 22px;
     }
     .summary h3 { margin-bottom: 16px; }
@@ -297,18 +315,21 @@
       .nav-links a:not(.nav-cta) { display: none; }
       h1 { font-size: 5.5rem; }
       h2 { font-size: 3.5rem; }
-      .hero-layout, .section-head, .builder { grid-template-columns: 1fr; }
+      .studio, .section-head, .builder { grid-template-columns: 1fr; }
+      .preview-pane { position: relative; top: 0; height: auto; min-height: 680px; }
+      .bike-stage { top: 13%; min-height: 42%; }
       .scene-grid, .support-grid { grid-template-columns: repeat(2, 1fr); }
-      .summary { position: static; }
     }
     @media (max-width: 640px) {
       .nav { height: 62px; }
       .brand { width: 112px; height: 26px; }
       h1 { font-size: 4rem; max-width: 9ch; }
       h2 { font-size: 2.875rem; }
-      .hero { padding-top: 104px; }
+      .studio { padding-top: 78px; }
       .hero-copy, .lead { font-size: 1rem; line-height: 1.62; }
-      .bike-stage { min-height: 290px; }
+      .config-intro h1 { font-size: 3.25rem; }
+      .preview-pane { min-height: 560px; }
+      .bike-stage { top: 12%; min-height: 260px; }
       .hotpoint { display: none; }
       .scene-grid, .part-grid, .support-grid { grid-template-columns: 1fr; }
       .control { grid-template-columns: 1fr; }
@@ -328,66 +349,61 @@
   </nav>
 
   <main>
-    <header class="hero">
-      <div class="wrap hero-layout">
-        <div>
+    <section class="studio" id="builder">
+      <div class="preview-pane" id="previewPane" aria-label="Custom bike scene preview">
+        <div class="bike-stage" aria-label="Configured X-LAB bike preview">
+          <div class="paint-wash"></div>
+          <img src="assets/ad9-astana-side.png" alt="X-LAB custom bike side view preview">
+          <span class="hotpoint frame" id="tagFrame">AD9 Aero Road</span>
+          <span class="hotpoint wheels" id="tagWheels">Carbon 45mm All-Round</span>
+          <span class="hotpoint cockpit" id="tagCockpit">Integrated 400x100</span>
+          <span class="hotpoint groupset" id="tagGroupset">Shimano 105 Di2</span>
+        </div>
+        <div class="preview-content">
+          <div class="eyebrow" id="previewEyebrow">Race Day / Aero Priority</div>
+          <h1 id="previewTitle">Build for the ride you sell.</h1>
+          <p class="preview-copy" id="previewCopy">Aero-first build for sprints, fast groups and WorldTour-inspired buyers.</p>
+        </div>
+      </div>
+
+      <aside class="config-pane" aria-label="Custom bike configuration controls">
+        <div class="config-intro">
           <div class="eyebrow">X-LAB Custom Studio</div>
-          <h1>Build for the ride you sell.</h1>
-          <p class="hero-copy">Configure a race-proven platform by scene, component system, paint and fit, then turn the build into a rider quote or dealer request.</p>
+          <h1>Configure live.</h1>
+          <p class="hero-copy">Choose the riding scene, paint and parts on the right. The bike, environment and component callouts update immediately on the left.</p>
           <div class="actions">
-            <a class="btn primary" href="#builder">Start Configuring</a>
             <a class="btn" href="partner-portal.html#pricing">Partner Pricing</a>
           </div>
         </div>
-        <div class="bike-stage" aria-label="Custom AD9 bike preview">
-          <div class="paint-wash"></div>
-          <img src="assets/ad9-astana-side.png" alt="X-LAB AD9 side view for custom build preview">
-          <span class="hotpoint frame">Frame Platform</span>
-          <span class="hotpoint wheels">Wheel System</span>
-          <span class="hotpoint cockpit">Cockpit Fit</span>
-          <span class="hotpoint groupset">Groupset</span>
-        </div>
-      </div>
-    </header>
 
-    <section class="section" id="scenes">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Choose the scene first.</h2>
-          <p class="lead">A custom bike should start with the job it needs to do. The scene sets geometry priority, wheel depth, gearing and dealer selling story.</p>
-        </div>
-        <div class="scene-grid">
-          <button class="scene active" type="button" data-scene="Race Day" data-price="5299" style="--photo:url('https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize')"><div><h3>Race Day</h3><p>Aero-first build for sprints, fast groups and WorldTour-inspired buyers.</p></div></button>
-          <button class="scene" type="button" data-scene="Climbing" data-price="4899" style="--photo:url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')"><div><h3>Climbing</h3><p>Low-weight setup for steep roads, long gradients and prestige road riders.</p></div></button>
-          <button class="scene" type="button" data-scene="Endurance" data-price="4599" style="--photo:url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')"><div><h3>Endurance</h3><p>Balanced ride feel, stable handling and comfort for high-mileage customers.</p></div></button>
-          <button class="scene" type="button" data-scene="Dealer Demo" data-price="3999" style="--photo:url('https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize')"><div><h3>Dealer Demo</h3><p>High-impact showroom build for test rides, launch events and staff training.</p></div></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section light" id="builder">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Configure the bike.</h2>
-          <p class="lead">Select the major parts that shape ride feel, value and delivery. The quote summary updates as the build changes.</p>
-        </div>
-        <div class="builder">
-          <div>
-            <div class="option-panel">
-              <div class="control"><label for="frame">Frame</label><select id="frame"><option value="AD9 Aero Road" data-price="0">AD9 Aero Road</option><option value="RT9 Lightweight" data-price="-300">RT9 Lightweight</option><option value="GT All-Road" data-price="-900">GT All-Road</option></select></div>
-              <div class="control"><label for="groupset">Groupset</label><select id="groupset"><option value="Shimano 105 Di2" data-price="0">Shimano 105 Di2</option><option value="Shimano Ultegra Di2" data-price="850">Shimano Ultegra Di2</option><option value="SRAM Force AXS" data-price="1100">SRAM Force AXS</option><option value="Shimano Dura-Ace Di2" data-price="2300">Shimano Dura-Ace Di2</option></select></div>
-              <div class="control"><label for="wheels">Wheels</label><select id="wheels"><option value="Carbon 45mm All-Round" data-price="0">Carbon 45mm All-Round</option><option value="Carbon 55mm Aero" data-price="420">Carbon 55mm Aero</option><option value="Carbon 35mm Climb" data-price="300">Carbon 35mm Climb</option><option value="Carbon 65mm Sprint" data-price="680">Carbon 65mm Sprint</option></select></div>
-              <div class="control"><label for="cockpit">Cockpit</label><select id="cockpit"><option value="Integrated 400x100" data-price="0">Integrated 400x100</option><option value="Compact 380x90" data-price="120">Compact 380x90</option><option value="Aero 420x110" data-price="180">Aero 420x110</option></select></div>
-              <div class="control"><label for="saddle">Saddle</label><select id="saddle"><option value="Race Narrow" data-price="0">Race Narrow</option><option value="Endurance Comfort" data-price="90">Endurance Comfort</option><option value="Short-Nose Pro" data-price="160">Short-Nose Pro</option></select></div>
-              <div class="control"><label>Paint</label><div class="swatches"><button class="swatch active" type="button" data-paint="#17a7b8" data-name="Astana Cyan" style="--swatch:#17a7b8"></button><button class="swatch" type="button" data-paint="#d91f2d" data-name="Race Red" style="--swatch:#d91f2d"></button><button class="swatch" type="button" data-paint="#d8b15f" data-name="Champagne Gold" style="--swatch:#d8b15f"></button><button class="swatch" type="button" data-paint="#d7dde2" data-name="Silver Graphite" style="--swatch:#d7dde2"></button></div></div>
-            </div>
-            <div class="part-grid" aria-label="Configured component explanation">
-              <article class="part"><span>Frame</span><div><h3 id="partFrame">AD9 Aero Road</h3><p>Core platform selected for the riding scene and customer intent.</p></div></article>
-              <article class="part"><span>Drivetrain</span><div><h3 id="partGroupset">Shimano 105 Di2</h3><p>Electronic shift system matched to price, performance and service needs.</p></div></article>
-              <article class="part"><span>Wheelset</span><div><h3 id="partWheels">Carbon 45mm All-Round</h3><p>Rim depth tuned for speed, climbing or stability.</p></div></article>
-              <article class="part"><span>Fit</span><div><h3 id="partCockpit">Integrated 400x100</h3><p>Cockpit dimensions shape reach, control and rider position.</p></div></article>
-            </div>
+        <div class="option-panel" id="scenes">
+          <div class="eyebrow">01 / Riding Scene</div>
+          <div class="scene-grid">
+            <button class="scene active" type="button" data-scene="Race Day" data-tone="Aero Priority" data-price="5299" data-copy="Aero-first build for sprints, fast groups and WorldTour-inspired buyers." data-frame="AD9 Aero Road" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 55mm Aero" data-cockpit="Aero 420x110" data-saddle="Race Narrow" data-photo="url('https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize')"><div><h3>Race Day</h3><p>Sprint and fast group ride.</p></div></button>
+            <button class="scene" type="button" data-scene="Climbing" data-tone="Weight Priority" data-price="4899" data-copy="Low-weight setup for steep roads, long gradients and prestige road riders." data-frame="RT9 Lightweight" data-groupset="Shimano Ultegra Di2" data-wheels="Carbon 35mm Climb" data-cockpit="Compact 380x90" data-saddle="Short-Nose Pro" data-photo="url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')"><div><h3>Climbing</h3><p>Low weight for gradients.</p></div></button>
+            <button class="scene" type="button" data-scene="Endurance" data-tone="Control Priority" data-price="4599" data-copy="Balanced ride feel, stable handling and comfort for high-mileage customers." data-frame="GT All-Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Endurance Comfort" data-photo="url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')"><div><h3>Endurance</h3><p>Long distance stability.</p></div></button>
+            <button class="scene" type="button" data-scene="Dealer Demo" data-tone="Retail Priority" data-price="3999" data-copy="High-impact showroom build for test rides, launch events and staff training." data-frame="AD9 Aero Road" data-groupset="Shimano 105 Di2" data-wheels="Carbon 45mm All-Round" data-cockpit="Integrated 400x100" data-saddle="Race Narrow" data-photo="url('https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize')"><div><h3>Demo</h3><p>Showroom conversion.</p></div></button>
           </div>
+        </div>
+
+        <div class="builder">
+          <div class="option-panel">
+            <div class="eyebrow">02 / Components</div>
+            <div class="control"><label for="frame">Frame</label><select id="frame"><option value="AD9 Aero Road" data-price="0">AD9 Aero Road</option><option value="RT9 Lightweight" data-price="-300">RT9 Lightweight</option><option value="GT All-Road" data-price="-900">GT All-Road</option></select></div>
+            <div class="control"><label for="groupset">Groupset</label><select id="groupset"><option value="Shimano 105 Di2" data-price="0">Shimano 105 Di2</option><option value="Shimano Ultegra Di2" data-price="850">Shimano Ultegra Di2</option><option value="SRAM Force AXS" data-price="1100">SRAM Force AXS</option><option value="Shimano Dura-Ace Di2" data-price="2300">Shimano Dura-Ace Di2</option></select></div>
+            <div class="control"><label for="wheels">Wheels</label><select id="wheels"><option value="Carbon 45mm All-Round" data-price="0">Carbon 45mm All-Round</option><option value="Carbon 55mm Aero" data-price="420">Carbon 55mm Aero</option><option value="Carbon 35mm Climb" data-price="300">Carbon 35mm Climb</option><option value="Carbon 65mm Sprint" data-price="680">Carbon 65mm Sprint</option></select></div>
+            <div class="control"><label for="cockpit">Cockpit</label><select id="cockpit"><option value="Integrated 400x100" data-price="0">Integrated 400x100</option><option value="Compact 380x90" data-price="120">Compact 380x90</option><option value="Aero 420x110" data-price="180">Aero 420x110</option></select></div>
+            <div class="control"><label for="saddle">Saddle</label><select id="saddle"><option value="Race Narrow" data-price="0">Race Narrow</option><option value="Endurance Comfort" data-price="90">Endurance Comfort</option><option value="Short-Nose Pro" data-price="160">Short-Nose Pro</option></select></div>
+            <div class="control"><label>Paint</label><div class="swatches"><button class="swatch active" type="button" data-paint="#17a7b8" data-name="Astana Cyan" style="--swatch:#17a7b8"></button><button class="swatch" type="button" data-paint="#d91f2d" data-name="Race Red" style="--swatch:#d91f2d"></button><button class="swatch" type="button" data-paint="#d8b15f" data-name="Champagne Gold" style="--swatch:#d8b15f"></button><button class="swatch" type="button" data-paint="#d7dde2" data-name="Silver Graphite" style="--swatch:#d7dde2"></button></div></div>
+          </div>
+
+          <div class="part-grid" aria-label="Configured component explanation">
+            <article class="part"><span>Frame</span><div><h3 id="partFrame">AD9 Aero Road</h3><p>Core platform selected for the riding scene and customer intent.</p></div></article>
+            <article class="part"><span>Drivetrain</span><div><h3 id="partGroupset">Shimano 105 Di2</h3><p>Electronic shift system matched to price, performance and service needs.</p></div></article>
+            <article class="part"><span>Wheelset</span><div><h3 id="partWheels">Carbon 45mm All-Round</h3><p>Rim depth tuned for speed, climbing or stability.</p></div></article>
+            <article class="part"><span>Fit</span><div><h3 id="partCockpit">Integrated 400x100</h3><p>Cockpit dimensions shape reach, control and rider position.</p></div></article>
+          </div>
+
           <aside class="summary" aria-label="Custom bike build summary">
             <div class="eyebrow">Live build summary</div>
             <h3 id="summaryTitle">Race Day Build</h3>
@@ -402,7 +418,7 @@
             <div class="saved" id="saved"></div>
           </aside>
         </div>
-      </div>
+      </aside>
     </section>
 
     <section class="section" id="support">
@@ -431,14 +447,30 @@
     const state = {
       scene: "Race Day",
       base: 5299,
+      tone: "Aero Priority",
+      copy: "Aero-first build for sprints, fast groups and WorldTour-inspired buyers.",
+      photo: "",
       paint: "Astana Cyan",
       paintColor: "#17a7b8"
     };
     const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
     const controls = ["frame", "groupset", "wheels", "cockpit", "saddle"].map((id) => document.getElementById(id));
+    const previewPane = document.getElementById("previewPane");
+    function setSelectValue(id, value) {
+      const control = document.getElementById(id);
+      if (!value || !control) return;
+      const option = Array.from(control.options).find((item) => item.value === value);
+      if (option) control.value = value;
+    }
     function selected(control) {
       const option = control.options[control.selectedIndex];
       return { value: option.value, price: Number(option.dataset.price || 0) };
+    }
+    function updateScenePreview() {
+      if (state.photo) previewPane.style.setProperty("--scene-photo", state.photo);
+      document.getElementById("previewEyebrow").textContent = `${state.scene} / ${state.tone}`;
+      document.getElementById("previewTitle").textContent = `${state.scene} build`;
+      document.getElementById("previewCopy").textContent = state.copy;
     }
     function updateBuild() {
       const frame = selected(document.getElementById("frame"));
@@ -448,6 +480,7 @@
       const saddle = selected(document.getElementById("saddle"));
       const total = state.base + frame.price + groupset.price + wheels.price + cockpit.price + saddle.price;
       document.documentElement.style.setProperty("--paint", state.paintColor);
+      updateScenePreview();
       document.getElementById("summaryTitle").textContent = `${state.scene} Build`;
       document.getElementById("sumScene").textContent = state.scene;
       document.getElementById("sumFrame").textContent = frame.value;
@@ -460,6 +493,10 @@
       document.getElementById("partGroupset").textContent = groupset.value;
       document.getElementById("partWheels").textContent = wheels.value;
       document.getElementById("partCockpit").textContent = cockpit.value;
+      document.getElementById("tagFrame").textContent = frame.value;
+      document.getElementById("tagGroupset").textContent = groupset.value;
+      document.getElementById("tagWheels").textContent = wheels.value;
+      document.getElementById("tagCockpit").textContent = cockpit.value;
       return { frame, groupset, wheels, cockpit, saddle, total };
     }
     document.querySelectorAll(".scene").forEach((button) => {
@@ -468,6 +505,14 @@
         button.classList.add("active");
         state.scene = button.dataset.scene;
         state.base = Number(button.dataset.price || 5299);
+        state.tone = button.dataset.tone || "";
+        state.copy = button.dataset.copy || "";
+        state.photo = button.dataset.photo || "";
+        setSelectValue("frame", button.dataset.frame);
+        setSelectValue("groupset", button.dataset.groupset);
+        setSelectValue("wheels", button.dataset.wheels);
+        setSelectValue("cockpit", button.dataset.cockpit);
+        setSelectValue("saddle", button.dataset.saddle);
         updateBuild();
       });
     });
@@ -496,6 +541,19 @@
       localStorage.setItem("xlabCustomBuild", JSON.stringify(saved));
       document.getElementById("saved").textContent = `Saved ${state.scene} build at ${money.format(build.total)}.`;
     });
+    const activeScene = document.querySelector(".scene.active");
+    if (activeScene) {
+      state.scene = activeScene.dataset.scene;
+      state.base = Number(activeScene.dataset.price || state.base);
+      state.tone = activeScene.dataset.tone || state.tone;
+      state.copy = activeScene.dataset.copy || state.copy;
+      state.photo = activeScene.dataset.photo || state.photo;
+      setSelectValue("frame", activeScene.dataset.frame);
+      setSelectValue("groupset", activeScene.dataset.groupset);
+      setSelectValue("wheels", activeScene.dataset.wheels);
+      setSelectValue("cockpit", activeScene.dataset.cockpit);
+      setSelectValue("saddle", activeScene.dataset.saddle);
+    }
     updateBuild();
   </script>
 </body>
