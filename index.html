@@ -224,6 +224,14 @@
       align-items: end;
       margin-bottom: clamp(34px, 5vw, 56px);
     }
+    .section-head.single {
+      display: block;
+    }
+    .section-head.single h2 {
+      white-space: nowrap;
+      max-width: none;
+      font-size: clamp(40px, 5.3vw, 76px);
+    }
     h2 {
       margin: 0;
       font-size: clamp(36px, 6.4vw, 82px);
@@ -681,6 +689,10 @@
       .actions .btn { flex: 1 1 180px; }
       .choice { min-width: calc(50% - 8px); }
       .story-panel h2.nowrap { font-size: clamp(34px, 10vw, 54px); }
+      .section-head.single h2 {
+        white-space: normal;
+        font-size: clamp(34px, 10vw, 54px);
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       *,
@@ -791,7 +803,7 @@
 
     <section class="section products" id="bikes">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head single">
           <h2>Choose by the ride, not the catalog.</h2>
         </div>
         <div class="product-grid">
