@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB custom bike configurator for riding scenes, components, paint and partner quotation.">
+  <title>X-LAB Custom Bike Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050607;
+      --panel: #111418;
+      --panel-2: #191d22;
+      --ink: #f6f8fa;
+      --muted: #aab1b8;
+      --line: rgba(255,255,255,.14);
+      --red: #d91f2d;
+      --cyan: #53c7df;
+      --gold: #d8b15f;
+      --paint: #17a7b8;
+      --max: 1220px;
+      --font-display: "Barlow Condensed", "Arial Narrow", "Impact", sans-serif;
+      --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      height: 72px;
+      padding: 0 clamp(20px, 4vw, 56px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(5,6,7,.9), rgba(5,6,7,.5), transparent);
+      backdrop-filter: blur(12px);
+    }
+    .brand { width: 132px; height: 30px; display: flex; align-items: center; }
+    .brand-logo { width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: rgba(255,255,255,.82); font-size: .875rem; font-weight: 800; }
+    .nav-cta { padding: 10px 16px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.08); }
+
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: .75rem;
+      letter-spacing: .18em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    h1 {
+      max-width: 12ch;
+      margin: 18px 0 0;
+      font-size: 7.5rem;
+      line-height: .84;
+      font-weight: 900;
+    }
+    h2 { margin-bottom: 0; font-size: 4.5rem; line-height: .94; font-weight: 800; }
+    h3 { margin: 0; font-size: 2rem; line-height: .98; font-weight: 800; }
+    .lead { max-width: 64ch; color: var(--muted); font-size: 1.125rem; line-height: 1.68; margin: 0; }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 132px 0 46px;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,.96), rgba(5,6,7,.58), rgba(5,6,7,.88)),
+        radial-gradient(circle at 76% 28%, color-mix(in srgb, var(--paint) 35%, transparent), transparent 34%),
+        #050607;
+      overflow: hidden;
+    }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, .82fr) minmax(420px, 1.18fr);
+      gap: clamp(28px, 5vw, 70px);
+      align-items: end;
+    }
+    .hero-copy { max-width: 36rem; margin: 26px 0 0; color: rgba(255,255,255,.8); font-size: 1.375rem; line-height: 1.42; font-weight: 600; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .btn {
+      min-height: 48px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
+    .btn.primary { border-color: var(--red); background: var(--red); }
+    .bike-stage {
+      position: relative;
+      min-height: 440px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--paint) 18%, transparent), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+      overflow: hidden;
+    }
+    .bike-stage::before {
+      content: "";
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      bottom: 24%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--paint) 72%, #fff), transparent);
+    }
+    .bike-stage img {
+      position: relative;
+      z-index: 1;
+      width: min(96%, 900px);
+      filter: drop-shadow(0 26px 42px rgba(0,0,0,.36)) saturate(1.08);
+    }
+    .paint-wash {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, transparent 20%, color-mix(in srgb, var(--paint) 28%, transparent) 48%, transparent 72%);
+      mix-blend-mode: screen;
+      opacity: .7;
+      pointer-events: none;
+    }
+    .hotpoint {
+      position: absolute;
+      z-index: 2;
+      min-width: 118px;
+      padding: 9px 10px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(5,6,7,.74);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,.86);
+      font-size: .8125rem;
+      font-weight: 800;
+    }
+    .hotpoint.frame { left: 42%; top: 28%; }
+    .hotpoint.wheels { right: 11%; bottom: 25%; }
+    .hotpoint.cockpit { right: 22%; top: 20%; }
+    .hotpoint.groupset { left: 44%; bottom: 23%; }
+
+    .section { padding: clamp(78px, 8vw, 118px) 0; }
+    .section.light { background: #f4f5f3; color: #080a0d; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .58fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: end;
+      margin-bottom: 30px;
+    }
+    .section.light .lead { color: #505961; }
+    .scene-grid, .part-grid, .support-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .scene, .part, .support, .summary, .option-panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+    }
+    .scene {
+      min-height: 310px;
+      padding: 22px;
+      display: flex;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      color: #fff;
+      text-align: left;
+    }
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: var(--photo) center / cover;
+      filter: saturate(1.08);
+      transition: transform .45s ease;
+    }
+    .scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.12));
+    }
+    .scene.active { border-color: var(--red); }
+    .scene:hover::before { transform: scale(1.06); }
+    .scene > div { position: relative; z-index: 1; }
+    .scene p { margin: 12px 0 0; color: rgba(255,255,255,.76); line-height: 1.55; }
+
+    .builder {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .72fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .option-panel { padding: 22px; display: grid; gap: 18px; }
+    .control {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+    .control:last-child { border-bottom: 0; padding-bottom: 0; }
+    .control label { color: var(--muted); font-size: .8125rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+    select, input {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      background: #080a0c;
+      color: #fff;
+      padding: 0 12px;
+    }
+    .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+    .swatch {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: var(--swatch);
+      cursor: pointer;
+    }
+    .swatch.active { outline: 2px solid #fff; outline-offset: 3px; }
+    .part-grid { grid-template-columns: repeat(2, 1fr); }
+    .part { min-height: 188px; padding: 20px; display: grid; align-content: space-between; }
+    .part span { color: var(--cyan); font-size: .75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .part p { color: var(--muted); margin: 12px 0 0; line-height: 1.58; }
+    .summary {
+      position: sticky;
+      top: 92px;
+      padding: 22px;
+    }
+    .summary h3 { margin-bottom: 16px; }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .summary-row strong { color: #fff; text-align: right; }
+    .total { margin-top: 20px; font-family: var(--font-display); font-size: 3.25rem; line-height: .9; font-weight: 900; }
+    .saved {
+      min-height: 24px;
+      margin-top: 14px;
+      color: var(--cyan);
+      font-weight: 800;
+    }
+    .support-grid { grid-template-columns: repeat(3, 1fr); }
+    .support {
+      min-height: 220px;
+      padding: 22px;
+      display: grid;
+      align-content: space-between;
+    }
+    .section.light .support { background: #fff; border-color: rgba(0,0,0,.12); }
+    .section.light .support p { color: #505961; }
+    footer {
+      padding: 46px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 960px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      h1 { font-size: 5.5rem; }
+      h2 { font-size: 3.5rem; }
+      .hero-layout, .section-head, .builder { grid-template-columns: 1fr; }
+      .scene-grid, .support-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary { position: static; }
+    }
+    @media (max-width: 640px) {
+      .nav { height: 62px; }
+      .brand { width: 112px; height: 26px; }
+      h1 { font-size: 4rem; max-width: 9ch; }
+      h2 { font-size: 2.875rem; }
+      .hero { padding-top: 104px; }
+      .hero-copy, .lead { font-size: 1rem; line-height: 1.62; }
+      .bike-stage { min-height: 290px; }
+      .hotpoint { display: none; }
+      .scene-grid, .part-grid, .support-grid { grid-template-columns: 1fr; }
+      .control { grid-template-columns: 1fr; }
+      .actions .btn { flex: 1 1 180px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Custom bike navigation">
+    <a class="brand" href="index.html" aria-label="X-LAB home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links">
+      <a href="#scenes">Scenes</a>
+      <a href="#builder">Components</a>
+      <a href="#support">Support</a>
+      <a class="nav-cta" href="supplier-login.html">Partner Login</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="wrap hero-layout">
+        <div>
+          <div class="eyebrow">X-LAB Custom Studio</div>
+          <h1>Build for the ride you sell.</h1>
+          <p class="hero-copy">Configure a race-proven platform by scene, component system, paint and fit, then turn the build into a rider quote or dealer request.</p>
+          <div class="actions">
+            <a class="btn primary" href="#builder">Start Configuring</a>
+            <a class="btn" href="partner-portal.html#pricing">Partner Pricing</a>
+          </div>
+        </div>
+        <div class="bike-stage" aria-label="Custom AD9 bike preview">
+          <div class="paint-wash"></div>
+          <img src="assets/ad9-astana-side.png" alt="X-LAB AD9 side view for custom build preview">
+          <span class="hotpoint frame">Frame Platform</span>
+          <span class="hotpoint wheels">Wheel System</span>
+          <span class="hotpoint cockpit">Cockpit Fit</span>
+          <span class="hotpoint groupset">Groupset</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="scenes">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Choose the scene first.</h2>
+          <p class="lead">A custom bike should start with the job it needs to do. The scene sets geometry priority, wheel depth, gearing and dealer selling story.</p>
+        </div>
+        <div class="scene-grid">
+          <button class="scene active" type="button" data-scene="Race Day" data-price="5299" style="--photo:url('https://images.openai.com/static-rsc-4/KFlOXp9UKR1JhvjC15c0RfJDoGHCn36CHM59VXvuc_XIMx6eovJXUcAhWEKThpPI9Bk647IATvdVarBvHe_Bd48SwVuRq11Sqg1TyLXANBOjun1GMornAkv43_7g94klIqu1wA7MP0TFzR8u_3TnLvcEbdYWiEJUgwiY-NIB621XgIjZr8mYXhn1LzLOot8e?purpose=fullsize')"><div><h3>Race Day</h3><p>Aero-first build for sprints, fast groups and WorldTour-inspired buyers.</p></div></button>
+          <button class="scene" type="button" data-scene="Climbing" data-price="4899" style="--photo:url('https://images.openai.com/static-rsc-4/KFgNkAF2sijQBEw92Utljx2O7Czg7f9DERYxtvFz1x4KM_iwT66mV79ththH_bFXkb9nnBHyMIlqcyqUkQWhrVcQZv_ebCX2r-Z5KFurknxDwrA2TWcI-xeJxh_iTPrfyAUtV60g1d70TGDIs5ZC0r7fxU77HlZzISrp3qFQRRLK8gy0ZYoHGXGyQQmvU8Tb?purpose=fullsize')"><div><h3>Climbing</h3><p>Low-weight setup for steep roads, long gradients and prestige road riders.</p></div></button>
+          <button class="scene" type="button" data-scene="Endurance" data-price="4599" style="--photo:url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')"><div><h3>Endurance</h3><p>Balanced ride feel, stable handling and comfort for high-mileage customers.</p></div></button>
+          <button class="scene" type="button" data-scene="Dealer Demo" data-price="3999" style="--photo:url('https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize')"><div><h3>Dealer Demo</h3><p>High-impact showroom build for test rides, launch events and staff training.</p></div></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section light" id="builder">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Configure the bike.</h2>
+          <p class="lead">Select the major parts that shape ride feel, value and delivery. The quote summary updates as the build changes.</p>
+        </div>
+        <div class="builder">
+          <div>
+            <div class="option-panel">
+              <div class="control"><label for="frame">Frame</label><select id="frame"><option value="AD9 Aero Road" data-price="0">AD9 Aero Road</option><option value="RT9 Lightweight" data-price="-300">RT9 Lightweight</option><option value="GT All-Road" data-price="-900">GT All-Road</option></select></div>
+              <div class="control"><label for="groupset">Groupset</label><select id="groupset"><option value="Shimano 105 Di2" data-price="0">Shimano 105 Di2</option><option value="Shimano Ultegra Di2" data-price="850">Shimano Ultegra Di2</option><option value="SRAM Force AXS" data-price="1100">SRAM Force AXS</option><option value="Shimano Dura-Ace Di2" data-price="2300">Shimano Dura-Ace Di2</option></select></div>
+              <div class="control"><label for="wheels">Wheels</label><select id="wheels"><option value="Carbon 45mm All-Round" data-price="0">Carbon 45mm All-Round</option><option value="Carbon 55mm Aero" data-price="420">Carbon 55mm Aero</option><option value="Carbon 35mm Climb" data-price="300">Carbon 35mm Climb</option><option value="Carbon 65mm Sprint" data-price="680">Carbon 65mm Sprint</option></select></div>
+              <div class="control"><label for="cockpit">Cockpit</label><select id="cockpit"><option value="Integrated 400x100" data-price="0">Integrated 400x100</option><option value="Compact 380x90" data-price="120">Compact 380x90</option><option value="Aero 420x110" data-price="180">Aero 420x110</option></select></div>
+              <div class="control"><label for="saddle">Saddle</label><select id="saddle"><option value="Race Narrow" data-price="0">Race Narrow</option><option value="Endurance Comfort" data-price="90">Endurance Comfort</option><option value="Short-Nose Pro" data-price="160">Short-Nose Pro</option></select></div>
+              <div class="control"><label>Paint</label><div class="swatches"><button class="swatch active" type="button" data-paint="#17a7b8" data-name="Astana Cyan" style="--swatch:#17a7b8"></button><button class="swatch" type="button" data-paint="#d91f2d" data-name="Race Red" style="--swatch:#d91f2d"></button><button class="swatch" type="button" data-paint="#d8b15f" data-name="Champagne Gold" style="--swatch:#d8b15f"></button><button class="swatch" type="button" data-paint="#d7dde2" data-name="Silver Graphite" style="--swatch:#d7dde2"></button></div></div>
+            </div>
+            <div class="part-grid" aria-label="Configured component explanation">
+              <article class="part"><span>Frame</span><div><h3 id="partFrame">AD9 Aero Road</h3><p>Core platform selected for the riding scene and customer intent.</p></div></article>
+              <article class="part"><span>Drivetrain</span><div><h3 id="partGroupset">Shimano 105 Di2</h3><p>Electronic shift system matched to price, performance and service needs.</p></div></article>
+              <article class="part"><span>Wheelset</span><div><h3 id="partWheels">Carbon 45mm All-Round</h3><p>Rim depth tuned for speed, climbing or stability.</p></div></article>
+              <article class="part"><span>Fit</span><div><h3 id="partCockpit">Integrated 400x100</h3><p>Cockpit dimensions shape reach, control and rider position.</p></div></article>
+            </div>
+          </div>
+          <aside class="summary" aria-label="Custom bike build summary">
+            <div class="eyebrow">Live build summary</div>
+            <h3 id="summaryTitle">Race Day Build</h3>
+            <div class="summary-row"><span>Scene</span><strong id="sumScene">Race Day</strong></div>
+            <div class="summary-row"><span>Frame</span><strong id="sumFrame">AD9 Aero Road</strong></div>
+            <div class="summary-row"><span>Groupset</span><strong id="sumGroupset">Shimano 105 Di2</strong></div>
+            <div class="summary-row"><span>Wheels</span><strong id="sumWheels">Carbon 45mm All-Round</strong></div>
+            <div class="summary-row"><span>Cockpit</span><strong id="sumCockpit">Integrated 400x100</strong></div>
+            <div class="summary-row"><span>Paint</span><strong id="sumPaint">Astana Cyan</strong></div>
+            <div class="total" id="totalPrice">$5,299</div>
+            <div class="actions"><button class="btn primary" type="button" id="saveBuild">Save Build</button><a class="btn" href="partner-portal.html#rfq">Create RFQ</a></div>
+            <div class="saved" id="saved"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="support">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>More than a paint option.</h2>
+          <p class="lead">A serious custom program needs artistry, fit logic, component planning and a commercial workflow for dealers.</p>
+        </div>
+        <div class="support-grid">
+          <article class="support"><div class="eyebrow">01</div><div><h3>Curated Paint</h3><p>Paint choices create a premium emotional signal without losing X-LAB's race identity.</p></div></article>
+          <article class="support"><div class="eyebrow">02</div><div><h3>Fit Options</h3><p>Cockpit, saddle and wheel choices help riders land on a usable position, not just a prettier bike.</p></div></article>
+          <article class="support"><div class="eyebrow">03</div><div><h3>Dealer Workflow</h3><p>Saved builds can become a retail quote, demo bike plan or partner RFQ.</p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>X-LAB Custom Bike Studio</strong>
+      <span>Scene / Frame / Wheels / Groupset / Fit / Paint</span>
+    </div>
+  </footer>
+
+  <script>
+    const state = {
+      scene: "Race Day",
+      base: 5299,
+      paint: "Astana Cyan",
+      paintColor: "#17a7b8"
+    };
+    const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+    const controls = ["frame", "groupset", "wheels", "cockpit", "saddle"].map((id) => document.getElementById(id));
+    function selected(control) {
+      const option = control.options[control.selectedIndex];
+      return { value: option.value, price: Number(option.dataset.price || 0) };
+    }
+    function updateBuild() {
+      const frame = selected(document.getElementById("frame"));
+      const groupset = selected(document.getElementById("groupset"));
+      const wheels = selected(document.getElementById("wheels"));
+      const cockpit = selected(document.getElementById("cockpit"));
+      const saddle = selected(document.getElementById("saddle"));
+      const total = state.base + frame.price + groupset.price + wheels.price + cockpit.price + saddle.price;
+      document.documentElement.style.setProperty("--paint", state.paintColor);
+      document.getElementById("summaryTitle").textContent = `${state.scene} Build`;
+      document.getElementById("sumScene").textContent = state.scene;
+      document.getElementById("sumFrame").textContent = frame.value;
+      document.getElementById("sumGroupset").textContent = groupset.value;
+      document.getElementById("sumWheels").textContent = wheels.value;
+      document.getElementById("sumCockpit").textContent = cockpit.value;
+      document.getElementById("sumPaint").textContent = state.paint;
+      document.getElementById("totalPrice").textContent = money.format(total);
+      document.getElementById("partFrame").textContent = frame.value;
+      document.getElementById("partGroupset").textContent = groupset.value;
+      document.getElementById("partWheels").textContent = wheels.value;
+      document.getElementById("partCockpit").textContent = cockpit.value;
+      return { frame, groupset, wheels, cockpit, saddle, total };
+    }
+    document.querySelectorAll(".scene").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".scene").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        state.scene = button.dataset.scene;
+        state.base = Number(button.dataset.price || 5299);
+        updateBuild();
+      });
+    });
+    controls.forEach((control) => control.addEventListener("input", updateBuild));
+    document.querySelectorAll(".swatch").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".swatch").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        state.paint = button.dataset.name;
+        state.paintColor = button.dataset.paint;
+        updateBuild();
+      });
+    });
+    document.getElementById("saveBuild").addEventListener("click", () => {
+      const build = updateBuild();
+      const saved = {
+        scene: state.scene,
+        frame: build.frame.value,
+        groupset: build.groupset.value,
+        wheels: build.wheels.value,
+        cockpit: build.cockpit.value,
+        paint: state.paint,
+        total: build.total,
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem("xlabCustomBuild", JSON.stringify(saved));
+      document.getElementById("saved").textContent = `Saved ${state.scene} build at ${money.format(build.total)}.`;
+    });
+    updateBuild();
+  </script>
+</body>
+</html>
