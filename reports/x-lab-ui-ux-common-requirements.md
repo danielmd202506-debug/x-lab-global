@@ -22,6 +22,9 @@
 - 各页面、模块、区块、组件、文案、流程或数据结构的改动，都必须记录到需求管理清单中。
 - 需求管理清单必须包含改动对象、改动原因、影响范围、优先级、状态、负责人、验收标准和关联文件。
 - 如果改动影响多个页面、跨角色流程、B2B 工作流、设计系统或 Notion 同步规则，必须先说明影响范围，并在执行前得到用户确认。
+- 所有 Markdown 文档必须按文档类型保持唯一性，不允许同一类型文档分散成多个重复文件；如已有同类文档，必须更新原文档，而不是新建平行文档。
+- 所有 Markdown 文档必须中英文双语，且必须包含修改记录日志，记录日期、修改内容、原因、影响范围和关联需求编号。
+- Markdown 文档必须定期同步到 Notion；在当前 Notion 同步规则有效期内，每次新建或修改 Markdown 文档后都要同步，并至少每周检查一次是否有未同步文档。
 - 先定义用户角色，再设计页面。
 - 先展示业务证据，再要求用户转化。
 - 每个页面必须说明它处在 X-LAB 全链路中的哪个位置。
@@ -35,6 +38,9 @@ Highest-priority rules:
 - Every change to a page, module, section, component, copy block, flow, or data structure must be recorded in the requirement management list.
 - The requirement management list must include the changed object, reason for change, affected scope, priority, status, owner, acceptance criteria, and linked files.
 - If a change affects multiple pages, cross-role flows, B2B workflows, the design system, or Notion sync rules, explain the affected scope first and get user confirmation before execution.
+- Every Markdown document must remain unique by document type. Do not split the same document type into multiple duplicate files; if an equivalent document already exists, update that source document instead of creating a parallel one.
+- Every Markdown document must be bilingual in Chinese and English, and must include a change log with date, change summary, reason, affected scope, and linked requirement ID.
+- Markdown documents must be synced to Notion regularly. During the active Notion sync rule period, every new or modified Markdown document must be synced after the change, and unsynced documents must be checked at least weekly.
 - Define the user role before designing the page.
 - Show business proof before asking for conversion.
 - Every page must explain where it sits in the X-LAB full-chain journey.
@@ -276,7 +282,57 @@ Do not:
 - Let Chinese and English content contradict each other.
 - Change business meaning, CTA meaning, or role definitions during translation.
 
-### 9.1 Notion 归档同步临时规则 / Temporary Notion Archive Sync Rule
+### 9.1 Markdown 文档唯一性与修改日志 / Markdown Uniqueness And Change Log
+
+规则：
+
+- 每一种 Markdown 文档类型只能有一个当前主文档。
+- 文档名称必须统一采用：`项目名称 + 文档名称 + 修改日期时间`。
+- X-LAB 项目的文档标题格式为：`X-LAB + 文档名称 + YYYY-MM-DD HH:mm`，例如 `X-LAB 官网信息架构与 Sitemap 2026-06-06 16:56`。
+- 如果用于本地文件名，时间中的冒号必须替换为安全字符，例如 `YYYY-MM-DD-HHmm`。
+- 每次同步到 Notion 时，如文档内容发生实质修改，应同步更新 Notion 页面标题中的修改日期时间。
+- 不允许为同一主题持续新建多个分散版本，例如多个项目计划、多个共性规则、多个同类需求清单。
+- 如果需要补充内容，应更新现有主文档，并在修改记录日志中记录。
+- 如果确实需要历史快照、归档版本或一次性调研附件，文件名必须明确标记 `archive`、`snapshot`、`evidence` 或具体日期，并在主文档中链接说明。
+- 每个主 Markdown 文档必须包含 `修改记录 / Change Log` 区块。
+
+Rules:
+
+- Each Markdown document type must have only one current source document.
+- Document titles must use this unified format: `Project Name + Document Name + Modified Date Time`.
+- X-LAB document titles should use: `X-LAB + Document Name + YYYY-MM-DD HH:mm`, for example `X-LAB Website IA And Sitemap 2026-06-06 16:56`.
+- For local filenames, replace filename-unsafe time characters with a safe format such as `YYYY-MM-DD-HHmm`.
+- When syncing to Notion after a substantive document change, update the modified date time in the Notion page title.
+- Do not keep creating scattered versions for the same topic, such as multiple project plans, multiple shared requirement documents, or multiple equivalent requirement lists.
+- If content needs to be added, update the existing source document and record the update in the change log.
+- If a historical snapshot, archive version, or one-off research attachment is truly needed, the filename must clearly include `archive`, `snapshot`, `evidence`, or a specific date, and the source document must link to it.
+- Every source Markdown document must include a `修改记录 / Change Log` section.
+
+修改记录格式：
+
+| 日期 / Date | 需求编号 / Requirement ID | 修改内容 / Change | 原因 / Reason | 影响范围 / Affected Scope |
+| --- | --- | --- | --- | --- |
+| 2026-06-06 | FR-043 | Example change | Example reason | Example scope |
+
+Change log format:
+
+| 日期 / Date | 需求编号 / Requirement ID | 修改内容 / Change | 原因 / Reason | 影响范围 / Affected Scope |
+| --- | --- | --- | --- | --- |
+| 2026-06-06 | FR-043 | Example change | Example reason | Example scope |
+
+Notion 同步规则：
+
+- 当前 Notion 同步规则有效期内，所有 Markdown 文档的新建或修改都必须在完成后同步到 Notion。
+- 每周至少检查一次本地 Markdown 文档和 Notion 存档是否一致。
+- 如果发现同类文档分散，应先提出合并建议，得到用户确认后再整理。
+
+Notion sync rules:
+
+- During the active Notion sync rule period, every newly created or modified Markdown document must be synced to Notion after completion.
+- Check at least weekly whether local Markdown documents and the Notion archive are aligned.
+- If scattered documents of the same type are found, propose a consolidation first and reorganize only after user confirmation.
+
+### 9.2 Notion 归档同步临时规则 / Temporary Notion Archive Sync Rule
 
 有效期：2026-06-06 至 2026-07-06  
 提醒时间：2026-06-26，提前 10 天确认是否延长、调整或取消。
@@ -597,3 +653,9 @@ This rule has appeared more than 5 times in the project. I recommend adding it t
 ## 22. 一句话原则
 
 X-LAB 的每个界面都必须让用户知道：我是谁、我在链路哪里、为什么可信、下一步做什么。
+
+## 修改记录 / Change Log
+
+| 日期 / Date | 需求编号 / Requirement ID | 修改内容 / Change | 原因 / Reason | 影响范围 / Affected Scope |
+| --- | --- | --- | --- | --- |
+| 2026-06-06 | FR-043 | 新增 Markdown 文档唯一性、双语、修改记录日志和 Notion 定期同步最高优先级规则。 / Added highest-priority rules for Markdown document uniqueness, bilingual output, change logs, and regular Notion sync. | 用户要求所有类型 Markdown 文档不要分散，必须双语、带修改记录，并定期同步 Notion。 / User required all Markdown document types to avoid fragmentation, remain bilingual, include change logs, and sync to Notion regularly. | 所有 Markdown 文档、Notion 存档、需求管理清单、后续文档交付流程。 / All Markdown documents, Notion archive, requirement management list, and future document delivery workflow. |
