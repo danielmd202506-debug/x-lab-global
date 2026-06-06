@@ -802,3 +802,17 @@ Before adding a new page or module, confirm:
 - Mobile layout works at 640px and below.
 - Focus, reduced motion, labels, and contrast are preserved.
 - If a reusable pattern changes, this file is updated.
+
+## 修改记录 / Change Log
+
+| Date | Change | Reason | Affected Scope |
+| --- | --- | --- | --- |
+| 2026-06-06 | Added visual design system page sync rule. | User requested a visual Design System page in the left menu, periodic sync with `design.md`, and an edit log. | `design-system.html`, `design.md`, management menu, design governance. |
+
+## Visual Sync Page
+
+Source of truth: `design.md`.
+
+Visual page: `design-system.html`.
+
+Sync rule: whenever `design.md` changes, update `design-system.html` in the same work cycle. A weekly sync check also reviews whether the visual page has drifted from this source file.

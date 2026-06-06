@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Visual X-LAB design system synced from design.md.">
+  <title>X-LAB Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body requirement-body">
+  <header class="app-topbar">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="topbar-title">
+      <strong>Design System</strong>
+      <span>&#21487;&#35270;&#21270;&#35774;&#35745;&#31995;&#32479; / synced from design.md</span>
+    </div>
+  </header>
+
+  <div class="app-layout requirement-shell">
+    <aside class="app-sidebar requirement-sidebar" aria-label="Demand management menu">
+      <div class="sidebar-head">
+        <button class="icon-btn sidebar-toggle" type="button" data-sidebar-toggle aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar"></button>
+      </div>
+      <nav class="side-menu">
+        <div class="menu-group">Demand / &#38656;&#27714;</div>
+        <a href="requirements-board.html#requirements" data-short="Req"><span>Requirement Overview</span><small>&#38656;&#27714;&#24635;&#35272;</small></a>
+        <a href="voc-list.html#voc" data-short="VOC"><span>VOC List</span><small>VOC &#28165;&#21333;</small></a>
+        <div class="menu-group">System / &#31995;&#32479;</div>
+        <a class="active" href="design-system.html#design-system" data-short="Design"><span>Design System</span><small>Visual design.md</small></a>
+        <div class="menu-group">Documents / &#25991;&#26723;</div>
+        <a href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md" data-short="List"><span>Requirement List</span><small>Functional requirements</small></a>
+        <a href="reports/x-lab-voc-demand-intelligence-2026-06-06.md" data-short="Report"><span>VOC Report</span><small>Evidence source</small></a>
+        <a href="reports/x-lab-ui-ux-common-requirements.md" data-short="Rules"><span>Common Rules</span><small>Shared governance</small></a>
+        <a href="design.md" data-short="MD"><span>Design MD</span><small>Source of truth</small></a>
+        <div class="menu-group">Workspace / &#24037;&#20316;&#21488;</div>
+        <a href="b2b-dashboard.html" data-short="B2B"><span>B2B Dashboard</span><small>Partner workspace</small></a>
+        <a href="index.html" data-short="Site"><span>Global Site</span><small>Public website</small></a>
+      </nav>
+    </aside>
+
+    <main class="app-content design-system-page" id="design-system">
+      <section class="content-header">
+        <div>
+          <div class="kicker">Design governance / &#35774;&#35745;&#27835;&#29702;</div>
+          <h1>Design system</h1>
+          <p class="lead">Visual operating view for the X-LAB design source of truth. Update this page whenever `design.md` changes, then record the edit log.</p>
+        </div>
+      </section>
+
+      <section class="dashboard-grid kpi-grid" aria-label="Design system sync state">
+        <article class="dash-card kpi-card"><span class="num">Source file</span><strong>design.md</strong><p>Primary design memory for token, layout, component and governance rules.</p></article>
+        <article class="dash-card kpi-card"><span class="num">Last sync</span><strong>2026-06-06</strong><p>Visual page created from the current design.md structure.</p></article>
+        <article class="dash-card kpi-card"><span class="num">UI specs</span><strong>2</strong><p>Global official website and B2B operations.</p></article>
+        <article class="dash-card kpi-card danger"><span class="num">Sync rule</span><strong>Weekly</strong><p>Check design.md and this page for drift.</p></article>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">Design model / &#35774;&#35745;&#27169;&#22411;</span><h2>Users, specs, shared foundation</h2></div>
+        </div>
+        <div class="design-lanes">
+          <article>
+            <span>Users</span>
+            <strong>Global public</strong>
+            <p>Riders, stores, brand visitors, product researchers and public channel prospects.</p>
+          </article>
+          <article>
+            <span>Users</span>
+            <strong>Suppliers</strong>
+            <p>Upstream material, component, tooling, QA, logistics and factory-collaboration partners.</p>
+          </article>
+          <article>
+            <span>Users</span>
+            <strong>Agents and dealers</strong>
+            <p>Distributors, regional agents, authorized dealers and channel sales teams.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">Core tokens / &#26680;&#24515; token</span><h2>Color, type and surface roles</h2></div>
+        </div>
+        <div class="token-grid">
+          <div class="token-swatch" style="--swatch:#050607"><i></i><strong>--bg</strong><span>#050607</span></div>
+          <div class="token-swatch" style="--swatch:#f7f8f8"><i></i><strong>--ink</strong><span>#f7f8f8</span></div>
+          <div class="token-swatch" style="--swatch:#11161a"><i></i><strong>--panel</strong><span>#11161a</span></div>
+          <div class="token-swatch" style="--swatch:#d91f2d"><i></i><strong>--red</strong><span>#d91f2d</span></div>
+          <div class="token-swatch" style="--swatch:#53c7df"><i></i><strong>--cyan</strong><span>#53c7df</span></div>
+          <div class="token-swatch" style="--swatch:#d8b15f"><i></i><strong>--gold</strong><span>#d8b15f</span></div>
+          <div class="token-swatch" style="--swatch:#67c98f"><i></i><strong>--green</strong><span>#67c98f</span></div>
+          <div class="token-swatch" style="--swatch:#f5f6f4"><i></i><strong>--paper</strong><span>#f5f6f4</span></div>
+        </div>
+        <div class="type-samples">
+          <div><span>Display</span><strong>Barlow Condensed</strong><p>Headings use uppercase, heavy weight and compact line height.</p></div>
+          <div><span>Body</span><strong>Source Sans 3</strong><p>Body copy stays clear, operational and readable.</p></div>
+        </div>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">UI specifications / UI &#35268;&#33539;</span><h2>Global versus B2B</h2></div>
+        </div>
+        <div class="spec-grid">
+          <article>
+            <h3>Global official website</h3>
+            <p>Expressive, visual, brand-led, product-led and route-led.</p>
+            <ul>
+              <li>Dark industrial backgrounds.</li>
+              <li>Real product, factory, route or store imagery.</li>
+              <li>Hero, route sections, product cards and custom-bike layouts.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>B2B operations</h3>
+            <p>Dense, practical, workflow-led, data-led and role-led.</p>
+            <ul>
+              <li>Topbar plus sidebar app shell.</li>
+              <li>KPI row, toolbar, table, task queue and status panels.</li>
+              <li>Light operational content surfaces with compact controls.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">Components / &#32452;&#20214;</span><h2>Reusable interface rules</h2></div>
+        </div>
+        <div class="component-strip">
+          <button class="btn primary" type="button">Primary action</button>
+          <button class="btn dark" type="button">Secondary action</button>
+          <button class="icon-btn" type="button" aria-label="Icon action">View</button>
+          <span class="status-pill high">P0</span>
+          <span class="class-pill boss">Boss requirement</span>
+          <span class="phase-pill">MVP Core</span>
+          <a class="record-link" href="requirements-board.html#FR-052">FR-052</a>
+        </div>
+        <div class="rule-list">
+          <p><strong>Buttons:</strong> labels must describe the action; compact controls are used in B2B screens.</p>
+          <p><strong>Tables:</strong> use `.table-wrap` for overflow; keep headers small, uppercase and sortable where useful.</p>
+          <p><strong>Navigation:</strong> public pages use `.site-nav`; management pages use `.app-sidebar` and `.side-menu`.</p>
+          <p><strong>Governance:</strong> reusable visual, interaction or layout changes must update `design.md` and this page.</p>
+        </div>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">Edit log / &#20462;&#25913;&#35760;&#24405;</span><h2>Visual sync history</h2></div>
+        </div>
+        <div class="table-wrap">
+          <table class="design-log-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Change</th>
+                <th>Reason</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-06-06</td>
+                <td>Created visual design system page and menu entry.</td>
+                <td>User requested a visual page synced with design.md and edit log.</td>
+                <td>design.md, FR-052</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
