@@ -195,6 +195,24 @@ if (previewPane) {
 const requirementsTable = document.querySelector("#requirementsTable");
 const requirementsTableBody = document.querySelector("#requirementsTableBody");
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function linkChips(ids, type) {
+  const values = Array.isArray(ids) ? ids : [];
+  if (!values.length) return "";
+  return `<span class="relation-list">${values.map((id) => {
+    const href = type === "voc" ? `voc-list.html#${id}` : `requirements-board.html#${id}`;
+    return `<a class="record-link" href="${href}">${escapeHtml(id)}</a>`;
+  }).join("")}</span>`;
+}
+
 if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequirements)) {
   const reqSearch = document.querySelector("#reqSearch");
   const reqPriorityFilter = document.querySelector("#reqPriorityFilter");
@@ -226,7 +244,10 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
   fillRequirementOptions(reqStatusFilter, window.xlabRequirements.map((item) => item.status));
 
   function requirementText(item) {
-    return Object.values(item).join(" ").toLowerCase();
+    return [
+      ...Object.values(item),
+      ...(item.vocIds || [])
+    ].join(" ").toLowerCase();
   }
 
   function filteredRequirements() {
@@ -241,8 +262,8 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
 
   function sortRequirements(rows) {
     return [...rows].sort((a, b) => {
-      const aValue = String(a[sortKey] || "");
-      const bValue = String(b[sortKey] || "");
+      const aValue = sortKey === "vocText" ? (a.vocIds || []).join(" ") : String(a[sortKey] || "");
+      const bValue = sortKey === "vocText" ? (b.vocIds || []).join(" ") : String(b[sortKey] || "");
       const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
       return sortDir === "asc" ? result : -result;
     });
@@ -261,20 +282,20 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
     const rows = sortRequirements(filteredRequirements());
     updateRequirementStats(rows);
     requirementsTableBody.innerHTML = rows.map((item) => `
-      <tr>
-        <td>${item.id}</td>
+      <tr id="${escapeHtml(item.id)}">
+        <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
         <td><span class="status-pill ${priorityClass[item.priority] || "low"}">${item.priority}</span></td>
-        <td>${item.module}</td>
-        <td>${item.requirement}</td>
-        <td>${item.voc}</td>
-        <td>${item.requestDate}</td>
-        <td>${item.plannedDate}</td>
-        <td>${item.status}</td>
-        <td>${item.owner}</td>
-        <td>${item.scope}</td>
-        <td>${item.acceptance}</td>
-        <td>${item.validation}</td>
-        <td>${item.files}</td>
+        <td>${escapeHtml(item.module)}</td>
+        <td>${escapeHtml(item.requirement)}</td>
+        <td>${linkChips(item.vocIds, "voc")}</td>
+        <td>${escapeHtml(item.requestDate)}</td>
+        <td>${escapeHtml(item.plannedDate)}</td>
+        <td>${escapeHtml(item.status)}</td>
+        <td>${escapeHtml(item.owner)}</td>
+        <td>${escapeHtml(item.scope)}</td>
+        <td>${escapeHtml(item.acceptance)}</td>
+        <td>${escapeHtml(item.validation)}</td>
+        <td>${escapeHtml(item.files)}</td>
       </tr>
     `).join("");
 
@@ -310,4 +331,124 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
   });
 
   renderRequirements();
+}
+
+const vocTable = document.querySelector("#vocTable");
+const vocTableBody = document.querySelector("#vocTableBody");
+
+if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
+  const vocSearch = document.querySelector("#vocSearch");
+  const vocCategoryFilter = document.querySelector("#vocCategoryFilter");
+  const vocSeverityFilter = document.querySelector("#vocSeverityFilter");
+  const vocStatusFilter = document.querySelector("#vocStatusFilter");
+  const vocResetFilters = document.querySelector("#vocResetFilters");
+  const vocVisibleCount = document.querySelector("#vocVisibleCount");
+  const vocStatTotal = document.querySelector("#vocStatTotal");
+  const vocStatHigh = document.querySelector("#vocStatHigh");
+  const vocStatDirective = document.querySelector("#vocStatDirective");
+  const vocStatOpen = document.querySelector("#vocStatOpen");
+  let vocSortKey = "id";
+  let vocSortDir = "asc";
+
+  function fillVocOptions(select, values) {
+    if (!select) return;
+    [...new Set(values)].sort().forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  fillVocOptions(vocCategoryFilter, window.xlabVOC.map((item) => item.category));
+  fillVocOptions(vocSeverityFilter, window.xlabVOC.map((item) => item.severity));
+  fillVocOptions(vocStatusFilter, window.xlabVOC.map((item) => item.status));
+
+  function vocText(item) {
+    return [
+      ...Object.values(item),
+      ...(item.linkedRequirements || [])
+    ].join(" ").toLowerCase();
+  }
+
+  function filteredVOC() {
+    const search = vocSearch?.value.trim().toLowerCase() || "";
+    return window.xlabVOC.filter((item) => {
+      if (vocCategoryFilter?.value && item.category !== vocCategoryFilter.value) return false;
+      if (vocSeverityFilter?.value && item.severity !== vocSeverityFilter.value) return false;
+      if (vocStatusFilter?.value && item.status !== vocStatusFilter.value) return false;
+      return !search || vocText(item).includes(search);
+    });
+  }
+
+  function sortVOC(rows) {
+    return [...rows].sort((a, b) => {
+      const aValue = String(a[vocSortKey] || "");
+      const bValue = String(b[vocSortKey] || "");
+      const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
+      return vocSortDir === "asc" ? result : -result;
+    });
+  }
+
+  function updateVOCStats(rows) {
+    const all = window.xlabVOC;
+    if (vocStatTotal) vocStatTotal.textContent = String(all.length);
+    if (vocStatHigh) vocStatHigh.textContent = String(all.filter((item) => item.severity.toLowerCase().includes("high")).length);
+    if (vocStatDirective) vocStatDirective.textContent = String(all.filter((item) => item.sentiment === "Directive").length);
+    if (vocStatOpen) vocStatOpen.textContent = String(all.filter((item) => !["Closed", "Resolved"].includes(item.status)).length);
+    if (vocVisibleCount) vocVisibleCount.textContent = `${rows.length} visible`;
+  }
+
+  function renderVOC() {
+    const rows = sortVOC(filteredVOC());
+    updateVOCStats(rows);
+    vocTableBody.innerHTML = rows.map((item) => `
+      <tr id="${escapeHtml(item.id)}">
+        <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
+        <td>${escapeHtml(item.category)}</td>
+        <td>${escapeHtml(item.theme)}</td>
+        <td>${escapeHtml(item.summary)}</td>
+        <td>${escapeHtml(item.persona)}</td>
+        <td>${escapeHtml(item.source)}</td>
+        <td>${escapeHtml(item.observedDate)}</td>
+        <td>${escapeHtml(item.severity)}</td>
+        <td>${escapeHtml(item.confidence)}</td>
+        <td>${escapeHtml(item.status)}</td>
+        <td>${linkChips(item.linkedRequirements, "requirement")}</td>
+        <td>${escapeHtml(item.evidence)}</td>
+      </tr>
+    `).join("");
+
+    vocTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+      const active = button.dataset.sort === vocSortKey;
+      button.dataset.active = active ? vocSortDir : "";
+      button.setAttribute("aria-sort", active ? (vocSortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
+  [vocSearch, vocCategoryFilter, vocSeverityFilter, vocStatusFilter].forEach((control) => {
+    if (control) control.addEventListener("input", renderVOC);
+    if (control) control.addEventListener("change", renderVOC);
+  });
+
+  vocResetFilters?.addEventListener("click", () => {
+    if (vocSearch) vocSearch.value = "";
+    if (vocCategoryFilter) vocCategoryFilter.value = "";
+    if (vocSeverityFilter) vocSeverityFilter.value = "";
+    if (vocStatusFilter) vocStatusFilter.value = "";
+    vocSortKey = "id";
+    vocSortDir = "asc";
+    renderVOC();
+  });
+
+  vocTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextKey = button.dataset.sort || "id";
+      vocSortDir = vocSortKey === nextKey && vocSortDir === "asc" ? "desc" : "asc";
+      vocSortKey = nextKey;
+      renderVOC();
+    });
+  });
+
+  renderVOC();
 }
