@@ -361,9 +361,9 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
   const vocResetFilters = document.querySelector("#vocResetFilters");
   const vocVisibleCount = document.querySelector("#vocVisibleCount");
   const vocStatTotal = document.querySelector("#vocStatTotal");
-  const vocStatHigh = document.querySelector("#vocStatHigh");
-  const vocStatDirective = document.querySelector("#vocStatDirective");
-  const vocStatOpen = document.querySelector("#vocStatOpen");
+  const vocStatPass = document.querySelector("#vocStatPass");
+  const vocStatAverage = document.querySelector("#vocStatAverage");
+  const vocStatHold = document.querySelector("#vocStatHold");
   let vocSortKey = "id";
   let vocSortDir = "asc";
 
@@ -384,7 +384,10 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
   function vocText(item) {
     return [
       ...Object.values(item),
-      ...(item.linkedRequirements || [])
+      ...(item.linkedRequirements || []),
+      item.review?.gate,
+      item.review?.decision,
+      ...(window.xlabVOCReviewDimensions || []).map((dimension) => `${dimension.label} ${item.review?.dimensions?.[dimension.key]}`)
     ].join(" ").toLowerCase();
   }
 
@@ -400,9 +403,11 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
 
   function sortVOC(rows) {
     return [...rows].sort((a, b) => {
-      const aValue = String(a[vocSortKey] || "");
-      const bValue = String(b[vocSortKey] || "");
-      const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
+      const aValue = vocSortKey === "reviewScore" ? Number(a.review?.score || 0) : vocSortKey === "reviewGate" ? String(a.review?.gate || "") : String(a[vocSortKey] || "");
+      const bValue = vocSortKey === "reviewScore" ? Number(b.review?.score || 0) : vocSortKey === "reviewGate" ? String(b.review?.gate || "") : String(b[vocSortKey] || "");
+      const result = typeof aValue === "number" && typeof bValue === "number"
+        ? aValue - bValue
+        : String(aValue).localeCompare(String(bValue), undefined, { numeric: true, sensitivity: "base" });
       return vocSortDir === "asc" ? result : -result;
     });
   }
@@ -410,10 +415,17 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
   function updateVOCStats(rows) {
     const all = window.xlabVOC;
     if (vocStatTotal) vocStatTotal.textContent = String(all.length);
-    if (vocStatHigh) vocStatHigh.textContent = String(all.filter((item) => item.severity.toLowerCase().includes("high")).length);
-    if (vocStatDirective) vocStatDirective.textContent = String(all.filter((item) => item.sentiment === "Directive").length);
-    if (vocStatOpen) vocStatOpen.textContent = String(all.filter((item) => !["Closed", "Resolved"].includes(item.status)).length);
+    if (vocStatPass) vocStatPass.textContent = String(all.filter((item) => item.review?.gate === "Pass").length);
+    if (vocStatAverage) vocStatAverage.textContent = String(Math.round(all.reduce((sum, item) => sum + Number(item.review?.score || 0), 0) / all.length));
+    if (vocStatHold) vocStatHold.textContent = String(all.filter((item) => item.review?.gate !== "Pass").length);
     if (vocVisibleCount) vocVisibleCount.textContent = `${rows.length} visible`;
+  }
+
+  function renderReviewDimensions(item) {
+    return `<span class="score-breakdown">${(window.xlabVOCReviewDimensions || []).map((dimension) => {
+      const value = item.review?.dimensions?.[dimension.key] ?? 0;
+      return `<span>${escapeHtml(dimension.label)} <b>${value}/${dimension.weight}</b></span>`;
+    }).join("")}</span>`;
   }
 
   function renderVOC() {
@@ -430,6 +442,9 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
         <td>${escapeHtml(item.observedDate)}</td>
         <td>${escapeHtml(item.severity)}</td>
         <td>${escapeHtml(item.confidence)}</td>
+        <td><span class="score-pill ${item.review?.gate === "Pass" ? "pass" : "hold"}">${escapeHtml(item.review?.score || 0)}</span></td>
+        <td><span class="score-pill ${item.review?.gate === "Pass" ? "pass" : "hold"}">${escapeHtml(item.review?.gate || "Hold")}</span><small class="gate-note">${escapeHtml(item.review?.decision || "")}</small></td>
+        <td>${renderReviewDimensions(item)}</td>
         <td>${escapeHtml(item.status)}</td>
         <td>${linkChips(item.linkedRequirements, "requirement")}</td>
         <td>${escapeHtml(item.evidence)}</td>

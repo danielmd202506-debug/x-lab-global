@@ -49,9 +49,9 @@
 
     <section class="dashboard-grid kpi-grid" aria-label="VOC statistics">
       <article class="dash-card kpi-card"><span class="num">Total VOC</span><strong id="vocStatTotal">0</strong><p>Structured VOC records synced from demand intelligence and governance requests.</p></article>
-      <article class="dash-card kpi-card"><span class="num">High severity</span><strong id="vocStatHigh">0</strong><p>VOC items that directly affect trust, conversion, service, or governance.</p></article>
-      <article class="dash-card kpi-card"><span class="num">Active directives</span><strong id="vocStatDirective">0</strong><p>User governance and UI instructions that must stay traceable.</p></article>
-      <article class="dash-card kpi-card danger"><span class="num">Open VOC</span><strong id="vocStatOpen">0</strong><p>Records not yet resolved, released, or closed.</p></article>
+      <article class="dash-card kpi-card"><span class="num">Gate pass</span><strong id="vocStatPass">0</strong><p>VOC records scoring above 60 and eligible to enter the requirement list.</p></article>
+      <article class="dash-card kpi-card"><span class="num">Average score</span><strong id="vocStatAverage">0</strong><p>Review score across evidence, impact, reach, urgency and strategic fit.</p></article>
+      <article class="dash-card kpi-card danger"><span class="num">Review hold</span><strong id="vocStatHold">0</strong><p>VOC records scoring 60 or below and kept in review.</p></article>
     </section>
 
     <section class="toolbar requirement-controls" aria-label="VOC filters and sorting">
@@ -80,6 +80,9 @@
               <th><button type="button" data-sort="observedDate">Observed date<br>&#35266;&#23519;&#26085;&#26399;</button></th>
               <th><button type="button" data-sort="severity">Severity<br>&#20005;&#37325;&#24230;</button></th>
               <th><button type="button" data-sort="confidence">Confidence<br>&#32622;&#20449;&#24230;</button></th>
+              <th><button type="button" data-sort="reviewScore">Review score<br>&#35780;&#23457;&#20998;</button></th>
+              <th><button type="button" data-sort="reviewGate">Gate<br>&#38376;&#31105;</button></th>
+              <th>Review dimensions<br>&#35780;&#23457;&#32500;&#24230;</th>
               <th><button type="button" data-sort="status">Status<br>&#29366;&#24577;</button></th>
               <th>Linked requirements<br>&#20851;&#32852;&#38656;&#27714;</th>
               <th>Evidence file<br>&#35777;&#25454;&#25991;&#20214;</th>
