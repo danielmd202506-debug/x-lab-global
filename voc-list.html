@@ -17,22 +17,33 @@
       <strong>VOC List</strong>
       <span>VOC &#28165;&#21333; / evidence, persona, severity, confidence and requirement linkage</span>
     </div>
-    <div class="topbar-tools">
-      <a class="icon-btn" href="requirements-board.html#requirements">Requirement Overview</a>
-      <a class="icon-btn" href="reports/x-lab-voc-demand-intelligence-2026-06-06.md">VOC Report</a>
-      <a class="icon-btn" href="reports/x-lab-ui-ux-common-requirements.md">Common Rules</a>
-      <a class="nav-cta" href="b2b-dashboard.html">B2B Dashboard</a>
-    </div>
+    <button class="icon-btn sidebar-toggle" type="button" data-sidebar-toggle aria-expanded="true">Collapse menu</button>
   </header>
 
-  <main class="app-content">
-    <section class="content-header" id="overview">
+  <div class="app-layout requirement-shell">
+    <aside class="app-sidebar requirement-sidebar" aria-label="Demand management menu">
+      <nav class="side-menu">
+        <div class="menu-group">Demand / &#38656;&#27714;</div>
+        <a href="requirements-board.html#requirements"><span>Requirement Overview</span><small>&#38656;&#27714;&#24635;&#35272;</small></a>
+        <a class="active" href="voc-list.html#voc"><span>VOC List</span><small>VOC &#28165;&#21333;</small></a>
+        <div class="menu-group">Documents / &#25991;&#26723;</div>
+        <a href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md"><span>Requirement List</span><small>Functional requirements</small></a>
+        <a href="reports/x-lab-voc-demand-intelligence-2026-06-06.md"><span>VOC Report</span><small>Evidence source</small></a>
+        <a href="reports/x-lab-ui-ux-common-requirements.md"><span>Common Rules</span><small>Shared governance</small></a>
+        <div class="menu-group">Workspace / &#24037;&#20316;&#21488;</div>
+        <a href="b2b-dashboard.html"><span>B2B Dashboard</span><small>Partner workspace</small></a>
+        <a href="index.html"><span>Global Site</span><small>Public website</small></a>
+      </nav>
+    </aside>
+
+    <main class="app-content">
+      <section class="content-header" id="overview">
       <div>
         <div class="kicker">Demand management / VOC &#35777;&#25454;</div>
         <h1>VOC list</h1>
         <p class="lead">Maintain VOC as a structured evidence table. Each VOC item links back to one or more requirements so the reason for every demand stays traceable.</p>
       </div>
-    </section>
+      </section>
 
     <section class="dashboard-grid kpi-grid" aria-label="VOC statistics">
       <article class="dash-card kpi-card"><span class="num">Total VOC</span><strong id="vocStatTotal">0</strong><p>Structured VOC records synced from demand intelligence and governance requests.</p></article>
@@ -76,7 +87,8 @@
         </table>
       </div>
     </section>
-  </main>
+    </main>
+  </div>
 
   <script src="xlab-data.js"></script>
   <script src="app.js"></script>

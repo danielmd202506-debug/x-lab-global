@@ -17,22 +17,33 @@
       <strong>Requirement Overview</strong>
       <span>&#38656;&#27714;&#24635;&#35272; / VOC, priority, owner, timeline and validation</span>
     </div>
-    <div class="topbar-tools">
-      <a class="icon-btn" href="voc-list.html">VOC List</a>
-      <a class="icon-btn" href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md">Requirement List</a>
-      <a class="icon-btn" href="reports/x-lab-ui-ux-common-requirements.md">Common Rules</a>
-      <a class="nav-cta" href="b2b-dashboard.html">B2B Dashboard</a>
-    </div>
+    <button class="icon-btn sidebar-toggle" type="button" data-sidebar-toggle aria-expanded="true">Collapse menu</button>
   </header>
 
-  <main class="app-content">
-    <section class="content-header" id="overview">
+  <div class="app-layout requirement-shell">
+    <aside class="app-sidebar requirement-sidebar" aria-label="Demand management menu">
+      <nav class="side-menu">
+        <div class="menu-group">Demand / &#38656;&#27714;</div>
+        <a class="active" href="requirements-board.html#requirements"><span>Requirement Overview</span><small>&#38656;&#27714;&#24635;&#35272;</small></a>
+        <a href="voc-list.html#voc"><span>VOC List</span><small>VOC &#28165;&#21333;</small></a>
+        <div class="menu-group">Documents / &#25991;&#26723;</div>
+        <a href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md"><span>Requirement List</span><small>Functional requirements</small></a>
+        <a href="reports/x-lab-voc-demand-intelligence-2026-06-06.md"><span>VOC Report</span><small>Evidence source</small></a>
+        <a href="reports/x-lab-ui-ux-common-requirements.md"><span>Common Rules</span><small>Shared governance</small></a>
+        <div class="menu-group">Workspace / &#24037;&#20316;&#21488;</div>
+        <a href="b2b-dashboard.html"><span>B2B Dashboard</span><small>Partner workspace</small></a>
+        <a href="index.html"><span>Global Site</span><small>Public website</small></a>
+      </nav>
+    </aside>
+
+    <main class="app-content">
+      <section class="content-header" id="overview">
       <div>
         <div class="kicker">Demand management / &#38656;&#27714;&#31649;&#29702;</div>
         <h1>Requirement overview</h1>
         <p class="lead">Maintain one table first. Every collected requirement is synced here with VOC IDs, request date, planned completion, owner, status, acceptance criteria and validation state.</p>
       </div>
-    </section>
+      </section>
 
     <section class="dashboard-grid kpi-grid" aria-label="Requirement statistics">
       <article class="dash-card kpi-card"><span class="num">Total requirements</span><strong id="reqStatTotal">0</strong><p>All requirement records currently maintained in this table.</p></article>
@@ -77,7 +88,8 @@
         </table>
       </div>
     </section>
-  </main>
+    </main>
+  </div>
 
   <script src="xlab-data.js"></script>
   <script src="app.js"></script>

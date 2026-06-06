@@ -56,6 +56,23 @@ if (portalSignIn && accountType) {
 
 const roleTabs = document.querySelectorAll(".role-tab");
 const rolePanels = document.querySelectorAll("[data-panel]");
+const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
+
+if (sidebarToggle) {
+  const storageKey = "xlabSidebarCollapsed";
+  const applySidebarState = (collapsed) => {
+    document.body.classList.toggle("sidebar-collapsed", collapsed);
+    sidebarToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    sidebarToggle.textContent = collapsed ? "Expand menu" : "Collapse menu";
+  };
+
+  applySidebarState(localStorage.getItem(storageKey) === "true");
+  sidebarToggle.addEventListener("click", () => {
+    const collapsed = !document.body.classList.contains("sidebar-collapsed");
+    localStorage.setItem(storageKey, String(collapsed));
+    applySidebarState(collapsed);
+  });
+}
 
 function setDashboardRole(role) {
   if (!roleTabs.length) return;
