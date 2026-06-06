@@ -1925,11 +1925,11 @@ th {
 }
 
 .requirement-table {
-  min-width: 1900px;
+  min-width: 2040px;
 }
 
 .voc-table {
-  min-width: 2280px;
+  min-width: 2420px;
 }
 
 .requirement-table th button {
@@ -1996,6 +1996,32 @@ th {
 .requirement-table tr:target {
   background: #f0fbfd;
   box-shadow: inset 3px 0 0 var(--cyan);
+}
+
+.class-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  color: #102029;
+  background: #e8eef1;
+  border: 1px solid #cfd8de;
+  font-size: .78rem;
+  font-weight: 950;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.class-pill.boss {
+  color: #fff;
+  background: #b51623;
+  border-color: #b51623;
+}
+
+.class-pill.market {
+  color: #075466;
+  background: rgba(83,199,223,.1);
+  border-color: rgba(83,199,223,.34);
 }
 
 .score-pill {

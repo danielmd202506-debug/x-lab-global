@@ -230,6 +230,28 @@ function linkChips(ids, type) {
   }).join("")}</span>`;
 }
 
+function findVOCById(id) {
+  return (window.xlabVOC || []).find((item) => item.id === id);
+}
+
+function vocDemandClass(item) {
+  return item?.demandClass || (item?.sentiment === "Directive" ? "Boss requirement" : "Market VOC");
+}
+
+function requirementDemandClass(item) {
+  const hasBossVOC = (item.vocIds || []).some((id) => vocDemandClass(findVOCById(id)) === "Boss requirement");
+  return item.demandClass || (hasBossVOC ? "Boss requirement" : "VOC-derived");
+}
+
+function demandClassSortValue(value) {
+  return value === "Boss requirement" ? "0 Boss requirement" : `1 ${value || ""}`;
+}
+
+function demandClassPill(value) {
+  const isBoss = value === "Boss requirement";
+  return `<span class="class-pill ${isBoss ? "boss" : "market"}">${escapeHtml(value)}</span>`;
+}
+
 if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequirements)) {
   const reqSearch = document.querySelector("#reqSearch");
   const reqPriorityFilter = document.querySelector("#reqPriorityFilter");
@@ -263,6 +285,7 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
   function requirementText(item) {
     return [
       ...Object.values(item),
+      requirementDemandClass(item),
       ...(item.vocIds || [])
     ].join(" ").toLowerCase();
   }
@@ -279,8 +302,8 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
 
   function sortRequirements(rows) {
     return [...rows].sort((a, b) => {
-      const aValue = sortKey === "vocText" ? (a.vocIds || []).join(" ") : String(a[sortKey] || "");
-      const bValue = sortKey === "vocText" ? (b.vocIds || []).join(" ") : String(b[sortKey] || "");
+      const aValue = sortKey === "vocText" ? (a.vocIds || []).join(" ") : sortKey === "demandClass" ? demandClassSortValue(requirementDemandClass(a)) : String(a[sortKey] || "");
+      const bValue = sortKey === "vocText" ? (b.vocIds || []).join(" ") : sortKey === "demandClass" ? demandClassSortValue(requirementDemandClass(b)) : String(b[sortKey] || "");
       const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
       return sortDir === "asc" ? result : -result;
     });
@@ -302,6 +325,7 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
       <tr id="${escapeHtml(item.id)}">
         <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
         <td><span class="status-pill ${priorityClass[item.priority] || "low"}">${item.priority}</span></td>
+        <td>${demandClassPill(requirementDemandClass(item))}</td>
         <td>${escapeHtml(item.module)}</td>
         <td>${escapeHtml(item.requirement)}</td>
         <td>${linkChips(item.vocIds, "voc")}</td>
@@ -384,6 +408,7 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
   function vocText(item) {
     return [
       ...Object.values(item),
+      vocDemandClass(item),
       ...(item.linkedRequirements || []),
       item.review?.gate,
       item.review?.decision,
@@ -403,8 +428,8 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
 
   function sortVOC(rows) {
     return [...rows].sort((a, b) => {
-      const aValue = vocSortKey === "reviewScore" ? Number(a.review?.score || 0) : vocSortKey === "reviewGate" ? String(a.review?.gate || "") : String(a[vocSortKey] || "");
-      const bValue = vocSortKey === "reviewScore" ? Number(b.review?.score || 0) : vocSortKey === "reviewGate" ? String(b.review?.gate || "") : String(b[vocSortKey] || "");
+      const aValue = vocSortKey === "reviewScore" ? Number(a.review?.score || 0) : vocSortKey === "reviewGate" ? String(a.review?.gate || "") : vocSortKey === "demandClass" ? demandClassSortValue(vocDemandClass(a)) : String(a[vocSortKey] || "");
+      const bValue = vocSortKey === "reviewScore" ? Number(b.review?.score || 0) : vocSortKey === "reviewGate" ? String(b.review?.gate || "") : vocSortKey === "demandClass" ? demandClassSortValue(vocDemandClass(b)) : String(b[vocSortKey] || "");
       const result = typeof aValue === "number" && typeof bValue === "number"
         ? aValue - bValue
         : String(aValue).localeCompare(String(bValue), undefined, { numeric: true, sensitivity: "base" });
@@ -434,6 +459,7 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
     vocTableBody.innerHTML = rows.map((item) => `
       <tr id="${escapeHtml(item.id)}">
         <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
+        <td>${demandClassPill(vocDemandClass(item))}</td>
         <td>${escapeHtml(item.category)}</td>
         <td>${escapeHtml(item.theme)}</td>
         <td>${escapeHtml(item.summary)}</td>
