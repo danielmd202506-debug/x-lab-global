@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="X-LAB requirement management table for UI, UX, B2B, support and documentation changes.">
-  <title>X-LAB Requirement Board | Demand Management</title>
+  <meta name="description" content="X-LAB requirement overview table for VOC, priority, owner, timeline and validation tracking.">
+  <title>X-LAB Requirement Overview</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
   <header class="app-topbar">
     <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
     <div class="topbar-title">
-      <strong>Requirement Board</strong>
-      <span>Demand intake, status, priority, owner and acceptance tracking</span>
+      <strong>Requirement Overview</strong>
+      <span>&#38656;&#27714;&#24635;&#35272; / VOC, priority, owner, timeline and validation</span>
     </div>
     <div class="topbar-tools">
       <a class="icon-btn" href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md">Requirement List</a>
@@ -24,146 +24,180 @@
     </div>
   </header>
 
-  <div class="app-layout">
-    <aside class="app-sidebar" aria-label="Requirement board menu">
-      <nav class="side-menu">
-        <p class="menu-group">Demand</p>
-        <a class="active" href="#overview"><span>Board Overview</span><small>&#38656;&#27714;&#24635;&#35272;</small></a>
-        <a href="#requirements"><span>Requirement Table</span><small>&#38656;&#27714;&#28165;&#21333;</small></a>
-        <a href="#intake"><span>Change Intake</span><small>&#25913;&#21160;&#30331;&#35760;</small></a>
-        <a href="#traceability"><span>Traceability</span><small>&#36861;&#28335;&#30697;&#38453;</small></a>
-        <p class="menu-group">Governance</p>
-        <a href="#rules"><span>Gate Rules</span><small>&#38376;&#31105;&#35268;&#21017;</small></a>
-        <a href="#files"><span>Linked Files</span><small>&#20851;&#32852;&#25991;&#20214;</small></a>
-      </nav>
-      <div class="side-panel">
-        <span class="num">Priority gate</span>
-        <strong>FR-041 active</strong>
-        <p>Every page, module, component, copy, flow or data change must be recorded before release.</p>
+  <main class="app-content">
+    <section class="content-header" id="overview">
+      <div>
+        <div class="kicker">Demand management / &#38656;&#27714;&#31649;&#29702;</div>
+        <h1>Requirement overview</h1>
+        <p class="lead">Maintain one table first. Each row carries VOC reference, request date, planned completion date, owner, status, acceptance criteria and test validation status.</p>
       </div>
-    </aside>
+    </section>
 
-    <main class="app-content">
-      <section class="content-header" id="overview">
-        <div>
-          <div class="kicker">Demand management / &#38656;&#27714;&#31649;&#29702;</div>
-          <h1>Requirement control table</h1>
-          <p class="lead">A dense table for tracking X-LAB website, B2B portal, documentation and design-system changes from intake to launch, with owner, priority, affected scope and acceptance criteria visible before work moves forward.</p>
-        </div>
-        <div class="requirement-lock">
-          <span class="status-pill high">P0 gate</span>
-          <strong>Change must be logged</strong>
-          <p>&#25913;&#21160;&#24517;&#39035;&#20808;&#20837;&#38656;&#27714;&#31649;&#29702;&#28165;&#21333;&#65292;&#20877;&#36827;&#20837;&#35774;&#35745;&#12289;&#24320;&#21457;&#12289;&#39564;&#25910;&#25110; GitHub &#21516;&#27493;&#12290;</p>
-        </div>
-      </section>
-
-      <section class="dashboard-grid kpi-grid" aria-label="Requirement summary">
-        <article class="dash-card kpi-card"><span class="num">Tracked requirements</span><strong>43</strong><p>FR-001 through FR-043 currently tracked.</p></article>
-        <article class="dash-card kpi-card"><span class="num">P0 items</span><strong>17</strong><p>Trust, purchase, demand governance and channel blockers.</p></article>
-        <article class="dash-card kpi-card"><span class="num">Governance gates</span><strong>3</strong><p>Change logging, board visibility and Markdown document control.</p></article>
-        <article class="dash-card kpi-card danger"><span class="num">Missing records</span><strong>0</strong><p>All new changes must carry a requirement record.</p></article>
-      </section>
-
-      <section class="toolbar" aria-label="Requirement filters">
-        <div class="field compact"><label for="moduleFilter">Module / &#27169;&#22359;</label><select id="moduleFilter"><option>All modules</option><option>Demand management</option><option>Product discovery</option><option>Dealer channel</option><option>B2B operations</option><option>Documentation governance</option></select></div>
-        <div class="field compact"><label for="priorityFilter">Priority / &#20248;&#20808;&#32423;</label><select id="priorityFilter"><option>All priorities</option><option>P0</option><option>P1</option><option>P2</option></select></div>
-        <div class="field compact"><label for="statusFilter">Status / &#29366;&#24577;</label><select id="statusFilter"><option>All status</option><option>New</option><option>Triage</option><option>In design</option><option>Build</option><option>Ready</option><option>Active</option></select></div>
-        <button class="btn dark" type="button" id="boardFilterButton">Apply filters</button>
-      </section>
-
-      <section class="dash-card workbench-card" id="requirements" aria-label="Requirement table">
-        <div class="dash-head">
-          <div><span class="num">Requirement list / &#38656;&#27714;&#28165;&#21333;</span><h2>Table, not cards</h2></div>
-          <button class="mini-link" type="button">Export table</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Priority</th>
-                <th>Module / &#27169;&#22359;</th>
-                <th>Requirement / &#38656;&#27714;</th>
-                <th>Status / &#29366;&#24577;</th>
-                <th>Owner / &#36127;&#36131;&#20154;</th>
-                <th>Affected scope / &#24433;&#21709;&#33539;&#22260;</th>
-                <th>Acceptance criteria / &#39564;&#25910;&#26631;&#20934;</th>
-                <th>Linked files / &#20851;&#32852;&#25991;&#20214;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>FR-001</td><td><span class="status-pill high">P0</span></td><td>Product discovery</td><td>Model comparison matrix / &#36710;&#22411;&#23545;&#27604;&#30697;&#38453;</td><td>Triage</td><td>Product</td><td>Product pages, model comparison</td><td>Compare models by use case, price, weight, spec, warranty and channel availability.</td><td>model-comparison.html</td></tr>
-              <tr><td>FR-004</td><td><span class="status-pill high">P0</span></td><td>Product detail</td><td>Geometry and fit explainer / &#20960;&#20309;&#19982;&#36866;&#37197;&#35828;&#26126;</td><td>Build</td><td>Design + Engineering</td><td>Product detail, custom bike, dealer fit</td><td>Show geometry, calculator, fit notes and dealer confirmation route.</td><td>custom-bike.html, bike-ad9.html</td></tr>
-              <tr><td>FR-008</td><td><span class="status-pill high">P0</span></td><td>Dealer channel</td><td>Dealer locator with inventory / &#32463;&#38144;&#21830;&#24211;&#23384;&#23450;&#20301;&#22120;</td><td>Triage</td><td>B2B Ops</td><td>Stores, dealer data, local inventory</td><td>Expose store capability, test ride status, model sizes and inventory recency.</td><td>stores.html, local-inventory.html</td></tr>
-              <tr><td>FR-015</td><td><span class="status-pill med">P1</span></td><td>B2B operations</td><td>Lead inbox / RFQ &#19982;&#35797;&#39569;&#32447;&#32034;&#25910;&#20214;&#31665;</td><td>In design</td><td>B2B Ops</td><td>Dealer portal, RFQ, test ride</td><td>Track incoming RFQ and test ride requests by source page, owner and SLA.</td><td>b2b-dashboard.html, rfq-orders.html</td></tr>
-              <tr><td>FR-018</td><td><span class="status-pill med">P1</span></td><td>Warranty</td><td>Warranty claim tracking / &#20445;&#20462;&#29702;&#36180;&#36861;&#36394;</td><td>Build</td><td>Service</td><td>Support and B2B dashboard</td><td>Show case ID, evidence upload, status and next required action.</td><td>warranty-claim.html, b2b-dashboard.html</td></tr>
-              <tr><td>FR-034</td><td><span class="status-pill high">P0</span></td><td>Demand management</td><td>Requirement intake board / &#38656;&#27714; intake &#30475;&#26495;</td><td>Ready</td><td>Product</td><td>Requirement page</td><td>Display categories, priority, owner, status and traceability in a table-first workspace.</td><td>requirements-board.html</td></tr>
-              <tr><td>FR-041</td><td><span class="status-pill high">P0</span></td><td>Demand management</td><td>Mandatory change logging gate / &#25913;&#21160;&#35760;&#24405;&#24378;&#21046;&#38376;&#31105;</td><td>Active</td><td>Product</td><td>All project changes</td><td>Every change has requirement object, reason, scope, priority, owner and acceptance criteria.</td><td>common requirements, functional requirements</td></tr>
-              <tr><td>FR-042</td><td><span class="status-pill high">P0</span></td><td>Demand management</td><td>Requirement management table page / &#38656;&#27714;&#31649;&#29702;&#34920;&#26684;&#39029;&#38754;</td><td>Ready</td><td>Product + Design</td><td>Dashboard page, docs, GitHub sync</td><td>Requirement list is displayed as a table, with no card-based demand list.</td><td>requirements-board.html, styles.css</td></tr>
-              <tr><td>FR-043</td><td><span class="status-pill high">P0</span></td><td>Documentation governance</td><td>Markdown uniqueness and sync gate / Markdown &#25991;&#26723;&#21807;&#19968;&#24615;&#19982;&#21516;&#27493;&#38376;&#31105;</td><td>Active</td><td>Content + Product</td><td>All Markdown documents, Notion archive</td><td>One bilingual source document per type with change log and Notion sync.</td><td>common requirements, functional requirements, Notion archive</td></tr>
-              <tr><td>DOC-006</td><td><span class="status-pill med">P1</span></td><td>Documentation</td><td>Bilingual delivery check / &#21452;&#35821;&#20132;&#20184;&#26816;&#26597;</td><td>Active</td><td>Content</td><td>Reports and Notion archive</td><td>Every new project document ships with Chinese and English content.</td><td>reports/*.md</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="content-grid" id="intake">
-        <article class="dash-card">
-          <div class="dash-head">
-            <div><span class="num">Change intake</span><h2>Required fields / &#24517;&#22635;&#23383;&#27573;</h2></div>
-            <button class="mini-link" type="button">Create item</button>
-          </div>
-          <div class="requirement-form-grid">
-            <div><span>Changed object</span><strong>Page, module, section, component, copy, flow or data structure</strong></div>
-            <div><span>Reason for change</span><strong>User request, VOC evidence, compliance, design rule or defect</strong></div>
-            <div><span>Affected scope</span><strong>Files, pages, roles, Notion, GitHub, design system</strong></div>
-            <div><span>Acceptance criteria</span><strong>Observable pass/fail conditions before release</strong></div>
-          </div>
-        </article>
-
-        <article class="dash-card" id="rules">
-          <div class="dash-head"><div><span class="num">Gate rules</span><h2>Before work moves</h2></div></div>
-          <div class="task-list">
-            <label><input type="checkbox" checked> Requirement item exists before implementation.</label>
-            <label><input type="checkbox" checked> Requirement list uses table format, not card format.</label>
-            <label><input type="checkbox" checked> Priority, owner and affected scope are visible.</label>
-            <label><input type="checkbox" checked> Cross-page or design-system changes have user confirmation.</label>
-            <label><input type="checkbox" checked> Notion archive sync is created for document changes.</label>
-          </div>
-        </article>
-      </section>
-
-      <section class="content-grid risk-grid" id="traceability">
-        <article class="dash-card workbench-card">
-          <div class="dash-head">
-            <div><span class="num">Traceability</span><h2>Requirement to file matrix</h2></div>
-            <button class="mini-link" type="button">Export</button>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>ID</th><th>Priority</th><th>Changed object</th><th>Status</th><th>Owner</th><th>Linked files</th><th>Acceptance signal</th></tr></thead>
-              <tbody>
-                <tr><td>FR-041</td><td><span class="status-pill high">P0</span></td><td>Change logging gate</td><td>Active</td><td>Product</td><td>common requirements, functional requirements</td><td>Every change has a requirement item</td></tr>
-                <tr><td>FR-042</td><td><span class="status-pill high">P0</span></td><td>Requirement table page</td><td>Ready</td><td>Product + Design</td><td>requirements-board.html, styles.css</td><td>Requirement list is table-based and no longer card-based</td></tr>
-                <tr><td>FR-043</td><td><span class="status-pill high">P0</span></td><td>Markdown document governance</td><td>Active</td><td>Content + Product</td><td>common requirements, functional requirements, Notion archive</td><td>One bilingual source document per type with change log and Notion sync</td></tr>
-                <tr><td>FR-034</td><td><span class="status-pill high">P0</span></td><td>Requirement intake board</td><td>Ready</td><td>Product</td><td>requirements-board.html</td><td>Categories, priority, status and owner are visible in table flow</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="dash-card" id="files">
-          <div class="dash-head compact-head"><div><span class="num">Linked files</span><h2>Source of truth</h2></div></div>
-          <div class="status-list">
-            <div><strong>Functional requirements</strong><span>reports/x-lab-functional-requirements-bilingual-2026-06-06.md</span></div>
-            <div><strong>Common requirements</strong><span>reports/x-lab-ui-ux-common-requirements.md</span></div>
-            <div><strong>Design system</strong><span>design.md and styles.css</span></div>
-            <div><strong>Board page</strong><span>requirements-board.html</span></div>
-          </div>
-        </article>
-      </section>
-    </main>
-  </div>
+    <section class="dash-card workbench-card" id="requirements" aria-label="Requirement overview table">
+      <div class="dash-head">
+        <div><span class="num">Requirement overview / &#38656;&#27714;&#24635;&#35272;</span><h2>Single source table</h2></div>
+        <button class="mini-link" type="button">Export table</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Priority<br>&#20248;&#20808;&#32423;</th>
+              <th>Module<br>&#27169;&#22359;</th>
+              <th>Requirement<br>&#38656;&#27714;</th>
+              <th>VOC<br>&#20851;&#32852; VOC</th>
+              <th>Request date<br>&#25552;&#20986;&#26102;&#38388;</th>
+              <th>Planned completion<br>&#35745;&#21010;&#23436;&#25104;</th>
+              <th>Status<br>&#29366;&#24577;</th>
+              <th>Owner<br>&#36127;&#36131;&#20154;</th>
+              <th>Affected scope<br>&#24433;&#21709;&#33539;&#22260;</th>
+              <th>Acceptance criteria<br>&#39564;&#25910;&#26631;&#20934;</th>
+              <th>Test validation<br>&#27979;&#35797;&#39564;&#35777;&#24773;&#20917;</th>
+              <th>Linked files<br>&#20851;&#32852;&#25991;&#20214;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>FR-001</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Product discovery</td>
+              <td>Model comparison matrix / &#36710;&#22411;&#23545;&#27604;&#30697;&#38453;</td>
+              <td>VOC: model hierarchy confusion</td>
+              <td>2026-06-06</td>
+              <td>2026-06-21</td>
+              <td>Triage</td>
+              <td>Product</td>
+              <td>Product pages, comparison route</td>
+              <td>Compare models by use case, price, weight, spec, warranty and channel availability.</td>
+              <td>Not tested. Awaiting table implementation.</td>
+              <td>model-comparison.html</td>
+            </tr>
+            <tr>
+              <td>FR-004</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Product detail</td>
+              <td>Geometry and fit explainer / &#20960;&#20309;&#19982;&#36866;&#37197;&#35828;&#26126;</td>
+              <td>VOC: sizing uncertainty before purchase</td>
+              <td>2026-06-06</td>
+              <td>2026-06-24</td>
+              <td>Build</td>
+              <td>Design + Engineering</td>
+              <td>Product detail, custom bike, dealer fit</td>
+              <td>Show geometry, calculator, fit notes and dealer confirmation route.</td>
+              <td>Partial source inspection only. Needs browser and fit-flow QA.</td>
+              <td>custom-bike.html, bike-ad9.html</td>
+            </tr>
+            <tr>
+              <td>FR-008</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Dealer channel</td>
+              <td>Dealer locator with inventory / &#32463;&#38144;&#21830;&#24211;&#23384;&#23450;&#20301;&#22120;</td>
+              <td>VOC: where to test, buy, reserve or service</td>
+              <td>2026-06-06</td>
+              <td>2026-06-28</td>
+              <td>Triage</td>
+              <td>B2B Ops</td>
+              <td>Stores, dealer data, local inventory</td>
+              <td>Expose store capability, test ride status, model sizes and inventory recency.</td>
+              <td>Not tested. Requires real or mocked dealer inventory data.</td>
+              <td>stores.html, local-inventory.html</td>
+            </tr>
+            <tr>
+              <td>FR-015</td>
+              <td><span class="status-pill med">P1</span></td>
+              <td>B2B operations</td>
+              <td>Lead inbox / RFQ &#19982;&#35797;&#39569;&#32447;&#32034;&#25910;&#20214;&#31665;</td>
+              <td>VOC: dealer conversion depends on fast lead response</td>
+              <td>2026-06-06</td>
+              <td>2026-07-05</td>
+              <td>In design</td>
+              <td>B2B Ops</td>
+              <td>Dealer portal, RFQ, test ride</td>
+              <td>Track incoming RFQ and test ride requests by source page, owner and SLA.</td>
+              <td>Not tested. Needs lead-state prototype and table QA.</td>
+              <td>b2b-dashboard.html, rfq-orders.html</td>
+            </tr>
+            <tr>
+              <td>FR-018</td>
+              <td><span class="status-pill med">P1</span></td>
+              <td>Warranty</td>
+              <td>Warranty claim tracking / &#20445;&#20462;&#29702;&#36180;&#36861;&#36394;</td>
+              <td>VOC: after-sales certainty blocks conversion</td>
+              <td>2026-06-06</td>
+              <td>2026-07-08</td>
+              <td>Build</td>
+              <td>Service</td>
+              <td>Support and B2B dashboard</td>
+              <td>Show case ID, evidence upload, status and next required action.</td>
+              <td>Not tested. Requires claim submission and evidence upload QA.</td>
+              <td>warranty-claim.html, b2b-dashboard.html</td>
+            </tr>
+            <tr>
+              <td>FR-034</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Demand management</td>
+              <td>Requirement intake board / &#38656;&#27714; intake &#30475;&#26495;</td>
+              <td>VOC: requirements need trackable intake</td>
+              <td>2026-06-06</td>
+              <td>2026-06-06</td>
+              <td>Ready</td>
+              <td>Product</td>
+              <td>Requirement page</td>
+              <td>Maintain requirements in one table with priority, owner, dates, VOC and validation state.</td>
+              <td>Source verified. Browser visual QA still pending.</td>
+              <td>requirements-board.html</td>
+            </tr>
+            <tr>
+              <td>FR-041</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Demand management</td>
+              <td>Mandatory change logging gate / &#25913;&#21160;&#35760;&#24405;&#24378;&#21046;&#38376;&#31105;</td>
+              <td>User governance request</td>
+              <td>2026-06-06</td>
+              <td>2026-06-06</td>
+              <td>Active</td>
+              <td>Product</td>
+              <td>All project changes</td>
+              <td>Every change has requirement object, reason, scope, priority, owner and acceptance criteria.</td>
+              <td>Verified in common rules and functional requirements.</td>
+              <td>common requirements, functional requirements</td>
+            </tr>
+            <tr>
+              <td>FR-042</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Demand management</td>
+              <td>Requirement overview table / &#38656;&#27714;&#24635;&#35272;&#34920;</td>
+              <td>User UI feedback: table, not cards</td>
+              <td>2026-06-06</td>
+              <td>2026-06-06</td>
+              <td>Ready</td>
+              <td>Product + Design</td>
+              <td>Requirement page, docs, Notion sync</td>
+              <td>Page shows only one requirement overview table with VOC, request date, planned completion date and test validation fields.</td>
+              <td>Source verified: no card-based demand list remains.</td>
+              <td>requirements-board.html, functional requirements</td>
+            </tr>
+            <tr>
+              <td>FR-043</td>
+              <td><span class="status-pill high">P0</span></td>
+              <td>Documentation governance</td>
+              <td>Markdown uniqueness and sync gate / Markdown &#25991;&#26723;&#21807;&#19968;&#24615;&#19982;&#21516;&#27493;&#38376;&#31105;</td>
+              <td>User governance request</td>
+              <td>2026-06-06</td>
+              <td>2026-06-06</td>
+              <td>Active</td>
+              <td>Content + Product</td>
+              <td>All Markdown documents, Notion archive</td>
+              <td>One bilingual source document per type with change log and Notion sync.</td>
+              <td>Verified in common rules and weekly sync automation.</td>
+              <td>common requirements, functional requirements, Notion archive</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
   <script src="app.js"></script>
 </body>
 </html>
