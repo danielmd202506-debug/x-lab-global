@@ -29,175 +29,102 @@
       <div>
         <div class="kicker">Demand management / &#38656;&#27714;&#31649;&#29702;</div>
         <h1>Requirement overview</h1>
-        <p class="lead">Maintain one table first. Each row carries VOC reference, request date, planned completion date, owner, status, acceptance criteria and test validation status.</p>
+        <p class="lead">Maintain one table first. Every collected requirement is synced here with VOC, request date, planned completion, owner, status, acceptance criteria and validation state.</p>
       </div>
+    </section>
+
+    <section class="dashboard-grid kpi-grid" aria-label="Requirement statistics">
+      <article class="dash-card kpi-card"><span class="num">Total requirements</span><strong id="reqStatTotal">0</strong><p>All requirement records currently maintained in this table.</p></article>
+      <article class="dash-card kpi-card"><span class="num">P0 priority</span><strong id="reqStatP0">0</strong><p>Must unblock trust, purchase, governance or partner operations.</p></article>
+      <article class="dash-card kpi-card"><span class="num">Ready / Active</span><strong id="reqStatReady">0</strong><p>Rows that are already released, active or ready for use.</p></article>
+      <article class="dash-card kpi-card danger"><span class="num">Needs validation</span><strong id="reqStatValidation">0</strong><p>Rows without completed test validation.</p></article>
+    </section>
+
+    <section class="toolbar requirement-controls" aria-label="Requirement filters and sorting">
+      <div class="field compact"><label for="reqSearch">Search / &#25628;&#32034;</label><input id="reqSearch" type="search" placeholder="ID, VOC, owner, file"></div>
+      <div class="field compact"><label for="reqPriorityFilter">Priority / &#20248;&#20808;&#32423;</label><select id="reqPriorityFilter"><option value="">All priorities</option><option>P0</option><option>P1</option><option>P2</option></select></div>
+      <div class="field compact"><label for="reqModuleFilter">Module / &#27169;&#22359;</label><select id="reqModuleFilter"><option value="">All modules</option></select></div>
+      <div class="field compact"><label for="reqStatusFilter">Status / &#29366;&#24577;</label><select id="reqStatusFilter"><option value="">All status</option></select></div>
+      <button class="btn dark" type="button" id="reqResetFilters">Reset filters</button>
     </section>
 
     <section class="dash-card workbench-card" id="requirements" aria-label="Requirement overview table">
       <div class="dash-head">
         <div><span class="num">Requirement overview / &#38656;&#27714;&#24635;&#35272;</span><h2>Single source table</h2></div>
-        <button class="mini-link" type="button">Export table</button>
+        <span class="table-count" id="reqVisibleCount">0 visible</span>
       </div>
       <div class="table-wrap">
-        <table>
+        <table class="requirement-table" id="requirementsTable">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Priority<br>&#20248;&#20808;&#32423;</th>
-              <th>Module<br>&#27169;&#22359;</th>
-              <th>Requirement<br>&#38656;&#27714;</th>
-              <th>VOC<br>&#20851;&#32852; VOC</th>
-              <th>Request date<br>&#25552;&#20986;&#26102;&#38388;</th>
-              <th>Planned completion<br>&#35745;&#21010;&#23436;&#25104;</th>
-              <th>Status<br>&#29366;&#24577;</th>
-              <th>Owner<br>&#36127;&#36131;&#20154;</th>
+              <th><button type="button" data-sort="id">ID</button></th>
+              <th><button type="button" data-sort="priority">Priority<br>&#20248;&#20808;&#32423;</button></th>
+              <th><button type="button" data-sort="module">Module<br>&#27169;&#22359;</button></th>
+              <th><button type="button" data-sort="requirement">Requirement<br>&#38656;&#27714;</button></th>
+              <th><button type="button" data-sort="voc">VOC<br>&#20851;&#32852; VOC</button></th>
+              <th><button type="button" data-sort="requestDate">Request date<br>&#25552;&#20986;&#26102;&#38388;</button></th>
+              <th><button type="button" data-sort="plannedDate">Planned completion<br>&#35745;&#21010;&#23436;&#25104;</button></th>
+              <th><button type="button" data-sort="status">Status<br>&#29366;&#24577;</button></th>
+              <th><button type="button" data-sort="owner">Owner<br>&#36127;&#36131;&#20154;</button></th>
               <th>Affected scope<br>&#24433;&#21709;&#33539;&#22260;</th>
               <th>Acceptance criteria<br>&#39564;&#25910;&#26631;&#20934;</th>
-              <th>Test validation<br>&#27979;&#35797;&#39564;&#35777;&#24773;&#20917;</th>
+              <th><button type="button" data-sort="validation">Test validation<br>&#27979;&#35797;&#39564;&#35777;</button></th>
               <th>Linked files<br>&#20851;&#32852;&#25991;&#20214;</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>FR-001</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Product discovery</td>
-              <td>Model comparison matrix / &#36710;&#22411;&#23545;&#27604;&#30697;&#38453;</td>
-              <td>VOC: model hierarchy confusion</td>
-              <td>2026-06-06</td>
-              <td>2026-06-21</td>
-              <td>Triage</td>
-              <td>Product</td>
-              <td>Product pages, comparison route</td>
-              <td>Compare models by use case, price, weight, spec, warranty and channel availability.</td>
-              <td>Not tested. Awaiting table implementation.</td>
-              <td>model-comparison.html</td>
-            </tr>
-            <tr>
-              <td>FR-004</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Product detail</td>
-              <td>Geometry and fit explainer / &#20960;&#20309;&#19982;&#36866;&#37197;&#35828;&#26126;</td>
-              <td>VOC: sizing uncertainty before purchase</td>
-              <td>2026-06-06</td>
-              <td>2026-06-24</td>
-              <td>Build</td>
-              <td>Design + Engineering</td>
-              <td>Product detail, custom bike, dealer fit</td>
-              <td>Show geometry, calculator, fit notes and dealer confirmation route.</td>
-              <td>Partial source inspection only. Needs browser and fit-flow QA.</td>
-              <td>custom-bike.html, bike-ad9.html</td>
-            </tr>
-            <tr>
-              <td>FR-008</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Dealer channel</td>
-              <td>Dealer locator with inventory / &#32463;&#38144;&#21830;&#24211;&#23384;&#23450;&#20301;&#22120;</td>
-              <td>VOC: where to test, buy, reserve or service</td>
-              <td>2026-06-06</td>
-              <td>2026-06-28</td>
-              <td>Triage</td>
-              <td>B2B Ops</td>
-              <td>Stores, dealer data, local inventory</td>
-              <td>Expose store capability, test ride status, model sizes and inventory recency.</td>
-              <td>Not tested. Requires real or mocked dealer inventory data.</td>
-              <td>stores.html, local-inventory.html</td>
-            </tr>
-            <tr>
-              <td>FR-015</td>
-              <td><span class="status-pill med">P1</span></td>
-              <td>B2B operations</td>
-              <td>Lead inbox / RFQ &#19982;&#35797;&#39569;&#32447;&#32034;&#25910;&#20214;&#31665;</td>
-              <td>VOC: dealer conversion depends on fast lead response</td>
-              <td>2026-06-06</td>
-              <td>2026-07-05</td>
-              <td>In design</td>
-              <td>B2B Ops</td>
-              <td>Dealer portal, RFQ, test ride</td>
-              <td>Track incoming RFQ and test ride requests by source page, owner and SLA.</td>
-              <td>Not tested. Needs lead-state prototype and table QA.</td>
-              <td>b2b-dashboard.html, rfq-orders.html</td>
-            </tr>
-            <tr>
-              <td>FR-018</td>
-              <td><span class="status-pill med">P1</span></td>
-              <td>Warranty</td>
-              <td>Warranty claim tracking / &#20445;&#20462;&#29702;&#36180;&#36861;&#36394;</td>
-              <td>VOC: after-sales certainty blocks conversion</td>
-              <td>2026-06-06</td>
-              <td>2026-07-08</td>
-              <td>Build</td>
-              <td>Service</td>
-              <td>Support and B2B dashboard</td>
-              <td>Show case ID, evidence upload, status and next required action.</td>
-              <td>Not tested. Requires claim submission and evidence upload QA.</td>
-              <td>warranty-claim.html, b2b-dashboard.html</td>
-            </tr>
-            <tr>
-              <td>FR-034</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Demand management</td>
-              <td>Requirement intake board / &#38656;&#27714; intake &#30475;&#26495;</td>
-              <td>VOC: requirements need trackable intake</td>
-              <td>2026-06-06</td>
-              <td>2026-06-06</td>
-              <td>Ready</td>
-              <td>Product</td>
-              <td>Requirement page</td>
-              <td>Maintain requirements in one table with priority, owner, dates, VOC and validation state.</td>
-              <td>Source verified. Browser visual QA still pending.</td>
-              <td>requirements-board.html</td>
-            </tr>
-            <tr>
-              <td>FR-041</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Demand management</td>
-              <td>Mandatory change logging gate / &#25913;&#21160;&#35760;&#24405;&#24378;&#21046;&#38376;&#31105;</td>
-              <td>User governance request</td>
-              <td>2026-06-06</td>
-              <td>2026-06-06</td>
-              <td>Active</td>
-              <td>Product</td>
-              <td>All project changes</td>
-              <td>Every change has requirement object, reason, scope, priority, owner and acceptance criteria.</td>
-              <td>Verified in common rules and functional requirements.</td>
-              <td>common requirements, functional requirements</td>
-            </tr>
-            <tr>
-              <td>FR-042</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Demand management</td>
-              <td>Requirement overview table / &#38656;&#27714;&#24635;&#35272;&#34920;</td>
-              <td>User UI feedback: table, not cards</td>
-              <td>2026-06-06</td>
-              <td>2026-06-06</td>
-              <td>Ready</td>
-              <td>Product + Design</td>
-              <td>Requirement page, docs, Notion sync</td>
-              <td>Page shows only one requirement overview table with VOC, request date, planned completion date and test validation fields.</td>
-              <td>Source verified: no card-based demand list remains.</td>
-              <td>requirements-board.html, functional requirements</td>
-            </tr>
-            <tr>
-              <td>FR-043</td>
-              <td><span class="status-pill high">P0</span></td>
-              <td>Documentation governance</td>
-              <td>Markdown uniqueness and sync gate / Markdown &#25991;&#26723;&#21807;&#19968;&#24615;&#19982;&#21516;&#27493;&#38376;&#31105;</td>
-              <td>User governance request</td>
-              <td>2026-06-06</td>
-              <td>2026-06-06</td>
-              <td>Active</td>
-              <td>Content + Product</td>
-              <td>All Markdown documents, Notion archive</td>
-              <td>One bilingual source document per type with change log and Notion sync.</td>
-              <td>Verified in common rules and weekly sync automation.</td>
-              <td>common requirements, functional requirements, Notion archive</td>
-            </tr>
-          </tbody>
+          <tbody id="requirementsTableBody"></tbody>
         </table>
       </div>
     </section>
   </main>
+
+  <script>
+    window.xlabRequirements = [
+      {id:"FR-001",priority:"P0",module:"Product discovery",requirement:"Model comparison matrix / 车型对比矩阵",voc:"Model hierarchy confusion across RS / AD / RT / GT / SP / ST",requestDate:"2026-06-06",plannedDate:"2026-06-21",status:"Triage",owner:"Product",scope:"Product pages, model comparison",acceptance:"Compare active models by use case, price, weight, spec, warranty and channel availability.",validation:"Not tested",files:"model-comparison.html"},
+      {id:"FR-002",priority:"P0",module:"Product discovery",requirement:"Plain-language model selector / 白话版车型选择器",voc:"New riders need guidance before reading detailed specs",requestDate:"2026-06-06",plannedDate:"2026-06-23",status:"Planned",owner:"Product",scope:"Bike finder, product discovery",acceptance:"Ask riding type, budget, terrain, fit priority and performance goal, then recommend 2-3 models.",validation:"Not tested",files:"bike-finder.html"},
+      {id:"FR-003",priority:"P0",module:"Product detail",requirement:"Spec transparency block / 参数透明模块",voc:"Low price creates suspicion about hidden compromises",requestDate:"2026-06-06",plannedDate:"2026-06-25",status:"Backlog",owner:"Product",scope:"Product detail pages",acceptance:"Show full component list, frame material, wheels, drivetrain, cockpit, power meter, tire clearance and weight basis.",validation:"Not tested",files:"bike-ad9.html"},
+      {id:"FR-004",priority:"P0",module:"Product detail",requirement:"Geometry and fit explainer / 几何与适配说明",voc:"Sizing uncertainty before purchase",requestDate:"2026-06-06",plannedDate:"2026-06-24",status:"Build",owner:"Design + Engineering",scope:"Product detail, custom bike, dealer fit",acceptance:"Show geometry chart, size calculator, height/inseam guidance and dealer fit confirmation.",validation:"Partial source inspection",files:"custom-bike.html, bike-ad9.html"},
+      {id:"FR-005",priority:"P1",module:"Product detail",requirement:"Integrated cockpit configuration guide / 一体把与座舱配置指南",voc:"Cockpit width, stem length and proprietary systems create hesitation",requestDate:"2026-06-06",plannedDate:"2026-07-02",status:"Partial",owner:"Product + Service",scope:"Product detail, custom bike",acceptance:"Explain cockpit sizes, adjustment range, replacement route and purchase-time change rules.",validation:"Partial source inspection",files:"custom-bike.html"},
+      {id:"FR-006",priority:"P1",module:"Product detail",requirement:"Build variant comparison / 配置版本对比",voc:"Users compare mechanical 105, Di2, GRX and Astana builds",requestDate:"2026-06-06",plannedDate:"2026-07-04",status:"Backlog",owner:"Product",scope:"Product detail, model comparison",acceptance:"Compare variants by price, groupset, wheels, power meter, weight and target rider.",validation:"Not tested",files:"bike-ad9.html, model-comparison.html"},
+      {id:"FR-007",priority:"P1",module:"Product detail",requirement:"Why this price FAQ / 为什么这个价格 FAQ",voc:"Value pricing creates excitement and suspicion",requestDate:"2026-06-06",plannedDate:"2026-07-03",status:"Partial",owner:"Content",scope:"Brand and product pages",acceptance:"Explain vertical integration, dealer model, manufacturing background, warranty and service commitments.",validation:"Partial source inspection",files:"index.html, factory.html, bike-ad9.html"},
+      {id:"FR-008",priority:"P0",module:"Dealer channel",requirement:"Dealer locator with inventory / 经销商库存定位器",voc:"Where to test, buy, reserve or service",requestDate:"2026-06-06",plannedDate:"2026-06-28",status:"Triage",owner:"B2B Ops",scope:"Stores, dealer data, local inventory",acceptance:"Show location, service capability, available models/sizes, test ride status and inventory timestamp.",validation:"Not tested",files:"stores.html, local-inventory.html"},
+      {id:"FR-009",priority:"P0",module:"Dealer channel",requirement:"Reserve or request test ride flow / 试骑预约与车辆预留流程",voc:"Local shop availability is a key trust driver",requestDate:"2026-06-06",plannedDate:"2026-06-29",status:"Partial",owner:"B2B Ops",scope:"Stores, dealer leads",acceptance:"User can request test ride or reserve bike; dealer receives model, size, time, contact and notes.",validation:"Not tested",files:"stores.html, store-pickup.html"},
+      {id:"FR-010",priority:"P0",module:"Dealer channel",requirement:"Allocation and lead-time visibility / 配额与交期可视化",voc:"Unclear allocation-based ordering frustrates buyers",requestDate:"2026-06-06",plannedDate:"2026-06-30",status:"Partial",owner:"Sales Ops",scope:"Product pages, dealer pages, B2B dashboard",acceptance:"Show lead time, preorder status, allocation batch, deposit rules and dealer contact path.",validation:"Partial source inspection",files:"dealers.html, b2b-dashboard.html"},
+      {id:"FR-011",priority:"P1",module:"Dealer channel",requirement:"Dealer detail page / 经销商详情页",voc:"Dealer trust information is fragmented",requestDate:"2026-06-06",plannedDate:"2026-07-08",status:"Backlog",owner:"B2B Ops",scope:"Dealer profiles",acceptance:"Each dealer page shows address, services, supported categories, certification, appointments and warranty capability.",validation:"Not tested",files:"dealers.html"},
+      {id:"FR-012",priority:"P0",module:"Dealer portal",requirement:"Dealer inventory management / 经销商库存管理",voc:"Public inventory needs dealer-side update tools",requestDate:"2026-06-06",plannedDate:"2026-07-01",status:"Partial",owner:"B2B Ops",scope:"Dealer portal, inventory sync",acceptance:"Dealers update stock by model, size, color, test-bike status, preorder quantity and lead time.",validation:"Partial source inspection",files:"b2b-dashboard.html, local-inventory.html"},
+      {id:"FR-013",priority:"P1",module:"Dealer portal",requirement:"Dealer service playbook library / 经销商服务手册库",voc:"Shops need confidence servicing proprietary systems",requestDate:"2026-06-06",plannedDate:"2026-07-09",status:"Backlog",owner:"Service",scope:"Dealer training, technical docs",acceptance:"Portal contains manuals, compatibility docs, warranty workflow, escalation contacts and training videos.",validation:"Not tested",files:"dealer-training.html, technical-documents.html"},
+      {id:"FR-014",priority:"P1",module:"Dealer portal",requirement:"Dealer objection-handling sheet / 经销商异议处理单页",voc:"Dealers need official answers on warranty, price, parts, sizing and service",requestDate:"2026-06-06",plannedDate:"2026-07-10",status:"Backlog",owner:"Content",scope:"Dealer sales enablement",acceptance:"Dealer can download or share one-page sales support material with approved answers.",validation:"Not tested",files:"dealer-training.html, launch-assets.html"},
+      {id:"FR-015",priority:"P1",module:"Dealer portal",requirement:"Lead inbox for RFQ/test rides / RFQ 与试骑线索收件箱",voc:"Dealer conversion depends on fast response to web leads",requestDate:"2026-06-06",plannedDate:"2026-07-05",status:"In design",owner:"B2B Ops",scope:"Dealer portal, RFQ, test ride",acceptance:"Show incoming leads, source page, requested model/size, status, owner, SLA and next action.",validation:"Not tested",files:"b2b-dashboard.html, rfq-orders.html"},
+      {id:"FR-016",priority:"P0",module:"Warranty",requirement:"Warranty registration flow / 保修注册流程",voc:"Lifetime warranty depends on authorized purchase and timely registration",requestDate:"2026-06-06",plannedDate:"2026-06-30",status:"Planned",owner:"Service",scope:"Owner support",acceptance:"User registers within 90 days using serial number, proof, dealer, model, size and contact info.",validation:"Not tested",files:"product-registration.html"},
+      {id:"FR-017",priority:"P0",module:"Warranty",requirement:"Warranty explainer page / 保修说明页",voc:"Warranty rules build trust and can cause confusion",requestDate:"2026-06-06",plannedDate:"2026-07-01",status:"Backlog",owner:"Service + Content",scope:"Support pages",acceptance:"Explain frame, wheel, owner, authorized purchase, registration deadline, exclusions and claim steps.",validation:"Not tested",files:"warranty-claim.html"},
+      {id:"FR-018",priority:"P1",module:"Warranty",requirement:"Warranty claim tracking / 保修理赔追踪",voc:"After-sales certainty blocks conversion",requestDate:"2026-06-06",plannedDate:"2026-07-08",status:"Build",owner:"Service",scope:"Support and B2B dashboard",acceptance:"User/dealer submits claim, uploads photos/docs, gets case ID, tracks status and next action.",validation:"Not tested",files:"warranty-claim.html, b2b-dashboard.html"},
+      {id:"FR-019",priority:"P1",module:"Warranty",requirement:"Return policy decision guide / 退货政策决策指南",voc:"Short online return window creates purchase anxiety",requestDate:"2026-06-06",plannedDate:"2026-07-11",status:"Backlog",owner:"Service + Content",scope:"Checkout and support",acceptance:"Explain return window, restocking fee, ridden-bike rules, shipping responsibility and dealer-vs-online differences.",validation:"Not tested",files:"warranty-claim.html"},
+      {id:"FR-020",priority:"P0",module:"Parts and compatibility",requirement:"Compatibility and spare-parts database / 兼容性与备件数据库",voc:"Proprietary parts create hesitation",requestDate:"2026-06-06",plannedDate:"2026-07-03",status:"Planned",owner:"Service + Engineering",scope:"Technical docs, parts support",acceptance:"Search by model/year/component and show part numbers, alternatives, availability, service notes and replacement route.",validation:"Not tested",files:"technical-documents.html"},
+      {id:"FR-021",priority:"P1",module:"Parts and compatibility",requirement:"Proprietary component transparency badges / 专有零件透明标签",voc:"Buyers need to know standard vs semi-proprietary vs proprietary parts",requestDate:"2026-06-06",plannedDate:"2026-07-12",status:"Backlog",owner:"Product",scope:"Product/spec pages",acceptance:"Label component type and explain service impact and replacement availability.",validation:"Not tested",files:"bike-ad9.html, technical-documents.html"},
+      {id:"FR-022",priority:"P1",module:"Parts and compatibility",requirement:"Chainring and drivetrain compatibility guide / 盘片与传动兼容指南",voc:"Gravel buyers question 40T suitability and swap options",requestDate:"2026-06-06",plannedDate:"2026-07-13",status:"Backlog",owner:"Service",scope:"Technical documents",acceptance:"Show supported chainring sizes, interface/BCD, drivetrain limits, terrain advice and dealer service guide.",validation:"Not tested",files:"technical-documents.html"},
+      {id:"FR-023",priority:"P1",module:"Reviews and social proof",requirement:"Verified owner review system / 认证车主评价系统",voc:"Authentic post-purchase feedback is sparse because launch is recent",requestDate:"2026-06-06",plannedDate:"2026-07-15",status:"Backlog",owner:"Product",scope:"Owner garage, reviews",acceptance:"Owners submit verified reviews tied to serial/order/dealer and filter by model, size, terrain and ownership time.",validation:"Not tested",files:"owner-garage.html"},
+      {id:"FR-024",priority:"P1",module:"Reviews and social proof",requirement:"Media review hub / 媒体评测中心",voc:"Media reviews are dispersed across external sources",requestDate:"2026-06-06",plannedDate:"2026-07-14",status:"Backlog",owner:"Content",scope:"Brand and product pages",acceptance:"Aggregate third-party reviews with date, model, publication, takeaway and outbound link.",validation:"Not tested",files:"race-validation.html, bike-ad9.html"},
+      {id:"FR-025",priority:"P2",module:"Reviews and social proof",requirement:"Real owner follow-up survey / 真实车主跟进调研",voc:"Early owner feedback should become structured VOC",requestDate:"2026-06-06",plannedDate:"2026-07-25",status:"Backlog",owner:"Product",scope:"Owner garage, VOC database",acceptance:"Send surveys at 14, 60 and 180 days and feed responses into VOC database.",validation:"Not tested",files:"owner-garage.html"},
+      {id:"FR-026",priority:"P0",module:"Brand trust",requirement:"XDS manufacturing credibility page / XDS 制造可信度页面",voc:"Western brand awareness is low despite XDS scale",requestDate:"2026-06-06",plannedDate:"2026-06-06",status:"Released",owner:"Content + Design",scope:"Factory and homepage",acceptance:"Explain XDS history, manufacturing scale, vertical integration, quality controls, racing and dealer support.",validation:"Source verified",files:"factory.html, index.html"},
+      {id:"FR-027",priority:"P1",module:"Brand trust",requirement:"WorldTour and race proof page / WorldTour 与赛事背书页面",voc:"XDS-Astana legitimacy drives road buyer interest",requestDate:"2026-06-06",plannedDate:"2026-07-06",status:"Planned",owner:"Content",scope:"Race validation",acceptance:"Show race program, bikes used, team/athlete proof, technology transfer and media coverage.",validation:"Not tested",files:"race-validation.html"},
+      {id:"FR-028",priority:"P1",module:"Brand trust",requirement:"Brand comparison narrative / 品牌对比叙事",voc:"Premium buyers compare against Trek, Giant, Canyon, Specialized and custom builds",requestDate:"2026-06-06",plannedDate:"2026-07-16",status:"Backlog",owner:"Content + Product",scope:"Brand and product pages",acceptance:"Explain positioning by value, dealer support, warranty, specs and use case without unsupported claims.",validation:"Not tested",files:"index.html, bike-ad9.html"},
+      {id:"FR-029",priority:"P1",module:"Checkout",requirement:"Pre-purchase confidence checklist / 购买前信心检查清单",voc:"Buyers want to avoid fit, warranty, return and service mistakes",requestDate:"2026-06-06",plannedDate:"2026-07-09",status:"Partial",owner:"Product",scope:"Custom bike, checkout support",acceptance:"Confirm size confidence, local service path, warranty registration, return terms and configuration before checkout.",validation:"Partial source inspection",files:"custom-bike.html, stores.html"},
+      {id:"FR-030",priority:"P1",module:"Checkout",requirement:"Dealer-assisted checkout option / 经销商辅助结账选项",voc:"Authorized dealer purchase reinforces warranty and fit trust",requestDate:"2026-06-06",plannedDate:"2026-07-10",status:"Partial",owner:"Sales Ops",scope:"Checkout, store pickup",acceptance:"User can choose ship-to-dealer, dealer pickup, dealer assembly or dealer consultation where available.",validation:"Partial source inspection",files:"store-pickup.html, custom-bike.html"},
+      {id:"FR-031",priority:"P2",module:"E-bike support",requirement:"E-bike service and compliance center / 电助力服务与合规中心",voc:"Urban/e-bike buyers care about motor, battery, app, class rules and service",requestDate:"2026-06-06",plannedDate:"2026-07-28",status:"Backlog",owner:"Service + Product",scope:"E-bike support",acceptance:"Show motor/battery specs, range basis, charging, replacement path, app support, class compliance and local service.",validation:"Not tested",files:"technical-documents.html"},
+      {id:"FR-032",priority:"P2",module:"E-bike support",requirement:"Battery and motor support ticket type / 电池与电机专用工单类型",voc:"E-bike after-sales needs different triage than acoustic bikes",requestDate:"2026-06-06",plannedDate:"2026-07-29",status:"Backlog",owner:"Service",scope:"Support forms",acceptance:"Capture motor, battery serial, firmware/app version, range issue, error code, charger status and safety notes.",validation:"Not tested",files:"warranty-claim.html"},
+      {id:"FR-033",priority:"P0",module:"Demand management",requirement:"VOC evidence database / VOC 证据数据库",voc:"Requirements need source URL, date, persona, severity and confidence",requestDate:"2026-06-06",plannedDate:"2026-07-02",status:"Partial",owner:"Product",scope:"VOC and demand records",acceptance:"Record VOC item, source, observed date, user type, product line, sentiment, severity, confidence, owner and linked requirements.",validation:"Partial documentation verified",files:"reports/x-lab-voc-demand-intelligence-2026-06-06.md"},
+      {id:"FR-034",priority:"P0",module:"Demand management",requirement:"Requirement intake board / 需求 intake 看板",voc:"VOC must become trackable demand items",requestDate:"2026-06-06",plannedDate:"2026-06-06",status:"Ready",owner:"Product",scope:"Requirement overview",acceptance:"Maintain requirements in one table with priority, owner, dates, VOC and validation state.",validation:"Source verified",files:"requirements-board.html"},
+      {id:"FR-035",priority:"P1",module:"Demand management",requirement:"Monthly VOC refresh workflow / 月度 VOC 刷新流程",voc:"Launch-wave market sentiment shifts quickly",requestDate:"2026-06-06",plannedDate:"2026-07-20",status:"Backlog",owner:"Product",scope:"VOC refresh and reports",acceptance:"Store refresh notes, new sources, sentiment changes, new risks, resolved concerns and priority changes.",validation:"Not tested",files:"reports/x-lab-voc-demand-intelligence-2026-06-06.md"},
+      {id:"FR-036",priority:"P1",module:"Demand management",requirement:"Evidence-to-feature traceability / 证据到功能的追溯",voc:"Product decisions need to preserve why each feature exists",requestDate:"2026-06-06",plannedDate:"2026-07-18",status:"Partial",owner:"Product",scope:"Requirement records, VOC links",acceptance:"Each functional requirement links to one or more VOC evidence items with confidence and last verified date.",validation:"Partial documentation verified",files:"requirements-board.html, reports/*.md"},
+      {id:"FR-037",priority:"P1",module:"Supplier and distributor",requirement:"Distributor directory and inquiry flow / 代理商目录与询价流程",voc:"Global distributors exist but partner contact paths need clarity",requestDate:"2026-06-06",plannedDate:"2026-07-17",status:"Backlog",owner:"Sales Ops",scope:"Dealer and distributor pages",acceptance:"List distributors by country/region with contact method, category support, dealer application path and escalation contact.",validation:"Not tested",files:"dealers.html, supplier.html"},
+      {id:"FR-038",priority:"P1",module:"Supplier and distributor",requirement:"Supplier capability intake form / 供应商能力准入表单",voc:"Supplier and parts ecosystem needs structured onboarding",requestDate:"2026-06-06",plannedDate:"2026-07-12",status:"Partial",owner:"Supplier Ops",scope:"Supplier route and B2B login",acceptance:"Potential suppliers submit company profile, category, certifications, capacity, region, sample availability, compliance docs and contact.",validation:"Partial source inspection",files:"supplier.html, supplier-login.html"},
+      {id:"FR-039",priority:"P2",module:"Supplier and distributor",requirement:"Parts availability dashboard / 零件可用性仪表盘",voc:"Spare-parts confidence matters to dealers and premium buyers",requestDate:"2026-06-06",plannedDate:"2026-07-26",status:"Partial",owner:"Supplier Ops",scope:"B2B dashboard, service parts",acceptance:"Internal users view proprietary parts stock, lead time, regional stock, backorders and critical part alerts.",validation:"Partial source inspection",files:"b2b-dashboard.html, technical-documents.html"},
+      {id:"FR-040",priority:"P1",module:"Analytics",requirement:"Conversion friction analytics / 转化摩擦分析",voc:"Product information gaps and channel friction should be measured",requestDate:"2026-06-06",plannedDate:"2026-07-19",status:"Backlog",owner:"Analytics",scope:"Website and portal events",acceptance:"Track comparison usage, size calculator, dealer locator clicks, test ride requests, warranty visits, compatibility search and checkout abandonment.",validation:"Not tested",files:"app.js"},
+      {id:"FR-041",priority:"P0",module:"Demand management",requirement:"Mandatory change logging gate / 改动记录强制门禁",voc:"User governance request",requestDate:"2026-06-06",plannedDate:"2026-06-06",status:"Active",owner:"Product",scope:"All project changes",acceptance:"Every change has requirement object, reason, scope, priority, owner and acceptance criteria.",validation:"Verified in common rules and functional requirements",files:"reports/x-lab-ui-ux-common-requirements.md"},
+      {id:"FR-042",priority:"P0",module:"Demand management",requirement:"Requirement overview table / 需求总览表",voc:"User UI feedback: table first, keep only overview",requestDate:"2026-06-06",plannedDate:"2026-06-06",status:"Ready",owner:"Product + Design",scope:"Requirement page, docs, Notion sync",acceptance:"Page shows all collected requirements in one table with filters, sortable headers, statistics, VOC, dates and validation fields.",validation:"Source verified. Browser visual QA pending",files:"requirements-board.html"},
+      {id:"FR-043",priority:"P0",module:"Documentation governance",requirement:"Markdown uniqueness and sync gate / Markdown 文档唯一性与同步门禁",voc:"User governance request",requestDate:"2026-06-06",plannedDate:"2026-06-06",status:"Active",owner:"Content + Product",scope:"All Markdown documents, Notion archive",acceptance:"One bilingual source document per type with change log and Notion sync.",validation:"Verified in common rules and weekly sync automation",files:"reports/x-lab-ui-ux-common-requirements.md"}
+    ];
+  </script>
   <script src="app.js"></script>
 </body>
 </html>

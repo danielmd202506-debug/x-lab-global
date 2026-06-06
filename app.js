@@ -191,3 +191,123 @@ if (previewPane) {
   bodyColors.forEach((control) => control.addEventListener("change", syncCustomBike));
   syncCustomBike();
 }
+
+const requirementsTable = document.querySelector("#requirementsTable");
+const requirementsTableBody = document.querySelector("#requirementsTableBody");
+
+if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequirements)) {
+  const reqSearch = document.querySelector("#reqSearch");
+  const reqPriorityFilter = document.querySelector("#reqPriorityFilter");
+  const reqModuleFilter = document.querySelector("#reqModuleFilter");
+  const reqStatusFilter = document.querySelector("#reqStatusFilter");
+  const reqResetFilters = document.querySelector("#reqResetFilters");
+  const reqVisibleCount = document.querySelector("#reqVisibleCount");
+  const reqStatTotal = document.querySelector("#reqStatTotal");
+  const reqStatP0 = document.querySelector("#reqStatP0");
+  const reqStatReady = document.querySelector("#reqStatReady");
+  const reqStatValidation = document.querySelector("#reqStatValidation");
+  let sortKey = "id";
+  let sortDir = "asc";
+
+  const priorityClass = { P0: "high", P1: "med", P2: "low" };
+  const terminalStatus = new Set(["Ready", "Active", "Released"]);
+
+  function fillRequirementOptions(select, values) {
+    if (!select) return;
+    [...new Set(values)].sort().forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  fillRequirementOptions(reqModuleFilter, window.xlabRequirements.map((item) => item.module));
+  fillRequirementOptions(reqStatusFilter, window.xlabRequirements.map((item) => item.status));
+
+  function requirementText(item) {
+    return Object.values(item).join(" ").toLowerCase();
+  }
+
+  function filteredRequirements() {
+    const search = reqSearch?.value.trim().toLowerCase() || "";
+    return window.xlabRequirements.filter((item) => {
+      if (reqPriorityFilter?.value && item.priority !== reqPriorityFilter.value) return false;
+      if (reqModuleFilter?.value && item.module !== reqModuleFilter.value) return false;
+      if (reqStatusFilter?.value && item.status !== reqStatusFilter.value) return false;
+      return !search || requirementText(item).includes(search);
+    });
+  }
+
+  function sortRequirements(rows) {
+    return [...rows].sort((a, b) => {
+      const aValue = String(a[sortKey] || "");
+      const bValue = String(b[sortKey] || "");
+      const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
+      return sortDir === "asc" ? result : -result;
+    });
+  }
+
+  function updateRequirementStats(rows) {
+    const all = window.xlabRequirements;
+    if (reqStatTotal) reqStatTotal.textContent = String(all.length);
+    if (reqStatP0) reqStatP0.textContent = String(all.filter((item) => item.priority === "P0").length);
+    if (reqStatReady) reqStatReady.textContent = String(all.filter((item) => terminalStatus.has(item.status)).length);
+    if (reqStatValidation) reqStatValidation.textContent = String(all.filter((item) => !item.validation.toLowerCase().includes("verified")).length);
+    if (reqVisibleCount) reqVisibleCount.textContent = `${rows.length} visible`;
+  }
+
+  function renderRequirements() {
+    const rows = sortRequirements(filteredRequirements());
+    updateRequirementStats(rows);
+    requirementsTableBody.innerHTML = rows.map((item) => `
+      <tr>
+        <td>${item.id}</td>
+        <td><span class="status-pill ${priorityClass[item.priority] || "low"}">${item.priority}</span></td>
+        <td>${item.module}</td>
+        <td>${item.requirement}</td>
+        <td>${item.voc}</td>
+        <td>${item.requestDate}</td>
+        <td>${item.plannedDate}</td>
+        <td>${item.status}</td>
+        <td>${item.owner}</td>
+        <td>${item.scope}</td>
+        <td>${item.acceptance}</td>
+        <td>${item.validation}</td>
+        <td>${item.files}</td>
+      </tr>
+    `).join("");
+
+    requirementsTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+      const active = button.dataset.sort === sortKey;
+      button.dataset.active = active ? sortDir : "";
+      button.setAttribute("aria-sort", active ? (sortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
+  [reqSearch, reqPriorityFilter, reqModuleFilter, reqStatusFilter].forEach((control) => {
+    if (control) control.addEventListener("input", renderRequirements);
+    if (control) control.addEventListener("change", renderRequirements);
+  });
+
+  reqResetFilters?.addEventListener("click", () => {
+    if (reqSearch) reqSearch.value = "";
+    if (reqPriorityFilter) reqPriorityFilter.value = "";
+    if (reqModuleFilter) reqModuleFilter.value = "";
+    if (reqStatusFilter) reqStatusFilter.value = "";
+    sortKey = "id";
+    sortDir = "asc";
+    renderRequirements();
+  });
+
+  requirementsTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextKey = button.dataset.sort || "id";
+      sortDir = sortKey === nextKey && sortDir === "asc" ? "desc" : "asc";
+      sortKey = nextKey;
+      renderRequirements();
+    });
+  });
+
+  renderRequirements();
+}
