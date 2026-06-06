@@ -1336,7 +1336,8 @@ footer strong { color: var(--ink); }
   position: sticky;
   top: 0;
   z-index: 2;
-  display: grid;
+  display: flex;
+  justify-content: flex-start;
   padding: 0 0 var(--space-xs);
   margin-bottom: var(--space-xs);
   background: #11161a;
@@ -1348,9 +1349,27 @@ footer strong { color: var(--ink); }
 }
 
 .sidebar-toggle {
-  justify-self: stretch;
+  justify-self: start;
+  justify-content: center;
+  width: 38px;
   min-height: 38px;
+  padding: 0;
+  font-size: 0;
   white-space: nowrap;
+}
+
+.sidebar-toggle::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  transform: rotate(135deg);
+}
+
+.sidebar-collapsed .sidebar-toggle::before {
+  transform: rotate(-45deg);
 }
 
 .sidebar-collapsed .requirement-shell {
