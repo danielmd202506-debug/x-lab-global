@@ -1155,6 +1155,10 @@ footer strong { color: var(--ink); }
   overflow: hidden;
 }
 
+.dashboard-body.requirement-body {
+  overflow: auto;
+}
+
 .app-topbar {
   position: sticky;
   top: 0;
@@ -1309,6 +1313,11 @@ footer strong { color: var(--ink); }
   min-height: 0;
   overflow-y: auto;
   padding: var(--space-lg);
+}
+
+.requirement-body .app-content {
+  min-height: calc(100vh - 64px);
+  overflow: visible;
 }
 
 .content-header {
