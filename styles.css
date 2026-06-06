@@ -1888,6 +1888,15 @@ th {
 
 .requirement-controls {
   margin-bottom: var(--space-sm);
+  grid-template-columns: minmax(220px, 1.35fr) repeat(3, minmax(142px, .82fr)) auto;
+  align-items: end;
+}
+
+.requirement-controls .btn {
+  min-height: 38px;
+  padding: 0 12px;
+  font-size: .86rem;
+  white-space: nowrap;
 }
 
 .table-count {
