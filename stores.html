@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-LAB Retail Stores</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Global navigation">
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="factory.html">Factory</a><a href="bike-ad9.html">AD9</a><a href="custom-bike.html">Custom</a><a href="supplier.html">Suppliers</a><a href="dealers.html">Dealers</a><a class="is-current" href="stores.html" aria-current="page">Stores</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
+  </nav>
+  <main>
+    <section class="page-hero" style="--hero-image:url('https://images.openai.com/static-rsc-4/NN5Avu_IlpWIspXjpZKxYL0sAfY6a1jQz4G-yFy7YOnkfl4iHj5X7434J-oIBwoPJDUL-wRSoOKQnPzNbLWz77BCK_irCOspL1ENWqJed75RRMZAhbQ7jNHyi0nmcVMdIfb1BHGp5dJ1Uurge-C_ueiSH-Jhz-eATONqvflNY7IuLNPtrj8MqDV02EObHDy1?purpose=fullsize')">
+      <div class="wrap"><div class="kicker">Downstream retail route</div><h1>From product interest to store purchase.</h1><p class="hero-copy">The terminal route turns browsing into action: find a store, confirm fit, book a test ride, understand service, and buy through an authorized channel.</p></div>
+    </section>
+    <section class="section light">
+      <div class="wrap">
+        <div class="section-head reveal"><h2>Store finder prototype.</h2><p class="lead">This page shows the modules the live site is missing for terminal customers and retail teams: store search, visit reason, fit support and purchase confidence.</p></div>
+        <div class="finder">
+          <div class="finder-panel">
+            <div class="field"><label for="storeCity">City or market</label><input id="storeCity" value="Shanghai"></div>
+            <div class="field"><label for="storeType">Visit reason</label><select id="storeType"><option>Performance fit</option><option>Test ride</option><option>Authorized purchase</option><option>Warranty service</option></select></div>
+            <a class="btn primary" href="bike-ad9.html">Review AD9 Before Visit</a>
+          </div>
+          <div class="result" id="storeResult" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="grid-4">
+          <article class="card"><span class="num">01</span><div><h3>Fit</h3><p>Store-guided sizing connects the bike detail page to real rider confidence.</p></div></article>
+          <article class="card"><span class="num">02</span><div><h3>Ride</h3><p>Test ride requests create a clearer next step than a generic dealer button.</p></div></article>
+          <article class="card"><span class="num">03</span><div><h3>Buy</h3><p>Authorized channel purchase protects pricing, warranty and service quality.</p></div></article>
+          <article class="card"><span class="num">04</span><div><h3>Service</h3><p>After-sales expectations should be visible before checkout.</p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><strong>X-LAB Retail Stores</strong><span>Find / Fit / Test ride / Buy / Service</span></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>

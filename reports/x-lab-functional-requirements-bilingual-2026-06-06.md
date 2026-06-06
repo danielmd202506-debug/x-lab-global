@@ -1,0 +1,105 @@
+# X-LAB VOC 功能需求清单 / Functional Requirements From VOC
+
+日期 / Date: 2026-06-06
+
+来源 / Source: `reports/x-lab-voc-demand-intelligence-2026-06-06.md`
+
+用途 / Purpose: 将公开 VOC 调研结果转化为可执行的功能需求清单，服务于产品、官网、经销商门户、售后服务、供应商/代理商协同和需求管理。
+
+Purpose: Convert public VOC findings into actionable functional requirements for product, website, dealer portal, service operations, supplier/distributor collaboration, and demand management.
+
+## 优先级定义 / Priority Definitions
+
+- P0: 直接影响信任建立、购买转化或经销商赋能。
+- P0: Directly blocks trust, purchase conversion, or dealer enablement.
+- P1: 显著提升转化、服务效率或产品信心。
+- P1: Strongly improves conversion, support efficiency, or product confidence.
+- P2: 有价值的优化项或后续增长需求。
+- P2: Useful optimization or later-stage growth requirement.
+
+## 功能需求清单 / Functional Requirements
+
+| ID | 模块 / Module | 优先级 / Priority | 功能需求 / Requirement | VOC 痛点 / VOC pain point | 验收标准 / Acceptance criteria |
+|---|---|---:|---|---|---|
+| FR-001 | 产品发现 / Product discovery | P0 | 车型对比矩阵 / Model comparison matrix | 用户难以理解 RS / AD / RT / GT / SP / ST 的车型层级。 / Buyers cannot easily understand the RS / AD / RT / GT / SP / ST model hierarchy. | 可按用途、价格、重量、车架、套件、轮组、胎容、保修和渠道可用性对比所有在售车型；支持公路、砾石、城市和电助力筛选。 / Users can compare all active models by use case, price, weight, frame, groupset, wheelset, tire clearance, warranty, and channel availability; filters support road, gravel, urban, and e-bike categories. |
+| FR-002 | 产品发现 / Product discovery | P0 | 白话版车型选择器 / Plain-language model selector | 新用户在读详细参数前需要先被引导。 / New riders need guidance before reading detailed specs. | 用户回答骑行类型、预算、地形、尺码/适配优先级和性能目标后，系统推荐 2-3 款车型并说明理由和取舍。 / User answers riding type, budget, terrain, fit priority, and performance goals, then receives 2-3 recommended models with reasons and tradeoffs. |
+| FR-003 | 产品详情 / Product detail | P0 | 参数透明模块 / Spec transparency block | 低价格会让用户怀疑是否存在隐藏缩水。 / Low price creates suspicion about hidden compromises. | 每个产品页展示完整零件清单、车架材质、轮组、传动、座舱、功率计、胎容、重量声明依据和随车配件。 / Every product page shows full component list, frame material, wheel details, drivetrain, cockpit, power meter, tire clearance, weight claim basis, and included accessories. |
+| FR-004 | 产品详情 / Product detail | P0 | 几何与适配说明 / Geometry and fit explainer | 用户和经销商都强调购买前尺码不确定。 / Users and dealers emphasize fit uncertainty before purchase. | 产品页包含几何表、推荐身高/内腿长、尺码计算器、不同骑行风格的 fit 说明，并提示与经销商确认。 / Product page includes geometry chart, recommended rider height/inseam, size calculator, fit notes by riding style, and a prompt to confirm fit with a dealer. |
+| FR-005 | 产品详情 / Product detail | P1 | 一体把/座舱配置指南 / Integrated cockpit configuration guide | 把宽、把立长度、垫圈和专有系统造成用户犹豫。 / Cockpit width, stem length, spacers, and proprietary systems create hesitation. | 产品页说明可选座舱尺寸、调节范围、更换流程，以及购买时是否可申请尺寸调整。 / Product page explains available cockpit sizes, adjustment range, replacement process, and whether size changes can be requested at purchase. |
+| FR-006 | 产品详情 / Product detail | P1 | 配置版本对比 / Build variant comparison | 用户会比较机械 105、Di2、GRX、Astana 版本和价格跳跃。 / Users compare mechanical 105, Di2, GRX, Astana builds and price jumps. | 产品页支持并排对比不同版本的价格、套件、轮组、功率计、重量和目标用户。 / Product page lets users compare variants side by side by price, groupset, wheels, power meter, weight, and intended rider profile. |
+| FR-007 | 产品详情 / Product detail | P1 | “为什么这个价格”FAQ / "Why this price" FAQ | 高性价比同时带来兴趣和怀疑。 / Value pricing creates excitement and suspicion. | 产品页和品牌页解释 XDS 垂直整合、经销商模式、OEM/制造背景、保修和服务承诺，语气可信且不防御。 / Product and brand pages explain XDS vertical integration, dealer model, OEM/manufacturing background, warranty, and service commitments in a credible, non-defensive tone. |
+| FR-008 | 经销商渠道 / Dealer channel | P0 | 带库存状态的经销商定位器 / Dealer locator with inventory status | 用户想知道哪里能试骑、购买、预订或维修。 / Buyers want to know where they can test, buy, reserve, or service bikes. | 经销商定位器显示地点、联系方式、服务能力、可售车型/尺码、试骑状态、下单/预订状态和库存更新时间。 / Dealer locator shows location, contact, service capability, available models/sizes, test ride availability, order/reserve status, and last inventory update timestamp. |
+| FR-009 | 经销商渠道 / Dealer channel | P0 | 试骑预约/车辆预留流程 / Reserve or request test ride flow | 本地门店可用性是核心信任来源。 / Local shop availability is a key trust driver. | 用户可向指定经销商申请试骑或预留车辆；经销商收到车型、尺码、期望时间、联系方式和备注。 / User can request a test ride or reserve a bike from a selected dealer; dealer receives model, size, preferred time, contact info, and notes. |
+| FR-010 | 经销商渠道 / Dealer channel | P0 | 配额与交期可视化 / Allocation and lead-time visibility | 配额式订货如果不清晰，会让用户挫败。 / Allocation-based ordering may frustrate buyers if unclear. | 产品页和经销商页展示预计交期、预售状态、配额批次、订金要求、取消规则和经销商联系路径。 / Product and dealer pages show estimated lead time, preorder status, allocation batch, deposit requirement, cancellation rules, and dealer contact path. |
+| FR-011 | 经销商渠道 / Dealer channel | P1 | 经销商详情页 / Dealer detail page | 经销商页面有助于建立信任，但目前信息分散。 / Dealer pages build trust but are currently fragmented across the web. | 每个经销商页面展示地址、服务项目、支持品类、X-LAB 认证状态、预约方式和保修处理能力。 / Each dealer page shows address, service offerings, supported categories, X-LAB certified status, appointment options, and warranty handling capability. |
+| FR-012 | 经销商门户 / Dealer portal | P0 | 经销商库存管理 / Dealer inventory management | 公开库存可视化需要经销商侧更新工具。 / Public inventory visibility requires dealer-side update tools. | 经销商可按车型、尺码、颜色、试骑车状态、预售数量和交期更新库存，并同步到公开定位器。 / Dealers can update stock by model, size, color, test-bike status, preorder quantity, and lead time; updates sync to the public locator. |
+| FR-013 | 经销商门户 / Dealer portal | P1 | 经销商服务手册库 / Dealer service playbook library | 门店需要有信心维护 Branta/专有系统。 / Shops need confidence servicing Branta/proprietary systems. | 经销商门户包含维修手册、兼容文档、保修流程、升级联系人、培训视频和可下载客户说明。 / Dealer portal contains service manuals, compatibility docs, warranty workflow, escalation contacts, training videos, and downloadable customer explainers. |
+| FR-014 | 经销商门户 / Dealer portal | P1 | 经销商异议处理单页 / Dealer objection-handling sheet | 经销商需要回答保修、价格、零件、尺码和服务问题。 / Dealers need answers on warranty, price, parts, sizing, and service. | 经销商可下载或分享一页式销售支持材料，覆盖常见客户异议和官方答复。 / Dealer can download or share a one-page sales support sheet covering top customer objections and approved answers. |
+| FR-015 | 经销商门户 / Dealer portal | P1 | RFQ/试骑线索收件箱 / Lead inbox for RFQ/test rides | 经销商转化依赖快速响应官网线索。 / Dealer conversion depends on fast response to web leads. | 门户展示进线线索、来源页面、请求车型/尺码、状态、负责人、响应截止时间和下一步动作。 / Dealer portal shows incoming leads, source page, requested model/size, status, owner, response due date, and next action. |
+| FR-016 | 保修/售后 / Warranty and after-sales | P0 | 保修注册流程 / Warranty registration flow | 终身保修依赖授权购买和及时注册。 / Lifetime warranty depends on authorized purchase and timely registration. | 用户可在 90 天内用序列号、购买凭证、经销商、车型、尺码和联系方式完成注册；确认页说明覆盖范围和理赔路径。 / User can register within 90 days using serial number, proof of purchase, dealer, model, size, and contact info; confirmation explains covered components and claim path. |
+| FR-017 | 保修/售后 / Warranty and after-sales | P0 | 保修说明页 / Warranty explainer page | 保修规则既是信任信号，也可能造成困惑。 / Warranty rules are a major trust signal and possible confusion point. | 页面清晰说明车架、轮组、原始车主、授权购买、注册截止、除外责任、理赔步骤和预计响应时间。 / Page clearly explains frame, wheel, original-owner, authorized purchase, registration deadline, exclusions, claim steps, and expected response timeline. |
+| FR-018 | 保修/售后 / Warranty and after-sales | P1 | 保修理赔状态追踪 / Warranty claim status tracking | 售后确定性是转化阻碍。 / After-sales certainty is a conversion blocker. | 用户/经销商可提交理赔、上传照片/文件、获取 case ID、查看状态和下一步所需动作。 / User/dealer can submit claim, upload photos/documents, receive case ID, track status, and see next required action. |
+| FR-019 | 保修/售后 / Warranty and after-sales | P1 | 退货政策决策指南 / Return policy decision guide | 线上退货窗口较短，可能造成购买焦虑。 / Online return policy is short and may create purchase anxiety. | 用户在结账前理解退货窗口、补货费、已骑行规则、运费责任，以及经销商购买与线上购买的差异。 / User understands return window, restocking fees, ridden-bike rules, shipping responsibility, and dealer-vs-online purchase differences before checkout. |
+| FR-020 | 零件/兼容性 / Parts and compatibility | P0 | 兼容性与备件数据库 / Compatibility and spare-parts database | 专有曲柄、盘片、座舱、座管、垫圈、轮组和功率计造成犹豫。 / Proprietary crank, chainring, cockpit, seatpost, spacers, wheels, and power meter create hesitation. | 用户/经销商可按车型、年份和零件搜索兼容件号、替代方案、库存可用性、服务说明和更换路径。 / User/dealer can search by model/year/component and see compatible part numbers, alternatives, availability, service notes, and replacement route. |
+| FR-021 | 零件/兼容性 / Parts and compatibility | P1 | 专有零件透明标签 / Proprietary component transparency badges | 买家需要知道哪些零件是标准、半专有或专有。 / Buyers need to know which components are standard, semi-proprietary, or proprietary. | 产品页为标准、半专有和专有部件打标签，并说明服务影响和替换可用性。 / Product pages label standard, semi-proprietary, and proprietary components with service implications and replacement availability. |
+| FR-022 | 零件/兼容性 / Parts and compatibility | P1 | 盘片/传动兼容指南 / Chainring and drivetrain compatibility guide | Gravel 用户特别关注 40T 盘片是否适合，以及能否更换。 / Gravel buyers specifically question 40T chainring suitability and swap options. | GT 等传动页面展示支持盘片尺寸、接口/BCD、传动限制、地形建议和经销商服务指南。 / GT and other drivetrain pages show supported chainring sizes, interface/BCD, drivetrain limits, terrain recommendations, and dealer service guidance. |
+| FR-023 | 评价/社会证明 / Reviews and social proof | P1 | 认证车主评价系统 / Verified owner review system | 上市时间短，真实购买后反馈仍稀缺。 / Authentic post-purchase feedback is sparse because launch is recent. | 车主可提交与序列号/订单/经销商关联的认证评价；评价可按车型、尺码、地形、骑手身高和拥有时间筛选。 / Owners can submit verified reviews tied to serial/order/dealer; reviews can be filtered by model, size, terrain, rider height, and ownership duration. |
+| FR-024 | 评价/社会证明 / Reviews and social proof | P1 | 媒体评测中心 / Media review hub | 媒体评测分散在外部网站。 / Media reviews are dispersed across external sources. | 品牌官网聚合第三方评测，展示日期、车型、媒体、核心结论和外链。 / Brand site aggregates third-party reviews with date, model, publication, key takeaway, and outbound link. |
+| FR-025 | 评价/社会证明 / Reviews and social proof | P2 | 真实车主跟进调研 / Real owner follow-up survey | 早期车主反馈应转为结构化 VOC。 / Early owner feedback should become structured VOC. | 系统在购买后 14、60、180 天发送问卷；反馈进入 VOC 数据库，并按车型、问题、情绪和严重度打标。 / System sends post-purchase surveys at 14, 60, and 180 days; responses feed a VOC database tagged by model, issue, sentiment, and severity. |
+| FR-026 | 品牌信任 / Brand trust | P0 | XDS 制造可信度页面 / XDS manufacturing credibility page | 西方市场品牌认知低，尽管 XDS 规模较大。 / Western brand awareness is low despite XDS scale. | 官网说明 XDS 历史、制造规模、垂直整合、质量控制、赛事合作和经销商支持。 / Site explains XDS history, manufacturing scale, vertical integration, quality controls, race partnerships, and dealer-backed support. |
+| FR-027 | 品牌信任 / Brand trust | P1 | WorldTour / 赛事背书页面 / WorldTour and race proof page | XDS-Astana 背书能提升公路车用户兴趣。 / XDS-Astana legitimacy drives interest for road buyers. | 页面展示赛事项目、使用车型、车队/车手证据、技术转化和相关媒体报道。 / Site shows race program, bikes used, athlete/team proof points, technology transfer, and relevant media coverage. |
+| FR-028 | 品牌信任 / Brand trust | P1 | 品牌对比叙事 / Brand comparison narrative | 高端买家会与 Trek、Giant、Canyon、Specialized 和定制车对比。 / Premium buyers compare against Trek, Giant, Canyon, Specialized, and custom builds. | 页面从价值、经销商支持、保修、规格和使用场景解释 X-LAB 定位，避免无依据性能宣称。 / Page explains X-LAB positioning by value, dealer support, warranty, specs, and use case without unsupported performance claims. |
+| FR-029 | 结账/线上购买 / Checkout and online purchase | P1 | 购买前信心检查清单 / Pre-purchase confidence checklist | 买家想避免尺码、保修、退货和服务错误。 / Buyers want to avoid fit, warranty, return, and service mistakes. | 线上结账前，用户确认尺码信心、本地服务路径、保修注册要求、退货条款和组件配置。 / Before online checkout, user confirms size confidence, local service path, warranty registration requirement, return terms, and component configuration. |
+| FR-030 | 结账/线上购买 / Checkout and online purchase | P1 | 经销商辅助结账选项 / Dealer-assisted checkout option | 授权经销商购买能增强保修和 fit 信任。 / Authorized dealer purchase reinforces warranty and fit trust. | 可用地区用户可选择发往经销商、经销商自提、经销商组装或经销商咨询。 / User can choose ship-to-dealer, dealer pickup, dealer assembly, or dealer consultation during checkout where available. |
+| FR-031 | 电助力支持 / E-bike support | P2 | 电助力服务与合规中心 / E-bike service and compliance center | 城市/电助力用户关心电机、电池、App、法规等级和服务。 / Urban/e-bike buyers care about motor, battery, app, class rules, and service. | 电助力页面展示电机/电池规格、续航依据、充电、更换路径、App 支持、等级合规和本地服务要求。 / E-bike pages show motor/battery specs, range basis, charging, replacement path, app support, class compliance, and local service requirements. |
+| FR-032 | 电助力支持 / E-bike support | P2 | 电池/电机专用工单类型 / Battery and motor support ticket type | 电助力售后需要不同于普通自行车的分诊。 / E-bike after-sales needs different triage than acoustic bikes. | 支持表单包含电机、电池序列号、固件/App 版本、续航问题、错误码、充电器状态和安全备注。 / Support form includes e-bike-specific fields: motor, battery serial, firmware/app version, range issue, error code, charger status, and safety notes. |
+| FR-033 | 需求管理 / Demand management | P0 | VOC 证据数据库 / VOC evidence database | 需求需要记录来源 URL、日期、用户画像、严重度和置信度。 / Requirements need source URL, date, persona, severity, and confidence. | 团队可记录 VOC 项、来源、观察日期、用户类型、产品线、情绪、严重度、置信度、负责人和关联需求。 / Team can log VOC item, source, date observed, user type, product line, sentiment, severity, confidence, owner, and linked requirement. |
+| FR-034 | 需求管理 / Demand management | P0 | 需求 intake 看板 / Requirement intake board | VOC 必须转成可跟踪的需求项。 / VOC must become trackable demand items. | 需求看板支持产品信息、品牌信任、购买渠道、经销商赋能、供应商/零件、保修/售后、评价、电助力支持等分类。 / Demand board supports Product Info, Brand Trust, Purchase Channel, Dealer Enablement, Supplier/Parts, Warranty/After-sales, Reviews, and E-bike Support categories. |
+| FR-035 | 需求管理 / Demand management | P1 | 月度 VOC 刷新流程 / Monthly VOC refresh workflow | 上市初期舆情变化快，需要持续更新。 / Launch-wave market sentiment may shift quickly. | 系统保存月度刷新记录、新来源、情绪变化、新风险、已解决顾虑和优先级变化。 / System stores monthly refresh notes, new sources, sentiment changes, new risks, resolved concerns, and priority changes. |
+| FR-036 | 需求管理 / Demand management | P1 | 证据到功能的追溯 / Evidence-to-feature traceability | 产品决策需要保留每个功能产生的原因。 / Product decisions need to preserve why each feature exists. | 每条功能需求关联一个或多个 VOC 证据项，并展示置信度、来源类型和最后验证日期。 / Each feature requirement links to one or more VOC evidence items and shows confidence, source type, and last verified date. |
+| FR-037 | 供应商/代理商 / Supplier and distributor | P1 | 代理商目录与询价流程 / Distributor directory and inquiry flow | 全球代理商存在，但合作联系路径需要更清楚。 / Global distributors exist but partner contact paths need clarity. | 官网按国家/地区列出代理商、联系方式、支持品类、经销商申请路径和升级联系人。 / Site lists distributors by country/region, contact method, supported categories, dealer application path, and escalation contact. |
+| FR-038 | 供应商/代理商 / Supplier and distributor | P1 | 供应商能力准入表单 / Supplier capability intake form | 供应商/零件生态需要结构化准入。 / Supplier and parts ecosystem needs structured onboarding. | 潜在供应商可提交公司资料、品类、认证、产能、区域、样品可用性、合规文件和联系人。 / Potential suppliers can submit company profile, category, certifications, capacity, region, sample availability, compliance docs, and contact owner. |
+| FR-039 | 供应商/代理商 / Supplier and distributor | P2 | 零件可用性仪表盘 / Parts availability dashboard | 备件信心对经销商和高端用户很重要。 / Spare-parts confidence matters to dealers and premium buyers. | 内部用户可查看专有零件库存、交期、区域库存、未结欠单和关键零件预警。 / Internal users can view availability, lead time, regional stock, open backorders, and critical part alerts for proprietary parts. |
+| FR-040 | 数据分析 / Analytics | P1 | 转化摩擦分析 / Conversion friction analytics | 产品信息缺口和渠道摩擦需要被量化。 / Product info gaps and channel friction should be measured. | 追踪车型对比使用、尺码计算完成、经销商定位点击、试骑请求、保修页访问、兼容性搜索和结账放弃原因。 / Analytics track comparison usage, size calculator completion, dealer locator clicks, test ride requests, warranty page visits, compatibility searches, and checkout abandonment reasons. |
+| FR-041 | 需求管理 / Demand management | P0 | 改动记录强制门禁 / Mandatory change logging gate | 各页面、模块、区块、组件、文案、流程或数据结构的改动如果不进入需求管理清单，后续优先级、验收和责任归属会失控。 / If changes to pages, modules, sections, components, copy, flows, or data structures are not recorded in the requirement management list, priority, acceptance, and ownership will become untraceable. | 每次改动前或改动完成时，需求管理清单必须记录改动对象、改动原因、影响范围、优先级、状态、负责人、验收标准和关联文件；影响多个页面、跨角色流程、B2B 工作流、设计系统或 Notion 同步规则的改动，执行前必须先得到用户确认。 / Before or when each change is completed, the requirement management list must record the changed object, reason for change, affected scope, priority, status, owner, acceptance criteria, and linked files; changes affecting multiple pages, cross-role flows, B2B workflows, the design system, or Notion sync rules require user confirmation before execution. |
+| FR-042 | 需求管理 / Demand management | P0 | 需求管理看板页面 / Requirement management board page | 需求、状态、负责人、影响范围和验收标准需要一个可见的工作台页面，而不是只存在于 Markdown 文档。 / Requirements, status, owners, affected scope, and acceptance criteria need a visible workspace page instead of living only in Markdown documents. | 新增 `requirements-board.html`，包含需求总览、P0/P1/P2 状态、看板泳道、改动登记字段、门禁规则、追溯矩阵、关联文件入口，并从首页 footer 和 B2B dashboard 进入。 / Add `requirements-board.html` with requirement summary, P0/P1/P2 status, kanban lanes, change intake fields, gate rules, traceability matrix, linked file entries, and access from the home footer and B2B dashboard. |
+
+## MVP 范围建议 / Recommended MVP Cut
+
+1. FR-001 车型对比矩阵 / Model comparison matrix.
+2. FR-004 几何与适配说明 / Geometry and fit explainer.
+3. FR-008 带库存状态的经销商定位器 / Dealer locator with inventory status.
+4. FR-009 试骑预约/车辆预留流程 / Reserve or request test ride flow.
+5. FR-016 保修注册流程 / Warranty registration flow.
+6. FR-017 保修说明页 / Warranty explainer page.
+7. FR-020 兼容性与备件数据库 / Compatibility and spare-parts database.
+8. FR-026 XDS 制造可信度页面 / XDS manufacturing credibility page.
+9. FR-033 VOC 证据数据库 / VOC evidence database.
+10. FR-034 需求 intake 看板 / Requirement intake board.
+
+## 需求看板字段建议 / Suggested Demand Board Fields
+
+| 字段 / Field | 类型 / Type | 用途 / Purpose |
+|---|---|---|
+| 需求 ID / Requirement ID | Text | 稳定追踪编号，例如 FR-001。 / Stable tracking ID, e.g. FR-001. |
+| 标题 / Title | Text | 简短需求名称。 / Short requirement name. |
+| 模块 / Module | Select | 产品发现、经销商渠道、保修、零件等。 / Product Discovery, Dealer Channel, Warranty, Parts, etc. |
+| 优先级 / Priority | Select | P0, P1, P2. |
+| 用户画像 / Persona | Multi-select | 终端用户、经销商、代理商、供应商、服务团队、内部产品团队。 / End user, dealer, distributor, supplier, service team, internal product team. |
+| VOC 来源 / VOC source | URL / relation | 链接到 Reddit、媒体、官网、经销商页面或内部记录。 / Link to Reddit, media, official page, dealer page, or internal note. |
+| 证据强度 / Evidence strength | Select | High, Medium-high, Medium, Low. |
+| 问题陈述 / Problem statement | Text | 用户痛点或业务风险。 / User pain point or business risk. |
+| 功能描述 / Functional description | Text | 产品必须支持什么能力。 / What the product must enable. |
+| 验收标准 / Acceptance criteria | Text | 可观察的完成条件。 / Observable conditions for done. |
+| 负责人 / Owner | Person | 负责的产品或业务 owner。 / Responsible product or business owner. |
+| 状态 / Status | Select | New, Triage, Planned, In design, In development, Launched, Deferred. |
+| 最后验证日期 / Last verified | Date | VOC 或市场事实最后核验时间。 / When the VOC or market fact was last checked. |
+
+## 备注 / Notes
+
+- 上述需求来自 2026-06-06 可获取的公开 web VOC 与市场证据。
+- Requirements above are derived from public web VOC and market evidence available on 2026-06-06.
+- 经销商群、客服工单、私域社区、CRM 等闭环/私域渠道应作为新证据继续补充，再做最终优先级判断。
+- Closed/private channels such as dealer groups, customer support tickets, private communities, and CRM records should be added as new evidence before final prioritization.
+- 涉及实时库存、保修运营、备件可用性的需求，在进入研发承诺前应与内部运营数据核验。
+- Any requirement involving current inventory, warranty operations, or parts availability should be validated with internal operations data before engineering commitment.

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-LAB B2B Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+  <header class="app-topbar">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="topbar-title">
+      <strong>B2B Operations</strong>
+      <span>RFQ, inventory, warranty, training and partner assets</span>
+    </div>
+    <div class="topbar-tools">
+      <button class="icon-btn" type="button" aria-label="Search">Search</button>
+      <button class="icon-btn" type="button" aria-label="Notifications">Alerts</button>
+      <div class="account-chip">
+        <span id="accountRole">Supplier account</span>
+        <strong id="accountName">X-LAB Partner</strong>
+      </div>
+      <a class="nav-cta" href="supplier-login.html">Sign out</a>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="app-sidebar" aria-label="B2B module menu">
+      <nav class="side-menu">
+        <p class="menu-group">Workspace</p>
+        <a class="active" href="#overview"><span>Command Center</span><small>Action-first homepage</small></a>
+        <a href="#priority"><span>My Work Queue</span><small>Approvals and exceptions</small></a>
+        <p class="menu-group">Transaction</p>
+        <a href="#orders"><span>RFQ & Orders</span><small>Quote, PO, approval</small></a>
+        <a href="#inventory"><span>Inventory & Lead Time</span><small>Stock, allocation, ETA</small></a>
+        <a href="#logistics"><span>Logistics</span><small>Shipment and delivery</small></a>
+        <a href="#finance"><span>Finance</span><small>Payment, invoice, credit</small></a>
+        <p class="menu-group">Governance</p>
+        <a href="#documents"><span>Quality & Documents</span><small>COA, QA, compliance files</small></a>
+        <a href="#service"><span>Service & Warranty</span><small>Claims and support</small></a>
+        <a href="#academy"><span>Training & Assets</span><small>Academy and launch kits</small></a>
+        <a href="#risk"><span>Risk Control</span><small>Alerts, controls, audit</small></a>
+        <a href="requirements-board.html"><span>Requirement Board</span><small>Demand, owner, status</small></a>
+        <a href="#notices"><span>Messages</span><small>Notices and account updates</small></a>
+      </nav>
+      <div class="side-panel">
+        <span class="num">Current sync</span>
+        <strong>Today 09:42</strong>
+        <p>ERP, WMS, CRM and warranty data should be connected here in production.</p>
+      </div>
+    </aside>
+
+    <main class="app-content">
+      <section class="content-header" id="overview">
+        <div>
+          <div class="kicker">North America partner workspace</div>
+          <h1>Command center</h1>
+          <p class="lead">Built around the portal jobs dealers ask for first: RFQ, inventory and lead time, price tier, warranty cases, training, launch assets and quality documents.</p>
+        </div>
+        <div class="role-switch" aria-label="Dashboard role switch">
+          <button class="role-tab active" type="button" data-role="supplier">Supplier view</button>
+          <button class="role-tab" type="button" data-role="dealer">Agent / Dealer view</button>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="Dashboard filters">
+        <div class="field compact"><label for="marketFilter">Market</label><select id="marketFilter"><option>All markets</option><option>Europe</option><option>North America</option><option>APAC</option></select></div>
+        <div class="field compact"><label for="statusFilter">Status</label><select id="statusFilter"><option>Open status</option><option>Needs action</option><option>In production</option><option>In transit</option></select></div>
+        <div class="field compact"><label for="dateFilter">Period</label><select id="dateFilter"><option>This month</option><option>Next 30 days</option><option>Quarter to date</option></select></div>
+        <button class="btn dark" type="button">Apply filters</button>
+      </section>
+
+      <section class="portal-lanes" aria-label="Partner portal modules">
+        <article class="dash-card lane-card"><span class="num">RFQ builder</span><strong>12 open</strong><p>Custom builds, quote versions, dealer notes and PO conversion.</p></article>
+        <article class="dash-card lane-card"><span class="num">Inventory / ETA</span><strong>482 AD9</strong><p>Frames ready, allocation lock dates and market lead-time risk.</p></article>
+        <article class="dash-card lane-card"><span class="num">Price tier</span><strong>Q3 active</strong><p>Dealer price, MSRP, promo window and margin guidance.</p></article>
+        <article class="dash-card lane-card"><span class="num">Warranty claims</span><strong>7 cases</strong><p>Serial evidence, image upload, parts request and SLA stage.</p></article>
+        <article class="dash-card lane-card"><span class="num">Academy</span><strong>4 courses</strong><p>Fit, Branta service, model comparison and store sales training.</p></article>
+        <article class="dash-card lane-card"><span class="num">Launch assets</span><strong>18 files</strong><p>Product images, geometry sheets, posters and comparison cards.</p></article>
+      </section>
+
+      <section class="dashboard-grid kpi-grid" aria-label="Business summary">
+        <article class="dash-card kpi-card"><span class="num">Action required</span><strong>14</strong><p>Confirmation, payment release, allocation review or missing documents.</p></article>
+        <article class="dash-card kpi-card"><span class="num">Open value</span><strong>$2.8M</strong><p>Confirmed value across production, allocation and shipment stages.</p></article>
+        <article class="dash-card kpi-card"><span class="num">Pipeline units</span><strong>3,486</strong><p>Frames, wheelsets, cockpit kits and complete bikes.</p></article>
+        <article class="dash-card kpi-card danger"><span class="num">Exceptions</span><strong>7</strong><p>Late QC files, payment hold, shipment delay and warranty evidence gaps.</p></article>
+      </section>
+
+      <section class="priority-grid" id="priority" aria-label="Priority work queue">
+        <article class="dash-card priority-card urgent">
+          <span class="status-pill high">High</span>
+          <div><strong>PO-EU-771 payment hold</strong><p>Deposit confirmation required before production release.</p></div>
+          <button class="mini-link" type="button">Resolve</button>
+        </article>
+        <article class="dash-card priority-card">
+          <span class="status-pill med">Medium</span>
+          <div><strong>W-092 quality report missing</strong><p>Supplier QA file blocks shipment readiness.</p></div>
+          <button class="mini-link" type="button">Upload</button>
+        </article>
+        <article class="dash-card priority-card">
+          <span class="status-pill med">Medium</span>
+          <div><strong>Q3 allocation review</strong><p>Dealer size split must be confirmed before lock date.</p></div>
+          <button class="mini-link" type="button">Review</button>
+        </article>
+      </section>
+
+      <section class="chart-grid" aria-label="Operational charts">
+        <article class="dash-card chart-card">
+          <div class="dash-head compact-head"><div><span class="num">Order trend</span><h2>30-day order flow</h2></div></div>
+          <div class="bar-chart" aria-label="30 day order trend">
+            <span style="--h:42%"><b>W1</b></span>
+            <span style="--h:68%"><b>W2</b></span>
+            <span style="--h:54%"><b>W3</b></span>
+            <span style="--h:82%"><b>W4</b></span>
+            <span style="--h:61%"><b>Now</b></span>
+          </div>
+        </article>
+
+        <article class="dash-card chart-card">
+          <div class="dash-head compact-head"><div><span class="num">Status split</span><h2>Order status</h2></div></div>
+          <div class="donut-wrap">
+            <div class="donut-chart" aria-label="Order status distribution"></div>
+            <div class="legend">
+              <span><i class="red"></i>Needs action 18%</span>
+              <span><i class="cyan"></i>Production 44%</span>
+              <span><i class="gold"></i>Transit 26%</span>
+              <span><i class="green"></i>Closed 12%</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dash-card chart-card">
+          <div class="dash-head compact-head"><div><span class="num">Logistics SLA</span><h2>Shipment progress</h2></div></div>
+          <div class="progress-list">
+            <div><span>EU sea freight</span><b style="--w:72%"></b><strong>72%</strong></div>
+            <div><span>US container</span><b style="--w:58%"></b><strong>58%</strong></div>
+            <div><span>APAC hub</span><b style="--w:86%"></b><strong>86%</strong></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid compact-grid" id="inventory">
+        <article class="dash-card">
+          <div class="dash-head compact-head"><div><span class="num">Inventory</span><h2>Stock and lead time</h2></div></div>
+          <div class="metric-list">
+            <div><span>AD9 frames ready</span><strong>482</strong><small>+18% vs last week</small></div>
+            <div><span>Astana Blue M/L reserved</span><strong>76%</strong><small>Allocation closes Jun 18</small></div>
+            <div><span>Wheelset shortage risk</span><strong>Medium</strong><small>W-092 QA pending</small></div>
+          </div>
+        </article>
+        <article class="dash-card" id="finance">
+          <div class="dash-head compact-head"><div><span class="num">Finance</span><h2>Payment and credit</h2></div></div>
+          <div class="metric-list">
+            <div><span>Invoices due</span><strong>9</strong><small>$312,400 open</small></div>
+            <div><span>Credit remaining</span><strong>$640K</strong><small>VeloNord GmbH</small></div>
+            <div><span>Payment holds</span><strong>2</strong><small>Production release blocked</small></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid" id="orders">
+        <article class="dash-card workbench-card">
+          <div class="dash-head">
+            <div><span class="num">Orders</span><h2>Order workbench</h2></div>
+            <button class="mini-link" type="button">Export CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Order</th><th>Account</th><th>Type</th><th>Stage</th><th>Value</th><th>Owner</th><th>Next action</th></tr></thead>
+              <tbody>
+                <tr><td>PO-EU-771</td><td>VeloNord GmbH</td><td>Dealer order</td><td>Payment hold</td><td>$184,600</td><td>Finance</td><td>Release deposit confirmation</td></tr>
+                <tr><td>PO-XL-2408</td><td>Carbon layup vendor</td><td>Supplier batch</td><td>QC pending</td><td>$72,300</td><td>Supplier QA</td><td>Upload inspection report</td></tr>
+                <tr><td>RFQ-US-119</td><td>West Coast Agent</td><td>Dealer RFQ</td><td>Price review</td><td>$226,900</td><td>Sales ops</td><td>Confirm final tier price</td></tr>
+                <tr><td>PO-AP-026</td><td>APAC Distributor</td><td>Allocation</td><td>Ready to ship</td><td>$98,700</td><td>Logistics</td><td>Book pickup window</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="dash-card" id="logistics">
+          <div class="dash-head"><div><span class="num">Logistics</span><h2>Shipment queue</h2></div></div>
+          <div class="status-list">
+            <div><strong>SHIP-EU-088</strong><span>Yantian to Rotterdam, customs invoice required by Jun 10.</span></div>
+            <div><strong>SHIP-US-042</strong><span>Shanghai to Los Angeles, container loaded, ETA Jun 28.</span></div>
+            <div><strong>SHIP-AP-026</strong><span>Factory to APAC hub, waiting final QA release.</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid" id="documents">
+        <article class="dash-card role-panel" data-panel="supplier">
+          <div class="dash-head"><div><span class="num">Quality and documents</span><h2>Supplier actions</h2></div></div>
+          <div class="task-list">
+            <label><input type="checkbox"> Upload COA for AD9 carbon batch C-AD9-0626.</label>
+            <label><input type="checkbox"> Confirm corrective action for wheelset batch W-092.</label>
+            <label><input type="checkbox"> Submit packing list for PO-XL-2408 before release.</label>
+            <label><input type="checkbox"> Reply to engineering deviation request DEV-314.</label>
+          </div>
+        </article>
+
+        <article class="dash-card role-panel" data-panel="dealer" id="service">
+          <div class="dash-head"><div><span class="num">Service and channel</span><h2>Agent actions</h2></div></div>
+          <div class="task-list">
+            <label><input type="checkbox"> Approve Q3 AD9 allocation for sizes M and L.</label>
+            <label><input type="checkbox"> Confirm deposit for PO-EU-771 to release production.</label>
+            <label><input type="checkbox"> Download launch assets for Astana Blue campaign.</label>
+            <label><input type="checkbox"> Complete warranty case WTY-521 with frame photos.</label>
+          </div>
+        </article>
+
+        <article class="dash-card" id="academy">
+          <div class="dash-head"><div><span class="num">Training and assets</span><h2>Dealer enablement</h2></div></div>
+          <div class="task-list">
+            <label><input type="checkbox"> Assign AD9 model comparison course to floor staff.</label>
+            <label><input type="checkbox"> Download Astana Blue launch posters and product cards.</label>
+            <label><input type="checkbox"> Review Branta cockpit compatibility service note.</label>
+            <label><input type="checkbox"> Publish dealer locator profile with test-ride status.</label>
+          </div>
+        </article>
+
+        <article class="dash-card" id="risk">
+          <div class="dash-head"><div><span class="num">Risk monitor</span><h2>Exceptions</h2></div></div>
+          <div class="alert-list">
+            <div class="alert danger"><strong>Payment hold</strong><span>PO-EU-771 cannot move to production until deposit confirmation is received.</span></div>
+            <div class="alert warn"><strong>Document missing</strong><span>Wheelset batch W-092 is missing the final inspection report.</span></div>
+            <div class="alert ok"><strong>Released</strong><span>APAC shipment documentation passed export review.</span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid risk-grid" id="notices">
+        <article class="dash-card workbench-card">
+          <div class="dash-head">
+            <div><span class="num">Risk management</span><h2>Control matrix</h2></div>
+            <button class="mini-link" type="button">Create case</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Risk ID</th><th>Category</th><th>Severity</th><th>Owner</th><th>Due</th><th>Control action</th></tr></thead>
+              <tbody>
+                <tr><td>R-1042</td><td>Payment</td><td><span class="status-pill high">High</span></td><td>Finance</td><td>Jun 09</td><td>Block release until deposit verified</td></tr>
+                <tr><td>R-1037</td><td>Quality</td><td><span class="status-pill med">Medium</span></td><td>Supplier QA</td><td>Jun 10</td><td>Request signed inspection report</td></tr>
+                <tr><td>R-1029</td><td>Logistics</td><td><span class="status-pill med">Medium</span></td><td>Logistics</td><td>Jun 12</td><td>Confirm customs invoice and HS code</td></tr>
+                <tr><td>R-1018</td><td>Warranty</td><td><span class="status-pill low">Low</span></td><td>Service</td><td>Jun 14</td><td>Collect serial number photos</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="dash-card">
+          <div class="dash-head compact-head"><div><span class="num">Notices</span><h2>Business alerts</h2></div></div>
+          <div class="notice-feed">
+            <div><time>09:42</time><strong>Allocation lock</strong><span>AD9 Astana Blue size split closes Jun 18.</span></div>
+            <div><time>08:20</time><strong>QA file rule</strong><span>COA files must include batch ID in the file name.</span></div>
+            <div><time>Yesterday</time><strong>Warranty evidence</strong><span>Frame, serial number and failure photos required.</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

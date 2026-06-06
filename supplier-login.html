@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-LAB Supplier and Dealer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Global navigation">
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links"><a href="index.html#origin">Brand</a><a href="factory.html">Factory</a><a href="bike-ad9.html">AD9</a><a href="custom-bike.html">Custom</a><a href="supplier.html">Suppliers</a><a href="dealers.html">Dealers</a><a href="stores.html">Stores</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
+  </nav>
+  <main>
+    <section class="page-hero" style="--hero-image:url('https://images.openai.com/static-rsc-4/EZPICXbm6R8ZsSdzRHQZ2yIwBfJ3ZU4WvJ5_2514hlvxFhQ5QePUsQPHogokvlM44HQBa2ZwJWD4JiVzma_a2sGRC_s2B2VnklpE7_zxlMAUI6RDFkm6-Iq4hIG4YTQiIkJi-BFjAx06qbI62AA7rFx0EnUteXMpkOsrmFZ_GoPVEPm49hR5SQfNnJfgQcIy?purpose=fullsize')">
+      <div class="wrap"><div class="kicker">Secure B2B portal</div><h1>Sign in to your operating account.</h1><p class="hero-copy">Use your assigned X-LAB business account to manage orders, shipments, documents, pricing, warranty cases and partner tasks.</p></div>
+    </section>
+    <section class="section light">
+      <div class="wrap finder">
+        <form class="finder-panel" aria-label="B2B login form">
+          <div class="field"><label for="accountType">Account type</label><select id="accountType"><option>Supplier</option><option>Agent / Distributor</option><option>Authorized Dealer</option></select></div>
+          <div class="field"><label for="email">Business email</label><input id="email" type="email" autocomplete="email" placeholder="name@company.com" required></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+          <p class="form-note" id="loginMessage" aria-live="polite"></p>
+          <button class="btn primary" type="button" id="portalSignIn">Sign in</button>
+        </form>
+        <div class="result">
+          <span class="kicker">Account access</span>
+          <strong id="dealer">B2B workspace</strong>
+          <p class="lead">After sign-in, users land on their role dashboard with order status, logistics, invoices, warranty cases, document tasks and partner notices.</p>
+          <div class="actions"><a class="btn" href="supplier.html">Supplier Route</a><a class="btn" href="dealers.html">Dealer Route</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><strong>X-LAB Supplier and Dealer Portal</strong><span>Original login path preserved</span></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>

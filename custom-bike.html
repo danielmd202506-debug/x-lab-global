@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configure an X-LAB stock platform with micro custom fit, components, paint, decals and scene packages.">
+  <title>X-LAB Custom Bike Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Global navigation">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="factory.html">Factory</a><a href="bike-ad9.html">AD9</a><a class="is-current" href="custom-bike.html" aria-current="page">Custom</a><a href="supplier.html">Suppliers</a><a href="dealers.html">Dealers</a><a href="stores.html">Stores</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
+  </nav>
+
+  <main class="custom-shell">
+    <section class="bike-preview" id="previewPane" data-scene="race" data-bike="ad9" aria-label="Configured bike preview">
+      <div class="scene scene-race" aria-hidden="true"></div>
+      <div class="scene scene-climb" aria-hidden="true"></div>
+      <div class="scene scene-endurance" aria-hidden="true"></div>
+      <div class="scene scene-dealer" aria-hidden="true"></div>
+
+      <div class="preview-topline">
+        <span class="kicker">Micro custom preview</span>
+        <strong id="modelBadge">AD9 Aero Road</strong>
+      </div>
+
+      <div class="model-stage">
+        <div class="model-part frame-core"></div>
+        <div class="model-part top-tube"></div>
+        <div class="model-part down-tube"></div>
+        <div class="model-part seat-stay"></div>
+        <div class="model-part fork"></div>
+        <div class="model-part cockpit"></div>
+        <div class="model-part wheel wheel-front"></div>
+        <div class="model-part wheel wheel-rear"></div>
+        <div class="model-part drivetrain"></div>
+        <div class="model-part decal decal-top" id="decalTop">X-LAB</div>
+        <div class="model-part decal decal-down" id="decalDown">RACE</div>
+      </div>
+
+      <div class="preview-readout">
+        <div><span>Environment</span><strong id="sceneReadout">Race Day</strong></div>
+        <div><span>Platform</span><strong id="platformReadout">Stock aero race mold</strong></div>
+        <div><span>Fit</span><strong id="fitReadout">M / 545 stack</strong></div>
+      </div>
+    </section>
+
+    <section class="configurator" aria-label="X-LAB custom bike configuration">
+      <div class="config-head">
+        <span class="kicker">Riding scene to dealer review</span>
+        <h1>Build with fit confidence.</h1>
+        <p class="lead">Choose how you ride first. X-LAB maps the scene to platform, fit, cockpit, components, paint and a dealer-ready RFQ summary before final order.</p>
+      </div>
+
+      <form class="config-form">
+        <section class="review-strip" aria-label="Dealer review checkpoints">
+          <div><span>Fit check</span><strong>Dealer reviews size and cockpit before quote.</strong></div>
+          <div><span>Lead time</span><strong>Build summary flags allocation and delivery window.</strong></div>
+          <div><span>Service path</span><strong>Warranty registration and parts notes travel with the RFQ.</strong></div>
+        </section>
+
+        <fieldset class="config-group">
+          <legend>Choose riding style</legend>
+          <div class="scene-options" role="radiogroup" aria-label="Scene package">
+            <label class="scene-card"><input type="radio" name="scene" value="race" checked><span><strong>I ride for speed</strong><small>AD9 Aero Road / fast road</small></span></label>
+            <label class="scene-card"><input type="radio" name="scene" value="climb"><span><strong>I climb and race</strong><small>RT9 Lightweight / elevation</small></span></label>
+            <label class="scene-card"><input type="radio" name="scene" value="endurance"><span><strong>I ride mixed roads</strong><small>GT All-Road / endurance</small></span></label>
+            <label class="scene-card"><input type="radio" name="scene" value="dealer"><span><strong>I need store fit</strong><small>CM Urban Alloy / dealer demo</small></span></label>
+          </div>
+          <div class="stock-spec">
+            <div><span>Layer 1</span><strong id="stockMold">AD9 aero carbon frameset</strong></div>
+            <div><span>Complete kit</span><strong id="stockKit">Integrated cockpit, carbon wheels, race drivetrain</strong></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="config-group">
+          <legend>Confirm fit geometry</legend>
+          <div class="control-grid">
+            <label class="field"><span>Rider height</span><input id="riderHeight" type="range" min="155" max="198" value="176"><b id="heightValue">176 cm</b></label>
+            <label class="field"><span>Inseam</span><input id="inseam" type="range" min="68" max="96" value="82"><b id="inseamValue">82 cm</b></label>
+            <label class="field"><span>Reach preference</span><select id="reachPref"><option value="balanced">Balanced</option><option value="compact">Compact</option><option value="long">Long race</option></select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="config-group">
+          <legend>Split components</legend>
+          <div class="control-grid">
+            <label class="field"><span>Handlebar</span><select id="barSpec"><option>Integrated aero cockpit</option><option>Compact alloy bar</option><option>Flared all-road bar</option></select></label>
+            <label class="field"><span>Wheelset</span><select id="wheelSpec"><option>50 mm carbon race</option><option>32 mm climbing carbon</option><option>40 mm all-road tubeless</option></select></label>
+            <label class="field"><span>Saddle</span><select id="saddleSpec"><option>Short race saddle</option><option>Endurance pressure relief</option><option>Urban demo saddle</option></select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="config-group">
+          <legend>Semi-custom paint</legend>
+          <div class="paint-grid">
+            <label class="swatch"><input type="radio" name="bodyColor" value="#d91f2d" checked><span style="--swatch:#d91f2d"></span><b>Molten Red</b></label>
+            <label class="swatch"><input type="radio" name="bodyColor" value="#f5f6f4"><span style="--swatch:#f5f6f4"></span><b>Factory White</b></label>
+            <label class="swatch"><input type="radio" name="bodyColor" value="#11161a"><span style="--swatch:#11161a"></span><b>Carbon Black</b></label>
+            <label class="swatch"><input type="radio" name="bodyColor" value="#53c7df"><span style="--swatch:#53c7df"></span><b>Telemetry Cyan</b></label>
+          </div>
+          <div class="control-grid">
+            <label class="field"><span>Accent zone</span><select id="accentZone"><option value="top">Top tube</option><option value="down">Down tube</option><option value="dropout">Dropout</option></select></label>
+            <label class="field"><span>Accent color</span><input id="accentColor" type="color" value="#53c7df"></label>
+            <label class="field"><span>Custom lettering</span><input id="lettering" type="text" maxlength="12" value="X-LAB"></label>
+            <label class="field"><span>Lettering position</span><select id="letteringPos"><option value="top">Top tube</option><option value="down">Down tube</option></select></label>
+            <label class="field"><span>Decal pack</span><select id="decalPack"><option>Race block</option><option>Stealth mark</option><option>Dealer sample</option></select></label>
+            <label class="field"><span>Decal position</span><select id="decalPos"><option value="down">Down tube</option><option value="top">Top tube</option><option value="seat">Seat stay</option></select></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="config-group">
+          <legend>Dealer RFQ package</legend>
+          <div class="package-list">
+            <label><input type="checkbox" checked> Fit geometry worksheet</label>
+            <label><input type="checkbox" checked> Dealer RFQ summary</label>
+            <label><input type="checkbox" checked> Warranty registration notes</label>
+            <label><input type="checkbox"> Service parts compatibility note</label>
+          </div>
+        </fieldset>
+
+        <div class="config-actions">
+          <a class="btn primary" href="b2b-login.html?role=dealer">Create Dealer RFQ</a>
+          <a class="btn" href="stores.html">Request Sizing Help</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

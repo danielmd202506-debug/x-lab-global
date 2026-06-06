@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB requirement management board for UI, UX, B2B, support and documentation changes.">
+  <title>X-LAB Requirement Board | Demand Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+  <header class="app-topbar">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="topbar-title">
+      <strong>Requirement Board</strong>
+      <span>Demand intake, status, priority, owner and acceptance tracking</span>
+    </div>
+    <div class="topbar-tools">
+      <a class="icon-btn" href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md">Requirement List</a>
+      <a class="icon-btn" href="reports/x-lab-ui-ux-common-requirements.md">Common Rules</a>
+      <a class="nav-cta" href="b2b-dashboard.html">B2B Dashboard</a>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="app-sidebar" aria-label="Requirement board menu">
+      <nav class="side-menu">
+        <p class="menu-group">Demand</p>
+        <a class="active" href="#overview"><span>Board Overview</span><small>需求总览</small></a>
+        <a href="#kanban"><span>Kanban Lanes</span><small>看板泳道</small></a>
+        <a href="#intake"><span>Change Intake</span><small>改动登记</small></a>
+        <a href="#traceability"><span>Traceability</span><small>追溯矩阵</small></a>
+        <p class="menu-group">Governance</p>
+        <a href="#rules"><span>Gate Rules</span><small>门禁规则</small></a>
+        <a href="#files"><span>Linked Files</span><small>关联文件</small></a>
+      </nav>
+      <div class="side-panel">
+        <span class="num">Priority gate</span>
+        <strong>FR-041 active</strong>
+        <p>Every page, module, component, copy, flow or data change must be recorded before release.</p>
+      </div>
+    </aside>
+
+    <main class="app-content">
+      <section class="content-header" id="overview">
+        <div>
+          <div class="kicker">Demand management / 需求管理</div>
+          <h1>Requirement control board</h1>
+          <p class="lead">A shared board for tracking X-LAB website, B2B portal, documentation and design-system changes from intake to launch, with owner, priority, affected scope and acceptance criteria visible before work moves forward.</p>
+        </div>
+        <div class="requirement-lock">
+          <span class="status-pill high">P0 gate</span>
+          <strong>Change must be logged</strong>
+          <p>改动必须先入需求管理清单，再进入设计、开发、验收或 GitHub 同步。</p>
+        </div>
+      </section>
+
+      <section class="dashboard-grid kpi-grid" aria-label="Requirement summary">
+        <article class="dash-card kpi-card"><span class="num">Open requirements</span><strong>41</strong><p>FR-001 through FR-041 currently tracked.</p></article>
+        <article class="dash-card kpi-card"><span class="num">P0 items</span><strong>14</strong><p>Trust, purchase, demand governance and channel blockers.</p></article>
+        <article class="dash-card kpi-card"><span class="num">In progress</span><strong>6</strong><p>Prototype or route-level work exists but needs operational depth.</p></article>
+        <article class="dash-card kpi-card danger"><span class="num">Missing gates</span><strong>0</strong><p>All new changes must carry a requirement record.</p></article>
+      </section>
+
+      <section class="toolbar" aria-label="Requirement filters">
+        <div class="field compact"><label for="moduleFilter">Module / 模块</label><select id="moduleFilter"><option>All modules</option><option>Demand management</option><option>Product discovery</option><option>Dealer channel</option><option>B2B operations</option><option>Documentation</option></select></div>
+        <div class="field compact"><label for="priorityFilter">Priority / 优先级</label><select id="priorityFilter"><option>All priorities</option><option>P0</option><option>P1</option><option>P2</option></select></div>
+        <div class="field compact"><label for="ownerFilter">Owner / 负责人</label><select id="ownerFilter"><option>All owners</option><option>Product</option><option>Design</option><option>B2B Ops</option><option>Content</option><option>Engineering</option></select></div>
+        <button class="btn dark" type="button" id="boardFilterButton">Apply filters</button>
+      </section>
+
+      <section class="kanban-board" id="kanban" aria-label="Requirement kanban lanes">
+        <article class="kanban-lane">
+          <header><span>New / 新需求</span><strong>3</strong></header>
+          <div class="requirement-card" data-priority="P0" data-module="Demand management">
+            <div><span class="status-pill high">P0</span><b>FR-042</b></div>
+            <h2>Requirement board page / 需求管理看板页面</h2>
+            <p>Build a visible board page for intake, status, owner, priority and acceptance tracking.</p>
+            <dl><dt>Owner</dt><dd>Product + Design</dd><dt>Scope</dt><dd>Dashboard page, docs, GitHub sync</dd></dl>
+          </div>
+          <div class="requirement-card" data-priority="P1" data-module="Documentation">
+            <div><span class="status-pill med">P1</span><b>DOC-006</b></div>
+            <h2>Bilingual delivery check / 双语交付检查</h2>
+            <p>Confirm every new project document ships with Chinese and English content.</p>
+            <dl><dt>Owner</dt><dd>Content</dd><dt>Scope</dt><dd>Reports and Notion archive</dd></dl>
+          </div>
+        </article>
+
+        <article class="kanban-lane">
+          <header><span>Triage / 评审</span><strong>4</strong></header>
+          <div class="requirement-card" data-priority="P0" data-module="Product discovery">
+            <div><span class="status-pill high">P0</span><b>FR-001</b></div>
+            <h2>Model comparison matrix / 车型对比矩阵</h2>
+            <p>Compare active platforms by use case, price, weight, spec and channel availability.</p>
+            <dl><dt>Owner</dt><dd>Product</dd><dt>Scope</dt><dd>Product discovery</dd></dl>
+          </div>
+          <div class="requirement-card" data-priority="P0" data-module="Dealer channel">
+            <div><span class="status-pill high">P0</span><b>FR-008</b></div>
+            <h2>Dealer locator with inventory / 经销商库存定位器</h2>
+            <p>Expose store capability, test ride status, model sizes and inventory recency.</p>
+            <dl><dt>Owner</dt><dd>B2B Ops</dd><dt>Scope</dt><dd>Stores, dealer data</dd></dl>
+          </div>
+        </article>
+
+        <article class="kanban-lane">
+          <header><span>In Design / 设计中</span><strong>5</strong></header>
+          <div class="requirement-card" data-priority="P0" data-module="Demand management">
+            <div><span class="status-pill high">P0</span><b>FR-041</b></div>
+            <h2>Mandatory change logging gate / 改动记录强制门禁</h2>
+            <p>Every section, component, copy, flow or data change must be recorded with acceptance criteria.</p>
+            <dl><dt>Owner</dt><dd>Product</dd><dt>Scope</dt><dd>All project changes</dd></dl>
+          </div>
+          <div class="requirement-card" data-priority="P1" data-module="B2B operations">
+            <div><span class="status-pill med">P1</span><b>FR-015</b></div>
+            <h2>Lead inbox / RFQ 与试骑线索收件箱</h2>
+            <p>Track incoming RFQ and test ride requests by source page, owner and SLA.</p>
+            <dl><dt>Owner</dt><dd>B2B Ops</dd><dt>Scope</dt><dd>Dealer portal</dd></dl>
+          </div>
+        </article>
+
+        <article class="kanban-lane">
+          <header><span>Build / 开发中</span><strong>3</strong></header>
+          <div class="requirement-card" data-priority="P0" data-module="Product discovery">
+            <div><span class="status-pill high">P0</span><b>FR-004</b></div>
+            <h2>Geometry and fit explainer / 几何与适配说明</h2>
+            <p>Connect size calculator, geometry chart and dealer fit confirmation.</p>
+            <dl><dt>Owner</dt><dd>Design + Engineering</dd><dt>Scope</dt><dd>Product and custom bike</dd></dl>
+          </div>
+          <div class="requirement-card" data-priority="P1" data-module="B2B operations">
+            <div><span class="status-pill med">P1</span><b>FR-018</b></div>
+            <h2>Warranty claim tracking / 保修理赔追踪</h2>
+            <p>Give riders and dealers case ID, evidence upload and next-action state.</p>
+            <dl><dt>Owner</dt><dd>Service</dd><dt>Scope</dt><dd>Support and B2B dashboard</dd></dl>
+          </div>
+        </article>
+
+        <article class="kanban-lane">
+          <header><span>Ready / 待验收</span><strong>2</strong></header>
+          <div class="requirement-card" data-priority="P0" data-module="Demand management">
+            <div><span class="status-pill high">P0</span><b>FR-034</b></div>
+            <h2>Requirement intake board / 需求 intake 看板</h2>
+            <p>Kanban surface for categories, priority, owner, status and traceability.</p>
+            <dl><dt>Owner</dt><dd>Product</dd><dt>Scope</dt><dd>This board page</dd></dl>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid" id="intake">
+        <article class="dash-card">
+          <div class="dash-head">
+            <div><span class="num">Change intake</span><h2>Required fields / 必填字段</h2></div>
+            <button class="mini-link" type="button">Create item</button>
+          </div>
+          <div class="requirement-form-grid">
+            <div><span>Changed object</span><strong>Page, module, section, component, copy, flow or data structure</strong></div>
+            <div><span>Reason for change</span><strong>User request, VOC evidence, compliance, design rule or defect</strong></div>
+            <div><span>Affected scope</span><strong>Files, pages, roles, Notion, GitHub, design system</strong></div>
+            <div><span>Acceptance criteria</span><strong>Observable pass/fail conditions before release</strong></div>
+          </div>
+        </article>
+
+        <article class="dash-card" id="rules">
+          <div class="dash-head"><div><span class="num">Gate rules</span><h2>Before work moves</h2></div></div>
+          <div class="task-list">
+            <label><input type="checkbox" checked> Requirement item exists before implementation.</label>
+            <label><input type="checkbox" checked> Priority, owner and affected scope are visible.</label>
+            <label><input type="checkbox" checked> Cross-page or design-system changes have user confirmation.</label>
+            <label><input type="checkbox" checked> Notion archive sync is created for document changes.</label>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-grid risk-grid" id="traceability">
+        <article class="dash-card workbench-card">
+          <div class="dash-head">
+            <div><span class="num">Traceability</span><h2>Requirement to file matrix</h2></div>
+            <button class="mini-link" type="button">Export</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Priority</th><th>Changed object</th><th>Status</th><th>Owner</th><th>Linked files</th><th>Acceptance signal</th></tr></thead>
+              <tbody>
+                <tr><td>FR-041</td><td><span class="status-pill high">P0</span></td><td>Change logging gate</td><td>Active</td><td>Product</td><td>common requirements, functional requirements</td><td>Every change has a requirement item</td></tr>
+                <tr><td>FR-042</td><td><span class="status-pill high">P0</span></td><td>Requirement board page</td><td>Ready</td><td>Product + Design</td><td>requirements-board.html, styles.css</td><td>Board has lanes, cards, intake fields and file links</td></tr>
+                <tr><td>FR-034</td><td><span class="status-pill high">P0</span></td><td>Requirement intake board</td><td>Ready</td><td>Product</td><td>requirements-board.html</td><td>Categories, priority, status and owner are visible</td></tr>
+                <tr><td>DOC-006</td><td><span class="status-pill med">P1</span></td><td>Bilingual docs</td><td>Active</td><td>Content</td><td>reports/*.md</td><td>Chinese and English content both present</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="dash-card" id="files">
+          <div class="dash-head compact-head"><div><span class="num">Linked files</span><h2>Source of truth</h2></div></div>
+          <div class="status-list">
+            <div><strong>Functional requirements</strong><span>reports/x-lab-functional-requirements-bilingual-2026-06-06.md</span></div>
+            <div><strong>Common requirements</strong><span>reports/x-lab-ui-ux-common-requirements.md</span></div>
+            <div><strong>Design system</strong><span>design.md and styles.css</span></div>
+            <div><strong>Board page</strong><span>requirements-board.html</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
