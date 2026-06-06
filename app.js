@@ -63,7 +63,7 @@ if (sidebarToggle) {
   const applySidebarState = (collapsed) => {
     document.body.classList.toggle("sidebar-collapsed", collapsed);
     sidebarToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
-    sidebarToggle.textContent = collapsed ? "Expand menu" : "Collapse menu";
+    sidebarToggle.textContent = collapsed ? "Expand" : "Collapse";
   };
 
   applySidebarState(localStorage.getItem(storageKey) === "true");

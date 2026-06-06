@@ -1332,12 +1332,24 @@ footer strong { color: var(--ink); }
   height: calc(100vh - 64px);
 }
 
+.sidebar-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  padding: 0 0 var(--space-xs);
+  margin-bottom: var(--space-xs);
+  background: #11161a;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
 .requirement-sidebar .side-menu a {
   min-height: 58px;
 }
 
 .sidebar-toggle {
-  justify-self: end;
+  justify-self: stretch;
+  min-height: 38px;
   white-space: nowrap;
 }
 
@@ -1350,23 +1362,31 @@ footer strong { color: var(--ink); }
 }
 
 .sidebar-collapsed .requirement-sidebar .menu-group,
-.sidebar-collapsed .requirement-sidebar small {
+.sidebar-collapsed .requirement-sidebar small,
+.sidebar-collapsed .requirement-sidebar .side-menu span {
   display: none;
 }
 
 .sidebar-collapsed .requirement-sidebar .side-menu a {
   min-width: 0;
-  justify-items: center;
+  display: grid;
+  place-items: center;
   min-height: 54px;
   padding: 10px 6px;
 }
 
-.sidebar-collapsed .requirement-sidebar .side-menu span {
-  max-width: 54px;
-  overflow: hidden;
+.sidebar-collapsed .requirement-sidebar .side-menu a::after {
+  content: attr(data-short);
+  color: #dce3e6;
+  font-size: .78rem;
+  font-weight: 950;
+  line-height: 1;
   text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+}
+
+.sidebar-collapsed .requirement-sidebar .side-menu a.active::after,
+.sidebar-collapsed .requirement-sidebar .side-menu a:hover::after {
+  color: #fff;
 }
 
 .content-header {
@@ -2005,12 +2025,14 @@ body.js .reveal.visible { opacity: 1; transform: translateY(0); }
   .sidebar-collapsed .requirement-shell { grid-template-columns: 1fr; }
   .requirement-sidebar,
   .sidebar-collapsed .requirement-sidebar { height: auto; padding: 10px 14px; }
+  .sidebar-head { display: none; }
   .side-menu { display: flex; overflow-x: auto; }
   .menu-group { display: none; }
   .side-menu a,
   .sidebar-collapsed .requirement-sidebar .side-menu a { min-width: 160px; justify-items: start; }
   .sidebar-collapsed .requirement-sidebar small { display: block; }
-  .sidebar-collapsed .requirement-sidebar .side-menu span { max-width: none; text-align: left; }
+  .sidebar-collapsed .requirement-sidebar .side-menu span { display: block; max-width: none; text-align: left; }
+  .sidebar-collapsed .requirement-sidebar .side-menu a::after { content: none; }
   .side-panel { display: none; }
 }
 
