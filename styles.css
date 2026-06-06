@@ -1944,7 +1944,7 @@ th {
 }
 
 .requirement-table {
-  min-width: 2040px;
+  min-width: 2360px;
 }
 
 .voc-table {
@@ -2041,6 +2041,20 @@ th {
   color: #075466;
   background: rgba(83,199,223,.1);
   border-color: rgba(83,199,223,.34);
+}
+
+.phase-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  color: #24323a;
+  background: #f0f4f5;
+  border: 1px solid #d6dee2;
+  font-size: .78rem;
+  font-weight: 950;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .score-pill {

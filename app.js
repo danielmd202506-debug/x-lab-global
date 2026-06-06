@@ -269,6 +269,7 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
 
   const priorityClass = { P0: "high", P1: "med", P2: "low" };
   const terminalStatus = new Set(["Ready", "Active", "Released"]);
+  const mvpCoreIds = new Set(["FR-001","FR-004","FR-008","FR-009","FR-016","FR-017","FR-020","FR-026","FR-033","FR-034","FR-041","FR-042","FR-043","FR-044","FR-045","FR-046","FR-047","FR-048","FR-049","FR-050","FR-051"]);
 
   function fillRequirementOptions(select, values) {
     if (!select) return;
@@ -283,10 +284,33 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
   fillRequirementOptions(reqModuleFilter, window.xlabRequirements.map((item) => item.module));
   fillRequirementOptions(reqStatusFilter, window.xlabRequirements.map((item) => item.status));
 
+  function deliveryMonth(item) {
+    return item.deliveryMonth || String(item.plannedDate || "").slice(0, 7) || "Unplanned";
+  }
+
+  function deadlineDate(item) {
+    if (item.deadlineDate) return item.deadlineDate;
+    const match = String(item.plannedDate || "").match(/^(\d{4})-(\d{2})-\d{2}$/);
+    if (!match) return "Unplanned";
+    const year = Number(match[1]);
+    const month = Number(match[2]);
+    return new Date(Date.UTC(year, month, 0)).toISOString().slice(0, 10);
+  }
+
+  function mvpPhase(item) {
+    if (item.mvpPhase) return item.mvpPhase;
+    if (mvpCoreIds.has(item.id)) return "MVP Core";
+    if (item.priority === "P0" || item.priority === "P1") return "MVP Extension";
+    return "Phase 2";
+  }
+
   function requirementText(item) {
     return [
       ...Object.values(item),
       requirementDemandClass(item),
+      deliveryMonth(item),
+      deadlineDate(item),
+      mvpPhase(item),
       ...(item.vocIds || [])
     ].join(" ").toLowerCase();
   }
@@ -303,8 +327,8 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
 
   function sortRequirements(rows) {
     return [...rows].sort((a, b) => {
-      const aValue = sortKey === "vocText" ? (a.vocIds || []).join(" ") : sortKey === "demandClass" ? demandClassSortValue(requirementDemandClass(a)) : String(a[sortKey] || "");
-      const bValue = sortKey === "vocText" ? (b.vocIds || []).join(" ") : sortKey === "demandClass" ? demandClassSortValue(requirementDemandClass(b)) : String(b[sortKey] || "");
+      const aValue = sortKey === "vocText" ? (a.vocIds || []).join(" ") : sortKey === "demandClass" ? demandClassSortValue(requirementDemandClass(a)) : sortKey === "deliveryMonth" ? deliveryMonth(a) : sortKey === "deadlineDate" ? deadlineDate(a) : sortKey === "mvpPhase" ? mvpPhase(a) : String(a[sortKey] || "");
+      const bValue = sortKey === "vocText" ? (b.vocIds || []).join(" ") : sortKey === "demandClass" ? demandClassSortValue(requirementDemandClass(b)) : sortKey === "deliveryMonth" ? deliveryMonth(b) : sortKey === "deadlineDate" ? deadlineDate(b) : sortKey === "mvpPhase" ? mvpPhase(b) : String(b[sortKey] || "");
       const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
       return sortDir === "asc" ? result : -result;
     });
@@ -332,6 +356,9 @@ if (requirementsTable && requirementsTableBody && Array.isArray(window.xlabRequi
         <td>${linkChips(item.vocIds, "voc")}</td>
         <td>${escapeHtml(item.requestDate)}</td>
         <td>${escapeHtml(item.plannedDate)}</td>
+        <td>${escapeHtml(deliveryMonth(item))}</td>
+        <td>${escapeHtml(deadlineDate(item))}</td>
+        <td><span class="phase-pill">${escapeHtml(mvpPhase(item))}</span></td>
         <td>${escapeHtml(item.status)}</td>
         <td>${escapeHtml(item.owner)}</td>
         <td>${escapeHtml(item.scope)}</td>
