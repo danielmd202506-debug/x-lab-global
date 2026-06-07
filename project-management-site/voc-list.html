@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB VOC list linked to functional requirements and evidence records.">
+  <title>X-LAB VOC List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body requirement-body">
+  <header class="app-topbar">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="topbar-title">
+      <strong>VOC List</strong>
+      <span>VOC &#28165;&#21333; / evidence, persona, severity, confidence and requirement linkage</span>
+    </div>
+  </header>
+
+  <div class="app-layout requirement-shell">
+    <aside class="app-sidebar requirement-sidebar" aria-label="Demand management menu">
+      <div class="sidebar-head">
+        <button class="icon-btn sidebar-toggle" type="button" data-sidebar-toggle aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar"></button>
+      </div>
+      <nav class="side-menu">
+        <div class="menu-group">Demand / &#38656;&#27714;</div>
+        <a href="requirements-board.html#requirements" data-short="Req"><span>Requirement Overview</span><small>&#38656;&#27714;&#24635;&#35272;</small></a>
+        <a class="active" href="voc-list.html#voc" data-short="VOC"><span>VOC List</span><small>VOC &#28165;&#21333;</small></a>
+        <a href="issue-list.html#issues" data-short="Issue"><span>Issue List</span><small>&#38382;&#39064;&#28165;&#21333;</small></a>
+        <a href="snapshot-list.html#snapshots" data-short="Snap"><span>Snapshots</span><small>&#32593;&#39029;&#24555;&#29031;</small></a>
+        <div class="menu-group">System / &#31995;&#32479;</div>
+        <a href="information-architecture.html#ia" data-short="IA"><span>Information Architecture</span><small>&#20449;&#24687;&#26550;&#26500;</small></a>
+        <a href="design-system.html#design-system" data-short="Design"><span>Design System</span><small>Visual design.md</small></a>
+        <div class="menu-group">Documents / &#25991;&#26723;</div>
+        <a href="reports/x-lab-functional-requirements-bilingual-2026-06-06.md" data-short="List"><span>Requirement List</span><small>Functional requirements</small></a>
+        <a href="reports/x-lab-voc-demand-intelligence-2026-06-06.md" data-short="Report"><span>VOC Report</span><small>Evidence source</small></a>
+        <a href="reports/x-lab-ui-ux-common-requirements.md" data-short="Rules"><span>Common Rules</span><small>Shared governance</small></a>
+        <a href="design.md" data-short="MD"><span>Design MD</span><small>Source of truth</small></a>
+        <div class="menu-group">Workspace / &#24037;&#20316;&#21488;</div>
+        <a href="b2b-dashboard.html" data-short="B2B"><span>B2B Dashboard</span><small>Partner workspace</small></a>
+        <a href="index.html" data-short="Site"><span>Global Site</span><small>Public website</small></a>
+      </nav>
+    </aside>
+
+    <main class="app-content">
+      <section class="content-header" id="overview">
+      <div>
+        <div class="kicker">Demand management / VOC &#35777;&#25454;</div>
+        <h1>VOC list</h1>
+        <p class="lead">Maintain VOC as a structured evidence table. Each VOC item links back to one or more requirements so the reason for every demand stays traceable.</p>
+      </div>
+      </section>
+
+    <section class="dashboard-grid kpi-grid" aria-label="VOC statistics">
+      <article class="dash-card kpi-card"><span class="num">Total VOC</span><strong id="vocStatTotal">0</strong><p>Structured VOC records synced from demand intelligence and governance requests.</p></article>
+      <article class="dash-card kpi-card"><span class="num">Gate pass</span><strong id="vocStatPass">0</strong><p>VOC records scoring above 60 and eligible to enter the requirement list.</p></article>
+      <article class="dash-card kpi-card"><span class="num">Average score</span><strong id="vocStatAverage">0</strong><p>Review score across evidence, impact, reach, urgency and strategic fit.</p></article>
+      <article class="dash-card kpi-card danger"><span class="num">Review hold</span><strong id="vocStatHold">0</strong><p>VOC records scoring 60 or below and kept in review.</p></article>
+    </section>
+
+    <section class="toolbar requirement-controls" aria-label="VOC filters and sorting">
+      <div class="field compact"><label for="vocSearch">Search / &#25628;&#32034;</label><input id="vocSearch" type="search" placeholder="ID, theme, source, requirement"></div>
+      <div class="field compact"><label for="vocCategoryFilter">Category / &#20998;&#31867;</label><select id="vocCategoryFilter"><option value="">All categories</option></select></div>
+      <div class="field compact"><label for="vocSeverityFilter">Severity / &#20005;&#37325;&#24230;</label><select id="vocSeverityFilter"><option value="">All severity</option></select></div>
+      <div class="field compact"><label for="vocStatusFilter">Status / &#29366;&#24577;</label><select id="vocStatusFilter"><option value="">All status</option></select></div>
+      <button class="btn dark" type="button" id="vocResetFilters">Reset filters</button>
+    </section>
+
+    <section class="dash-card workbench-card" id="voc" aria-label="VOC table">
+      <div class="dash-head">
+        <div><span class="num">VOC evidence / VOC &#35777;&#25454;</span><h2>Linked VOC table</h2></div>
+        <span class="table-count" id="vocVisibleCount">0 visible</span>
+      </div>
+      <div class="table-wrap">
+        <table class="requirement-table voc-table" id="vocTable">
+          <thead>
+            <tr>
+              <th><button type="button" data-sort="id">VOC ID</button></th>
+              <th><button type="button" data-sort="demandClass">Class<br>&#38656;&#27714;&#20998;&#31867;</button></th>
+              <th><button type="button" data-sort="category">Category<br>&#20998;&#31867;</button></th>
+              <th><button type="button" data-sort="theme">Theme<br>&#20027;&#39064;</button></th>
+              <th>VOC summary<br>VOC &#25688;&#35201;</th>
+              <th><button type="button" data-sort="persona">Persona<br>&#29992;&#25143;&#30011;&#20687;</button></th>
+              <th><button type="button" data-sort="source">Source<br>&#26469;&#28304;</button></th>
+              <th><button type="button" data-sort="observedDate">Observed date<br>&#35266;&#23519;&#26085;&#26399;</button></th>
+              <th><button type="button" data-sort="severity">Severity<br>&#20005;&#37325;&#24230;</button></th>
+              <th><button type="button" data-sort="confidence">Confidence<br>&#32622;&#20449;&#24230;</button></th>
+              <th><button type="button" data-sort="reviewScore">Review score<br>&#35780;&#23457;&#20998;</button></th>
+              <th><button type="button" data-sort="reviewGate">Gate<br>&#38376;&#31105;</button></th>
+              <th>Review dimensions<br>&#35780;&#23457;&#32500;&#24230;</th>
+              <th><button type="button" data-sort="status">Status<br>&#29366;&#24577;</button></th>
+              <th>Linked requirements<br>&#20851;&#32852;&#38656;&#27714;</th>
+              <th>Evidence file<br>&#35777;&#25454;&#25991;&#20214;</th>
+            </tr>
+          </thead>
+          <tbody id="vocTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+    </main>
+  </div>
+
+  <script src="xlab-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
