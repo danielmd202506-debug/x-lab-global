@@ -4,6 +4,24 @@ const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelector(".site-nav .nav-links");
 
 if (siteNav && navLinks) {
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  if (!navLinks.querySelector(".nav-tools")) {
+    const navTools = document.createElement("span");
+    navTools.className = "nav-tools";
+    navTools.setAttribute("aria-label", "Shopping and account tools");
+    navTools.innerHTML = `
+      <a class="nav-tool-icon${currentPage === "cart.html" ? " is-current" : ""}" href="cart.html" aria-label="Shopping cart">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6h4l3 15h15l3-11H10"/><path d="M13 25h1M24 25h1"/><path d="M12 21h15"/></svg>
+        <span class="sr-only">Shopping cart</span>
+      </a>
+      <a class="nav-tool-icon${currentPage === "owner-garage.html" ? " is-current" : ""}" href="owner-garage.html" aria-label="User center">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/><path d="M6 28v-3c0-4 4-7 10-7s10 3 10 7v3"/><path d="M10 28h12"/></svg>
+        <span class="sr-only">User center</span>
+      </a>
+    `;
+    navLinks.appendChild(navTools);
+  }
+
   const menuButton = document.createElement("button");
   menuButton.className = "mobile-menu-button";
   menuButton.type = "button";

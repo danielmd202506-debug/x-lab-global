@@ -502,8 +502,13 @@
     ]).map(([title, detail]) => `<article><strong>${title}</strong><p>${detail}</p></article>`).join("");
     document.getElementById("productSpecTable").innerHTML = specRows.map(([label, value]) => `<tr><th>${label}</th><td>${value}</td></tr>`).join("");
     document.getElementById("productThumbs").innerHTML = product.thumbs.map((src, index) => `<button class="pdp-thumb-button" type="button" aria-label="View image ${index + 1}"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`).join("");
-    document.querySelectorAll(".pdp-thumb-button").forEach((button) => {
+    document.querySelectorAll(".pdp-thumb-button").forEach((button, index) => {
       button.addEventListener("click", () => {
+        if (product.view360 && product.view360[index]) {
+          frameIndex = index;
+          updateViewerFrame();
+          return;
+        }
         image.src = button.querySelector("img").src;
       });
     });
