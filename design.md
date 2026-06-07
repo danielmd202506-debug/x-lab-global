@@ -308,7 +308,7 @@ Rules:
 Current public nav order:
 
 - `Home`
-- `Shop Bikes`
+- `Bicycles`
 - `Technology`
 - `WorldTour`
 - `Manufacturing`
@@ -455,7 +455,7 @@ Rules:
 - Headers are small, uppercase, and muted.
 - Use tables for comparison, status, order, RFQ, document, warranty, pricing, and shipment data.
 
-### Custom Bike Configurator
+### Custom Bicycle Configurator
 
 Current page: `custom-bike.html`
 
@@ -499,7 +499,7 @@ Required structure:
 - Partner-ready proof modules for fit, warranty, service parts, dealer tools, and model clarity when VOC risk is part of the objective.
 - Role or route map.
 - Product/store/dealer/custom entry points.
-- Footer sitemap follows the public IA matrix with Home, Shop Bikes, Proof, Partners, Support, and B2B groups. It may expose subordinate routes such as Custom, Supplier, Stores, Warranty, Registration, Owner Garage, RFQ, and Quality Documents.
+- Footer sitemap follows the public IA matrix with Home, Bicycles, Proof, Partners, Support, and B2B groups. It may expose subordinate routes such as Custom, Supplier, Stores, Warranty, Registration, Owner Garage, RFQ, and Quality Documents.
 - Public footer must include newsletter signup, social media links, contact email, and contact phone.
 - Footer or sitemap must use real user-facing page routes only; do not expose internal IA notes, test conclusions, or planning labels on the public homepage.
 
@@ -847,7 +847,7 @@ Before adding a new page or module, confirm:
 | 2026-06-07 | Added breadcrumbs to second-level public pages only. | User requested breadcrumb navigation while keeping first-level pages clean. | Child public pages, `styles.css`, `design.md`. |
 | 2026-06-07 | Refreshed homepage footer sitemap for the new IA. | User requested the bottom sitemap to match the updated public navigation and narrative structure. | `index.html`, `styles.css`, `design.md`. |
 | 2026-06-07 | Restored Home as the first public navigation item. | User pointed out the PPT IA implementation still needs a clear homepage return route in the top menu. | Public `.site-nav`, `PRODUCT.md`, `design.md`, `design-system.html`. |
-| 2026-06-07 | Applied PPT V2.0 narrative IA to the public website. | User approved the shift from product catalog logic to a global strategic platform narrative: trust, manufacturing, WorldTour, bike solutions, dealer growth, and partner conversion. | `index.html`, `technology.html`, `partners.html`, `factory.html`, `race-validation.html`, `dealers.html`, `products.html`, global navigation, `PRODUCT.md`, `design-system.html`. |
+| 2026-06-07 | Applied PPT V2.0 narrative IA to the public website. | User approved the shift from product catalog logic to a global strategic platform narrative: trust, manufacturing, WorldTour, bicycle solutions, dealer growth, and partner conversion. | `index.html`, `technology.html`, `partners.html`, `factory.html`, `race-validation.html`, `dealers.html`, `products.html`, global navigation, `PRODUCT.md`, `design-system.html`. |
 | 2026-06-07 | Added design synchronization principle for accepted PPT recommendations. | User requested PPT optimization opinions to be synchronized into high-fidelity screens and project documents as a common rule. | `PRODUCT.md`, `design.md`, `design-system.html`, high-fidelity pages, common requirements. |
 | 2026-06-07 | Refined global typography and spacing scale for the full website. | User requested a whole-site typography and layout review; headings, lead copy, public cards, B2B lanes, dashboard hierarchy, footer rhythm, and mobile type scale were adjusted for clearer North American B2B/performance-brand reading. | `styles.css`, `design.md`, public pages, high-fidelity pages, B2B dashboard pages. |
 | 2026-06-06 | Added visual design system page sync rule. | User requested a visual Design System page in the left menu, periodic sync with `design.md`, and an edit log. | `design-system.html`, `design.md`, management menu, design governance. |

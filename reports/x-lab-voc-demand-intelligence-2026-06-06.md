@@ -57,7 +57,7 @@ The product-market opportunity is real, but current buyers still need confidence
 
 ### Road buyers
 
-- High interest in RS7 as an accessible carbon road bike, but mechanical 105 builds trigger concern versus electronic shifting expectations.
+- High interest in RS7 as an accessible carbon road bicycle, but mechanical 105 builds trigger concern versus electronic shifting expectations.
 - AD9 performance reviews are strong, but the top-end complete price is not universally seen as cheap.
 - RT9 attracts climber / weight-conscious attention, but larger rider fit and size range questions appear.
 - Users want reassurance that integrated parts can be replaced years later.
@@ -93,7 +93,7 @@ The product-market opportunity is real, but current buyers still need confidence
 ### Dealer opportunity
 
 - Independent shops can use X-LAB to offer a "high-spec, lower-price" alternative to legacy premium brands.
-- Shops can differentiate with fit, assembly, service, and warranty handling, especially because buyers distrust pure online purchasing for integrated carbon bikes.
+- Shops can differentiate with fit, assembly, service, and warranty handling, especially because buyers distrust pure online purchasing for integrated carbon bicycles.
 - Reddit shop-related comments suggest some shops see XDS/X-LAB as a practical value brand to bring in, with at least anecdotal reports of strong early sell-through.
 
 ### Dealer risks

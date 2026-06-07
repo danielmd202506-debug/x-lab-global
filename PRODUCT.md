@@ -24,8 +24,8 @@ Avoid a single brochure page that hides business paths in generic buttons. Avoid
 
 - Map the chain: every major section should show where it sits in the upstream to downstream business flow.
 - Prove before selling: racing, manufacturing, testing, and logistics evidence should appear before cooperation calls to action.
-- Follow the PPT narrative spine: Hero declaration, partner confidence, manufacturing proof, WorldTour proof, bike solutions, dealer growth, then find/apply CTA.
-- Use the public IA matrix: Home, Shop Bikes, Technology, WorldTour, Manufacturing, Partners, Dealers, Support, and B2B Login.
+- Follow the PPT narrative spine: Hero declaration, partner confidence, manufacturing proof, WorldTour proof, bicycle solutions, dealer growth, then find/apply CTA.
+- Use the public IA matrix: Home, Bicycles, Technology, WorldTour, Manufacturing, Partners, Dealers, Support, and B2B Login.
 - Separate roles clearly: suppliers, distributors, dealers, stores, and riders need distinct routes, copy, and next steps.
 - Keep the page operational: cards and links should lead to real route-level pages, not only anchors.
 - Make purchase confidence visible: store service, fit, warranty, and test-ride support belong near product discovery.

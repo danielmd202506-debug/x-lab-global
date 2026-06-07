@@ -41,7 +41,7 @@ X-LAB should avoid trying to look like a mass commuter brand. North America has 
 | --- | --- |
 | Age | 28-45 |
 | Personality | Disciplined, competitive, data-driven, status-aware |
-| Traits | Already owns a road bike, follows gear reviews, compares frame weight, wheel depth, drivetrain, aerodynamics, and brand credibility |
+| Traits | Already owns a road bicycle, follows gear reviews, compares frame weight, wheel depth, drivetrain, aerodynamics, and brand credibility |
 | Likes | Carbon frames, aero cockpit, deep carbon wheels, electronic shifting, performance proof, club rides, race signals |
 | Regions | California, Washington, Oregon, Colorado, New York, Massachusetts, Ontario, Quebec |
 | Scenarios | Weekend group rides, Gran Fondo, amateur racing, climbing routes, structured training |
@@ -104,7 +104,7 @@ Design implications:
 | Traits | Started cycling through friends, fitness, social media, or post-pandemic outdoor habits |
 | Likes | Easy build choices, attractive colors, clear pricing, social proof, simple explanations |
 | Regions | Large metro suburbs, college towns, cycling-friendly cities, outdoor lifestyle regions |
-| Scenarios | First serious road bike, first carbon bike, social rides, short training plans |
+| Scenarios | First serious road bicycle, first carbon bicycle, social rides, short training plans |
 | Main fear | Being overwhelmed by technical jargon or making an expensive mistake |
 | X-LAB route | Configurator, guided model selector, dealer handoff |
 
@@ -312,7 +312,7 @@ Image priorities:
 
 | Persona | Preferred Imagery |
 | --- | --- |
-| Performance road upgrader | Aero road bike, fast road, club ride, race service detail |
+| Performance road upgrader | Aero road bicycle, fast road, club ride, race service detail |
 | Gravel explorer | Mixed roads, tire clearance, frame durability, rough surface |
 | Urban fitness rider | Clean city roads, greenways, store fit, refined complete bike |
 | Advanced beginner | Guided selection, approachable store handoff, simple build comparison |
