@@ -183,7 +183,7 @@ button, input, select { font: inherit; }
 
 .hero {
   --hero-image: url("assets/visuals/hero-astana-team.jpg");
-  --hero-focus: 58% center;
+  --hero-focus: 58% 24%;
   --hero-scale: 1.01;
   min-height: min(760px, calc(100svh - 72px));
   display: grid;
