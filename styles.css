@@ -480,17 +480,46 @@ h3 {
   min-height: 220px;
   display: grid;
   align-content: start;
-  gap: var(--space-lg);
+  gap: var(--space-md);
   padding: clamp(var(--space-md), 2.2vw, var(--space-xl));
   border: 1px solid rgba(0,0,0,.13);
   background: #fff;
 }
 
-.proof-item span {
+.proof-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.proof-item .num {
   color: #b51824;
   font-size: .82rem;
   font-weight: 900;
   letter-spacing: .08em;
+}
+
+.proof-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(181,24,36,.18);
+  background: rgba(181,24,36,.055);
+  color: #b51824;
+}
+
+.proof-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
 }
 
 .proof-item strong {
