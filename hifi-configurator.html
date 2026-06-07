@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB Configurator high fidelity visual direction.">
+  <title>X-LAB Hi-Fi | Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="hifi-page hifi-config">
+  <nav class="site-nav" aria-label="Global navigation">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links"><a href="hifi-race-factory.html">Race</a><a href="hifi-dealer-trust.html">Dealer Trust</a><a class="is-current" href="hifi-configurator.html" aria-current="page">Configurator</a><a href="hifi-b2b-portal.html">Portal</a></div>
+  </nav>
+
+  <main class="config-hifi-shell">
+    <section class="config-canvas" aria-label="High fidelity configurator preview">
+      <div class="config-stage-top">
+        <div>
+          <div class="hifi-label"><span></span>Configurator</div>
+          <h1>Configure visually. Validate operationally.</h1>
+        </div>
+        <div class="build-code"><span>Build ID</span><strong>AD9-NA-042</strong></div>
+      </div>
+      <div class="real-bike-frame" aria-hidden="true">
+        <div class="bike-shadow"></div>
+        <span class="tube top"></span>
+        <span class="tube down"></span>
+        <span class="tube seat"></span>
+        <span class="tube stay"></span>
+        <span class="tube fork"></span>
+        <span class="wheel front"></span>
+        <span class="wheel rear"></span>
+        <span class="cockpit"></span>
+        <span class="crank"></span>
+      </div>
+      <div class="config-proof-strip">
+        <div><span>Fit</span><strong>M / 545 stack</strong></div>
+        <div><span>Platform</span><strong>AD9 Aero Carbon</strong></div>
+        <div><span>Dealer status</span><strong>Review required</strong></div>
+      </div>
+    </section>
+
+    <aside class="config-control-panel" aria-label="Configurator controls">
+      <div class="panel-head">
+        <span class="kicker">Build steps</span>
+        <strong>AD9 Race Build</strong>
+      </div>
+      <div class="segmented">
+        <button class="active" type="button">Race</button>
+        <button type="button">Gravel</button>
+        <button type="button">Urban</button>
+      </div>
+      <div class="config-fieldset">
+        <label><span>Frame color</span><select><option>XDS Red / Carbon</option><option>Factory White / Cyan</option><option>Stealth Black</option></select></label>
+        <label><span>Wheel depth</span><input type="range" min="32" max="65" value="50"></label>
+        <label><span>Cockpit</span><select><option>Integrated aero cockpit</option><option>Compact race cockpit</option></select></label>
+      </div>
+      <div class="compatibility-card">
+        <span>Compatibility check</span>
+        <strong>Ready for dealer RFQ</strong>
+        <p>Geometry, cockpit, service parts and price tier are packaged for review.</p>
+      </div>
+      <div class="config-summary-card">
+        <div><span>MSRP estimate</span><strong>$4,899</strong></div>
+        <div><span>ETA</span><strong>21-28 days</strong></div>
+        <div><span>Dealer margin</span><strong>Tier B</strong></div>
+      </div>
+      <a class="btn primary" href="hifi-b2b-portal.html">Create dealer RFQ</a>
+    </aside>
+  </main>
+
+  <section class="config-hifi-notes wrap">
+    <article><strong>Image rule</strong><p>Replace CSS bicycle with transparent side-view product PNGs when available. Keep canvas clean and technical.</p></article>
+    <article><strong>Interaction rule</strong><p>Every choice should update visual preview, fit risk, service compatibility and RFQ summary.</p></article>
+    <article><strong>Conversion rule</strong><p>The final action is not checkout first. It is dealer review, quote and inventory confidence.</p></article>
+  </section>
+
+  <section class="hifi-sync-note wrap" aria-label="Design synchronization note">
+    <span>Design sync principle</span>
+    <strong>PPT recommendations become screen requirements.</strong>
+    <p>Accepted Configurator updates must stay synchronized across this hi-fi page, `design.md`, `design-system.html`, RFQ workflow fields and product asset requirements.</p>
+  </section>
+
+  <footer><div class="wrap"><strong>X-LAB Design</strong><span>High-fidelity lane 03 / Configurator and RFQ bridge</span></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>
+

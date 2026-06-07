@@ -181,7 +181,34 @@ Every rider-facing X-LAB screen should answer these questions quickly:
 
 If a page does not answer at least three of these questions, it is probably too brand-heavy and not purchase-ready.
 
-## 6. Page And Flow Guidance
+## 6. North America Online Purchase Behavior
+
+North American performance-bike shoppers are research-led buyers. For a high-ticket model such as RT9, they may be willing to buy online, but only after the page reduces purchase risk across fit, delivery, financing, warranty, return policy, service and product proof.
+
+Primary online purchase habits:
+
+- They inspect multiple product photos before reading the full page. PDP galleries should include full-bike, angle, cockpit, wheelset, drivetrain, fork/seatpost and finish-detail views when official assets exist.
+- They compare hard specs. Frame material, fork, handlebar/stem, drivetrain, crank, power meter, brakes, wheelset, tires, clearance, weight and size options must be explicit.
+- They treat size uncertainty as the largest conversion risk. Product pages must place Size Guide, rider-height table, Basic Geometry, Component Geometry and Find A Dealer close to the purchase path.
+- They expect fulfillment rules near the price. Free shipping, delivery/assembly expectations, pickup or dealer setup options, shipping damage process and notify-me rules should not be hidden in footer links.
+- They expect payment flexibility on high-value purchases. Installment messaging should sit near price and purchase actions, especially for $5,000+ complete bikes.
+- They check ownership risk before purchase. Warranty, return policy, manual downloads, unboxing/assembly content and dealer service support should be visible before checkout.
+- They often research online, then validate with a local shop. PDPs should support both direct conversion and dealer-assisted confidence.
+
+North America PDP checklist:
+
+| Requirement | Why it matters |
+| --- | --- |
+| 6+ official images when available | Reduces uncertainty about finish, details and real product quality |
+| Price plus shipping and installment context | Helps high-ticket buyers evaluate affordability and total cost |
+| Color, size and notify-me rules | Matches standard ecommerce purchase expectations |
+| Size Guide and geometry before deep content | Prevents wrong-size anxiety |
+| Complete technical specifications | Supports comparison against Trek, Specialized, Canyon, Cervelo and other premium alternatives |
+| Warranty, returns and dealer service near PDP content | Reduces new-brand and post-purchase risk |
+| Manual, unboxing and media reviews | Supports self-service confidence and third-party validation |
+| Custom/configure route where relevant | Captures high-end enthusiasts who want personalization without replacing the fixed SKU purchase path |
+
+## 7. Page And Flow Guidance
 
 ### Homepage
 
@@ -208,6 +235,7 @@ Primary job:
 
 - Match model to riding scenario.
 - Convert technical specs into rider confidence.
+- Remove online-purchase risk before the customer leaves the page.
 
 Required sections:
 
@@ -217,6 +245,7 @@ Required sections:
 - Component package options.
 - Dealer/service handoff.
 - Compare against nearby X-LAB models.
+- Price, shipping, financing, notify-me, warranty, return policy and manual/support resources.
 
 ### Custom Configurator
 
@@ -391,4 +420,3 @@ Before shipping any new rider-facing X-LAB page, confirm:
 - Technical details are readable without hiding the emotional reason to buy.
 - CTAs point to real next steps, not generic contact dead ends.
 - The page works for both experienced riders and advanced beginners.
-

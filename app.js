@@ -1,5 +1,42 @@
 document.body.classList.add("js");
 
+const siteNav = document.querySelector(".site-nav");
+const navLinks = document.querySelector(".site-nav .nav-links");
+
+if (siteNav && navLinks) {
+  const menuButton = document.createElement("button");
+  menuButton.className = "mobile-menu-button";
+  menuButton.type = "button";
+  menuButton.setAttribute("aria-label", "Open navigation menu");
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.innerHTML = "<span></span><span></span><span></span>";
+
+  const menuBackdrop = document.createElement("button");
+  menuBackdrop.className = "mobile-menu-backdrop";
+  menuBackdrop.type = "button";
+  menuBackdrop.setAttribute("aria-label", "Close navigation menu");
+
+  siteNav.insertBefore(menuButton, navLinks);
+  document.body.appendChild(menuBackdrop);
+
+  const setMobileMenu = (open) => {
+    document.body.classList.toggle("mobile-menu-open", open);
+    menuButton.setAttribute("aria-expanded", open ? "true" : "false");
+    menuButton.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+  };
+
+  menuButton.addEventListener("click", () => {
+    setMobileMenu(!document.body.classList.contains("mobile-menu-open"));
+  });
+  menuBackdrop.addEventListener("click", () => setMobileMenu(false));
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMobileMenu(false));
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setMobileMenu(false);
+  });
+}
+
 const revealItems = document.querySelectorAll(".reveal, .card, .product-card, .role-link, .photo-grid img, .process div");
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -36,6 +73,7 @@ const accountType = document.querySelector("#accountType");
 if (portalSignIn && accountType) {
   const params = new URLSearchParams(window.location.search);
   const requestedRole = params.get("role");
+  if (requestedRole === "apply") window.location.href = "become-partner.html";
   if (requestedRole === "dealer") accountType.value = "Agent / Distributor";
   if (requestedRole === "supplier") accountType.value = "Supplier";
 
@@ -100,6 +138,7 @@ if (previewPane) {
       bike: "ad9",
       model: "AD9 Aero Road",
       scene: "Race Day",
+      photo: "assets/bike-ad9-aero.png",
       platform: "Stock aero race mold",
       mold: "AD9 aero carbon frameset",
       kit: "Integrated cockpit, carbon wheels, race drivetrain",
@@ -109,6 +148,7 @@ if (previewPane) {
       bike: "rt9",
       model: "RT9 Lightweight",
       scene: "Climbing",
+      photo: "assets/bike-rt9-lightweight.png",
       platform: "Stock lightweight climbing mold",
       mold: "RT9 lightweight carbon frameset",
       kit: "Compact cockpit, shallow carbon wheels, climbing drivetrain",
@@ -118,6 +158,7 @@ if (previewPane) {
       bike: "gt",
       model: "GT All-Road",
       scene: "Endurance",
+      photo: "assets/bike-gt-allroad.png",
       platform: "Stock all-road endurance mold",
       mold: "GT all-road carbon frameset",
       kit: "Flared cockpit, tubeless wheels, endurance drivetrain",
@@ -127,6 +168,7 @@ if (previewPane) {
       bike: "cm",
       model: "CM Urban Alloy",
       scene: "Dealer Demo",
+      photo: "assets/bike-cm-urban.png",
       platform: "Stock urban demo mold",
       mold: "CM urban alloy frameset",
       kit: "Serviceable cockpit, alloy demo wheels, city drivetrain",
@@ -140,6 +182,7 @@ if (previewPane) {
   const fitReadout = document.querySelector("#fitReadout");
   const stockMold = document.querySelector("#stockMold");
   const stockKit = document.querySelector("#stockKit");
+  const bikePhoto = document.querySelector("#bikePhoto");
   const height = document.querySelector("#riderHeight");
   const inseam = document.querySelector("#inseam");
   const heightValue = document.querySelector("#heightValue");
@@ -148,12 +191,6 @@ if (previewPane) {
   const bodyColors = document.querySelectorAll("input[name='bodyColor']");
   const accentColor = document.querySelector("#accentColor");
   const accentZone = document.querySelector("#accentZone");
-  const lettering = document.querySelector("#lettering");
-  const letteringPos = document.querySelector("#letteringPos");
-  const decalPack = document.querySelector("#decalPack");
-  const decalPos = document.querySelector("#decalPos");
-  const decalTop = document.querySelector("#decalTop");
-  const decalDown = document.querySelector("#decalDown");
 
   function sizeFromHeight(value) {
     if (value < 166) return "XS";
@@ -176,7 +213,6 @@ if (previewPane) {
     const fitLabel = `${sizeFromHeight(riderHeight)} / ${baseStack + stackAdjust} stack / ${reachPref?.value || "balanced"}`;
     const selectedBody = document.querySelector("input[name='bodyColor']:checked")?.value || "#d91f2d";
     const accent = accentColor?.value || "#53c7df";
-    const customText = (lettering?.value || "X-LAB").trim().slice(0, 12).toUpperCase() || "X-LAB";
 
     previewPane.dataset.scene = currentScene();
     previewPane.dataset.bike = data.bike;
@@ -185,6 +221,8 @@ if (previewPane) {
     previewPane.dataset.accentZone = accentZone?.value || "top";
 
     if (modelBadge) modelBadge.textContent = data.model;
+    if (bikePhoto) bikePhoto.src = data.photo;
+    if (bikePhoto) bikePhoto.alt = `${data.model} configured bike preview`;
     if (sceneReadout) sceneReadout.textContent = data.scene;
     if (platformReadout) platformReadout.textContent = data.platform;
     if (fitReadout) fitReadout.textContent = fitLabel;
@@ -192,13 +230,6 @@ if (previewPane) {
     if (stockKit) stockKit.textContent = data.kit;
     if (heightValue) heightValue.textContent = `${riderHeight} cm`;
     if (inseamValue) inseamValue.textContent = `${riderInseam} cm`;
-
-    if (decalTop && decalDown) {
-      decalTop.textContent = letteringPos?.value === "top" ? customText : decalPack?.value || "RACE";
-      decalDown.textContent = letteringPos?.value === "down" ? customText : data.model.split(" ")[0];
-      decalTop.style.opacity = decalPos?.value === "top" || letteringPos?.value === "top" ? "1" : ".42";
-      decalDown.style.opacity = decalPos?.value === "down" || letteringPos?.value === "down" ? "1" : ".42";
-    }
   }
 
   document.querySelectorAll(".config-form input, .config-form select").forEach((control) => {
@@ -226,7 +257,13 @@ function linkChips(ids, type) {
   const values = Array.isArray(ids) ? ids : [];
   if (!values.length) return "";
   return `<span class="relation-list">${values.map((id) => {
-    const href = type === "voc" ? `voc-list.html#${id}` : `requirements-board.html#${id}`;
+    const href = type === "voc"
+      ? `voc-list.html#${id}`
+      : type === "issue"
+        ? `issue-list.html#${id}`
+        : type === "ia"
+          ? `information-architecture.html#${id}`
+          : `requirements-board.html#${id}`;
     return `<a class="record-link" href="${href}">${escapeHtml(id)}</a>`;
   }).join("")}</span>`;
 }
@@ -537,4 +574,469 @@ if (vocTable && vocTableBody && Array.isArray(window.xlabVOC)) {
   });
 
   renderVOC();
+}
+
+const issueTable = document.querySelector("#issueTable");
+const issueTableBody = document.querySelector("#issueTableBody");
+
+if (issueTable && issueTableBody && Array.isArray(window.xlabIssues)) {
+  const issueSearch = document.querySelector("#issueSearch");
+  const issuePriorityFilter = document.querySelector("#issuePriorityFilter");
+  const issueSeverityFilter = document.querySelector("#issueSeverityFilter");
+  const issueStatusFilter = document.querySelector("#issueStatusFilter");
+  const issueResetFilters = document.querySelector("#issueResetFilters");
+  const issueVisibleCount = document.querySelector("#issueVisibleCount");
+  const issueStatTotal = document.querySelector("#issueStatTotal");
+  const issueStatOpen = document.querySelector("#issueStatOpen");
+  const issueStatClosed = document.querySelector("#issueStatClosed");
+  const issueStatHigh = document.querySelector("#issueStatHigh");
+  let issueSortKey = "id";
+  let issueSortDir = "asc";
+
+  const issuePriorityClass = { P0: "high", P1: "med", P2: "low" };
+
+  function fillIssueOptions(select, values) {
+    if (!select) return;
+    [...new Set(values)].sort().forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  fillIssueOptions(issueSeverityFilter, window.xlabIssues.map((item) => item.severity));
+  fillIssueOptions(issueStatusFilter, window.xlabIssues.map((item) => item.status));
+
+  function issueText(item) {
+    return [
+      ...Object.values(item),
+      ...(item.relatedVOC || []),
+      ...(item.relatedRequirements || [])
+    ].join(" ").toLowerCase();
+  }
+
+  function filteredIssues() {
+    const search = issueSearch?.value.trim().toLowerCase() || "";
+    return window.xlabIssues.filter((item) => {
+      if (issuePriorityFilter?.value && item.priority !== issuePriorityFilter.value) return false;
+      if (issueSeverityFilter?.value && item.severity !== issueSeverityFilter.value) return false;
+      if (issueStatusFilter?.value && item.status !== issueStatusFilter.value) return false;
+      return !search || issueText(item).includes(search);
+    });
+  }
+
+  function sortIssues(rows) {
+    return [...rows].sort((a, b) => {
+      const aValue = String(a[issueSortKey] || "");
+      const bValue = String(b[issueSortKey] || "");
+      const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
+      return issueSortDir === "asc" ? result : -result;
+    });
+  }
+
+  function issueStatusPill(value) {
+    const status = String(value || "");
+    const statusClass = status === "Closed" ? "closed" : status === "Ready" ? "ready" : "open";
+    return `<span class="issue-status ${statusClass}">${escapeHtml(status)}</span>`;
+  }
+
+  function updateIssueStats(rows) {
+    const all = window.xlabIssues;
+    if (issueStatTotal) issueStatTotal.textContent = String(all.length);
+    if (issueStatOpen) issueStatOpen.textContent = String(all.filter((item) => item.status !== "Closed").length);
+    if (issueStatClosed) issueStatClosed.textContent = String(all.filter((item) => item.status === "Closed").length);
+    if (issueStatHigh) issueStatHigh.textContent = String(all.filter((item) => item.severity === "High").length);
+    if (issueVisibleCount) issueVisibleCount.textContent = `${rows.length} visible`;
+  }
+
+  function renderIssues() {
+    const rows = sortIssues(filteredIssues());
+    updateIssueStats(rows);
+    issueTableBody.innerHTML = rows.map((item) => `
+      <tr id="${escapeHtml(item.id)}">
+        <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
+        <td><span class="status-pill ${issuePriorityClass[item.priority] || "low"}">${escapeHtml(item.priority)}</span></td>
+        <td>${escapeHtml(item.severity)}</td>
+        <td>${escapeHtml(item.type)}</td>
+        <td>${escapeHtml(item.title)}</td>
+        <td>${escapeHtml(item.source)}</td>
+        <td>${linkChips(item.relatedVOC, "voc")}</td>
+        <td>${linkChips(item.relatedRequirements, "requirement")}</td>
+        <td>${escapeHtml(item.reportedDate)}</td>
+        <td>${escapeHtml(item.plannedDate)}</td>
+        <td>${escapeHtml(item.owner)}</td>
+        <td>${issueStatusPill(item.status)}</td>
+        <td>${escapeHtml(item.rootCause)}</td>
+        <td>${escapeHtml(item.resolution)}</td>
+        <td>${escapeHtml(item.validation)}</td>
+        <td>${escapeHtml(item.closedDate || "-")}</td>
+        <td>${escapeHtml(item.files)}</td>
+      </tr>
+    `).join("");
+
+    issueTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+      const active = button.dataset.sort === issueSortKey;
+      button.dataset.active = active ? issueSortDir : "";
+      button.setAttribute("aria-sort", active ? (issueSortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
+  [issueSearch, issuePriorityFilter, issueSeverityFilter, issueStatusFilter].forEach((control) => {
+    if (control) control.addEventListener("input", renderIssues);
+    if (control) control.addEventListener("change", renderIssues);
+  });
+
+  issueResetFilters?.addEventListener("click", () => {
+    if (issueSearch) issueSearch.value = "";
+    if (issuePriorityFilter) issuePriorityFilter.value = "";
+    if (issueSeverityFilter) issueSeverityFilter.value = "";
+    if (issueStatusFilter) issueStatusFilter.value = "";
+    issueSortKey = "id";
+    issueSortDir = "asc";
+    renderIssues();
+  });
+
+  issueTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextKey = button.dataset.sort || "id";
+      issueSortDir = issueSortKey === nextKey && issueSortDir === "asc" ? "desc" : "asc";
+      issueSortKey = nextKey;
+      renderIssues();
+    });
+  });
+
+  renderIssues();
+}
+
+const snapshotTable = document.querySelector("#snapshotTable");
+const snapshotTableBody = document.querySelector("#snapshotTableBody");
+
+if (snapshotTable && snapshotTableBody && Array.isArray(window.xlabSnapshots)) {
+  const snapshotSearch = document.querySelector("#snapshotSearch");
+  const snapshotPageFilter = document.querySelector("#snapshotPageFilter");
+  const snapshotStatusFilter = document.querySelector("#snapshotStatusFilter");
+  const snapshotViewportFilter = document.querySelector("#snapshotViewportFilter");
+  const snapshotResetFilters = document.querySelector("#snapshotResetFilters");
+  const snapshotVisibleCount = document.querySelector("#snapshotVisibleCount");
+  const snapshotStatTotal = document.querySelector("#snapshotStatTotal");
+  const snapshotStatCaptured = document.querySelector("#snapshotStatCaptured");
+  const snapshotStatPending = document.querySelector("#snapshotStatPending");
+  const snapshotStatPages = document.querySelector("#snapshotStatPages");
+  let snapshotSortKey = "capturedAt";
+  let snapshotSortDir = "desc";
+
+  function fillSnapshotOptions(select, values) {
+    if (!select) return;
+    [...new Set(values)].sort().forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  fillSnapshotOptions(snapshotPageFilter, window.xlabSnapshots.map((item) => item.page));
+  fillSnapshotOptions(snapshotStatusFilter, window.xlabSnapshots.map((item) => item.status));
+  fillSnapshotOptions(snapshotViewportFilter, window.xlabSnapshots.map((item) => item.viewport));
+
+  function snapshotText(item) {
+    return [
+      ...Object.values(item),
+      ...(item.relatedRequirements || []),
+      ...(item.relatedIssues || [])
+    ].join(" ").toLowerCase();
+  }
+
+  function filteredSnapshots() {
+    const search = snapshotSearch?.value.trim().toLowerCase() || "";
+    return window.xlabSnapshots.filter((item) => {
+      if (snapshotPageFilter?.value && item.page !== snapshotPageFilter.value) return false;
+      if (snapshotStatusFilter?.value && item.status !== snapshotStatusFilter.value) return false;
+      if (snapshotViewportFilter?.value && item.viewport !== snapshotViewportFilter.value) return false;
+      return !search || snapshotText(item).includes(search);
+    });
+  }
+
+  function sortSnapshots(rows) {
+    return [...rows].sort((a, b) => {
+      const aValue = String(a[snapshotSortKey] || "");
+      const bValue = String(b[snapshotSortKey] || "");
+      const result = aValue.localeCompare(bValue, undefined, { numeric: true, sensitivity: "base" });
+      return snapshotSortDir === "asc" ? result : -result;
+    });
+  }
+
+  function snapshotStatus(value) {
+    const status = String(value || "");
+    const statusClass = status === "Captured" ? "closed" : status === "Planned" ? "ready" : "open";
+    return `<span class="issue-status ${statusClass}">${escapeHtml(status)}</span>`;
+  }
+
+  function updateSnapshotStats(rows) {
+    const all = window.xlabSnapshots;
+    if (snapshotStatTotal) snapshotStatTotal.textContent = String(all.length);
+    if (snapshotStatCaptured) snapshotStatCaptured.textContent = String(all.filter((item) => item.status === "Captured").length);
+    if (snapshotStatPending) snapshotStatPending.textContent = String(all.filter((item) => item.status !== "Captured").length);
+    if (snapshotStatPages) snapshotStatPages.textContent = String(new Set(all.map((item) => item.page)).size);
+    if (snapshotVisibleCount) snapshotVisibleCount.textContent = `${rows.length} visible`;
+  }
+
+  function imagePathLink(path) {
+    const value = String(path || "");
+    if (!value) return "-";
+    return `<a class="record-link snapshot-path" href="${escapeHtml(value)}">${escapeHtml(value)}</a>`;
+  }
+
+  function renderSnapshots() {
+    const rows = sortSnapshots(filteredSnapshots());
+    updateSnapshotStats(rows);
+    snapshotTableBody.innerHTML = rows.map((item) => `
+      <tr id="${escapeHtml(item.id)}">
+        <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
+        <td>${escapeHtml(item.page)}</td>
+        <td>${escapeHtml(item.version)}</td>
+        <td>${escapeHtml(item.capturedAt)}</td>
+        <td>${escapeHtml(item.viewport)}</td>
+        <td>${linkChips(item.relatedRequirements, "requirement")}</td>
+        <td>${linkChips(item.relatedIssues, "issue")}</td>
+        <td>${snapshotStatus(item.status)}</td>
+        <td>${imagePathLink(item.imagePath)}</td>
+        <td>${escapeHtml(item.changeSummary)}</td>
+        <td>${escapeHtml(item.validation)}</td>
+        <td>${escapeHtml(item.owner)}</td>
+      </tr>
+    `).join("");
+
+    snapshotTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+      const active = button.dataset.sort === snapshotSortKey;
+      button.dataset.active = active ? snapshotSortDir : "";
+      button.setAttribute("aria-sort", active ? (snapshotSortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
+  [snapshotSearch, snapshotPageFilter, snapshotStatusFilter, snapshotViewportFilter].forEach((control) => {
+    if (control) control.addEventListener("input", renderSnapshots);
+    if (control) control.addEventListener("change", renderSnapshots);
+  });
+
+  snapshotResetFilters?.addEventListener("click", () => {
+    if (snapshotSearch) snapshotSearch.value = "";
+    if (snapshotPageFilter) snapshotPageFilter.value = "";
+    if (snapshotStatusFilter) snapshotStatusFilter.value = "";
+    if (snapshotViewportFilter) snapshotViewportFilter.value = "";
+    snapshotSortKey = "capturedAt";
+    snapshotSortDir = "desc";
+    renderSnapshots();
+  });
+
+  snapshotTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextKey = button.dataset.sort || "capturedAt";
+      snapshotSortDir = snapshotSortKey === nextKey && snapshotSortDir === "asc" ? "desc" : "asc";
+      snapshotSortKey = nextKey;
+      renderSnapshots();
+    });
+  });
+
+  renderSnapshots();
+}
+
+const iaTable = document.querySelector("#iaTable");
+const iaTableBody = document.querySelector("#iaTableBody");
+
+if (iaTable && iaTableBody && Array.isArray(window.xlabInformationArchitecture)) {
+  const iaSearch = document.querySelector("#iaSearch");
+  const iaLevelFilter = document.querySelector("#iaLevelFilter");
+  const iaOwnerFilter = document.querySelector("#iaOwnerFilter");
+  const iaStatusFilter = document.querySelector("#iaStatusFilter");
+  const iaResetFilters = document.querySelector("#iaResetFilters");
+  const iaVisibleCount = document.querySelector("#iaVisibleCount");
+  const iaStatNodes = document.querySelector("#iaStatNodes");
+  const iaStatPages = document.querySelector("#iaStatPages");
+  const iaStatReq = document.querySelector("#iaStatReq");
+  const iaStatOpenIssues = document.querySelector("#iaStatOpenIssues");
+  const iaTreeBody = document.querySelector("#iaTreeBody");
+  let iaSortKey = "id";
+  let iaSortDir = "asc";
+
+  function fillIAOptions(select, values) {
+    if (!select) return;
+    [...new Set(values)].filter(Boolean).sort().forEach((value) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  fillIAOptions(iaLevelFilter, window.xlabInformationArchitecture.map((item) => item.level));
+  fillIAOptions(iaOwnerFilter, window.xlabInformationArchitecture.map((item) => item.owner));
+  fillIAOptions(iaStatusFilter, window.xlabInformationArchitecture.map((item) => item.status));
+
+  function iaPages(item) {
+    return String(item.page || "").split(",").map((page) => page.trim()).filter(Boolean);
+  }
+
+  function uniqueIds(ids) {
+    return [...new Set((ids || []).filter(Boolean))];
+  }
+
+  function iaRequirementIds(item) {
+    const pages = iaPages(item);
+    const direct = item.requirementIds || [];
+    const matched = (window.xlabRequirements || [])
+      .filter((req) => pages.some((page) => String(req.files || "").includes(page)))
+      .map((req) => req.id);
+    return uniqueIds([...direct, ...matched]);
+  }
+
+  function iaVOCIds(item) {
+    const reqIds = new Set(iaRequirementIds(item));
+    const direct = item.vocIds || [];
+    const matched = (window.xlabVOC || [])
+      .filter((voc) => (voc.linkedRequirements || []).some((id) => reqIds.has(id)))
+      .map((voc) => voc.id);
+    return uniqueIds([...direct, ...matched]);
+  }
+
+  function iaIssueIds(item) {
+    const reqIds = new Set(iaRequirementIds(item));
+    const vocIds = new Set(iaVOCIds(item));
+    const direct = item.issueIds || [];
+    const matched = (window.xlabIssues || [])
+      .filter((issue) =>
+        (issue.relatedRequirements || []).some((id) => reqIds.has(id)) ||
+        (issue.relatedVOC || []).some((id) => vocIds.has(id)) ||
+        iaPages(item).some((page) => String(issue.files || "").includes(page))
+      )
+      .map((issue) => issue.id);
+    return uniqueIds([...direct, ...matched]);
+  }
+
+  function iaText(item) {
+    return [
+      ...Object.values(item),
+      iaRequirementIds(item).join(" "),
+      iaVOCIds(item).join(" "),
+      iaIssueIds(item).join(" ")
+    ].flat().join(" ").toLowerCase();
+  }
+
+  function filteredIA() {
+    const search = iaSearch?.value.trim().toLowerCase() || "";
+    return window.xlabInformationArchitecture.filter((item) => {
+      if (iaLevelFilter?.value && item.level !== iaLevelFilter.value) return false;
+      if (iaOwnerFilter?.value && item.owner !== iaOwnerFilter.value) return false;
+      if (iaStatusFilter?.value && item.status !== iaStatusFilter.value) return false;
+      return !search || iaText(item).includes(search);
+    });
+  }
+
+  function iaSortValue(item, key) {
+    if (key === "requirements") return iaRequirementIds(item).length;
+    if (key === "voc") return iaVOCIds(item).length;
+    if (key === "issues") return iaIssueIds(item).length;
+    return String(item[key] || "");
+  }
+
+  function sortIA(rows) {
+    return [...rows].sort((a, b) => {
+      const aValue = iaSortValue(a, iaSortKey);
+      const bValue = iaSortValue(b, iaSortKey);
+      const result = typeof aValue === "number" && typeof bValue === "number"
+        ? aValue - bValue
+        : String(aValue).localeCompare(String(bValue), undefined, { numeric: true, sensitivity: "base" });
+      return iaSortDir === "asc" ? result : -result;
+    });
+  }
+
+  function updateIAStats(rows) {
+    const all = window.xlabInformationArchitecture;
+    const allReq = uniqueIds(all.flatMap((item) => iaRequirementIds(item)));
+    const allIssues = uniqueIds(all.flatMap((item) => iaIssueIds(item)));
+    const openIssueCount = allIssues
+      .map((id) => (window.xlabIssues || []).find((issue) => issue.id === id))
+      .filter((issue) => issue && issue.status !== "Closed").length;
+    if (iaStatNodes) iaStatNodes.textContent = String(all.length);
+    if (iaStatPages) iaStatPages.textContent = String(uniqueIds(all.flatMap((item) => iaPages(item))).length);
+    if (iaStatReq) iaStatReq.textContent = String(allReq.length);
+    if (iaStatOpenIssues) iaStatOpenIssues.textContent = String(openIssueCount);
+    if (iaVisibleCount) iaVisibleCount.textContent = `${rows.length} visible`;
+  }
+
+  function renderIATree(rows) {
+    if (!iaTreeBody) return;
+    iaTreeBody.innerHTML = rows.map((item) => {
+      const depth = item.level === "L0" ? 0 : 1;
+      const marker = depth ? "└" : "●";
+      return `<tr>
+        <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
+        <td><span class="ia-tree-node depth-${depth}">${escapeHtml(marker)} ${escapeHtml(item.section)}</span></td>
+        <td>${escapeHtml(item.parent || "Root / 根节点")}</td>
+        <td>${escapeHtml(item.page)}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  function renderIA() {
+    const rows = sortIA(filteredIA());
+    updateIAStats(rows);
+    renderIATree(window.xlabInformationArchitecture);
+    iaTableBody.innerHTML = rows.map((item) => {
+      const reqIds = iaRequirementIds(item);
+      const vocIds = iaVOCIds(item);
+      const issueIds = iaIssueIds(item);
+      return `
+        <tr id="${escapeHtml(item.id)}">
+          <td><a class="record-link" href="#${escapeHtml(item.id)}">${escapeHtml(item.id)}</a></td>
+          <td>${escapeHtml(item.parent || "Root")}</td>
+          <td>${escapeHtml(item.level)}</td>
+          <td>${escapeHtml(item.section)}</td>
+          <td>${escapeHtml(item.page)}</td>
+          <td>${escapeHtml(item.route)}</td>
+          <td>${escapeHtml(item.audience)}</td>
+          <td>${escapeHtml(item.purpose)}</td>
+          <td>${escapeHtml(item.owner)}</td>
+          <td>${escapeHtml(item.status)}</td>
+          <td>${escapeHtml(item.syncCadence)}</td>
+          <td>${linkChips(reqIds, "requirement")}</td>
+          <td>${linkChips(vocIds, "voc")}</td>
+          <td>${linkChips(issueIds, "issue")}</td>
+        </tr>
+      `;
+    }).join("");
+
+    iaTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+      const active = button.dataset.sort === iaSortKey;
+      button.dataset.active = active ? iaSortDir : "";
+      button.setAttribute("aria-sort", active ? (iaSortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
+  [iaSearch, iaLevelFilter, iaOwnerFilter, iaStatusFilter].forEach((control) => {
+    if (control) control.addEventListener("input", renderIA);
+    if (control) control.addEventListener("change", renderIA);
+  });
+
+  iaResetFilters?.addEventListener("click", () => {
+    if (iaSearch) iaSearch.value = "";
+    if (iaLevelFilter) iaLevelFilter.value = "";
+    if (iaOwnerFilter) iaOwnerFilter.value = "";
+    if (iaStatusFilter) iaStatusFilter.value = "";
+    iaSortKey = "id";
+    iaSortDir = "asc";
+    renderIA();
+  });
+
+  iaTable.querySelectorAll("th button[data-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextKey = button.dataset.sort || "id";
+      iaSortDir = iaSortKey === nextKey && iaSortDir === "asc" ? "desc" : "asc";
+      iaSortKey = nextKey;
+      renderIA();
+    });
+  });
+
+  renderIA();
 }

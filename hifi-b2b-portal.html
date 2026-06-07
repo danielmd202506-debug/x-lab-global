@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB B2B Portal high fidelity visual direction.">
+  <title>X-LAB Hi-Fi | B2B Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="hifi-page b2b-hifi-body">
+  <header class="b2b-hifi-top">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <nav aria-label="High fidelity pages">
+      <a href="hifi-race-factory.html">Race</a>
+      <a href="hifi-dealer-trust.html">Dealer Trust</a>
+      <a href="hifi-configurator.html">Configurator</a>
+      <a class="active" href="hifi-b2b-portal.html">B2B Portal</a>
+    </nav>
+    <div class="account-chip"><span>Dealer workspace</span><strong>North America</strong></div>
+  </header>
+
+  <main class="b2b-hifi-layout">
+    <aside class="b2b-hifi-sidebar">
+      <div class="hifi-label"><span></span>B2B Portal</div>
+      <a class="active" href="#command">Command</a>
+      <a href="#rfq">RFQ queue</a>
+      <a href="#inventory">Inventory</a>
+      <a href="#warranty">Warranty</a>
+      <a href="#training">Training</a>
+      <a href="#assets">Launch assets</a>
+    </aside>
+
+    <section class="b2b-hifi-main" id="command">
+      <div class="b2b-command-head">
+        <div>
+          <span class="kicker">Supplier and dealer operations</span>
+          <h1>Partner work should start with tasks, not KPIs.</h1>
+          <p>Separate supplier production tasks from dealer commercial tasks, but keep RFQ, inventory, price, warranty, training and assets in one accountable workspace.</p>
+        </div>
+        <button type="button">Export weekly pack</button>
+      </div>
+
+      <div class="ops-alerts" aria-label="Priority alerts">
+        <article><span>High</span><strong>RFQ-US-119 needs final tier price.</strong><p>Dealer quote is blocked until margin approval.</p></article>
+        <article><span>QA</span><strong>W-092 document missing.</strong><p>Supplier file blocks shipment readiness.</p></article>
+        <article><span>Warranty</span><strong>Case WTY-521 needs photos.</strong><p>Dealer has 24 hours before SLA breach.</p></article>
+      </div>
+
+      <div class="b2b-columns">
+        <section class="workflow-column supplier-column">
+          <div class="column-head"><span>Supplier view</span><strong>PO / QA / Delivery / Assets</strong></div>
+          <article><span>PO-XL-2408</span><strong>Production release pending</strong><p>Payment cleared. QA checklist needs supplier sign-off.</p><b>Open task</b></article>
+          <article><span>QA batch C-AD9-0626</span><strong>Inspection uploaded</strong><p>Carbon layup documentation ready for dealer evidence pack.</p><b>Review</b></article>
+          <article><span>Asset drop</span><strong>Side-view AD9 PNG needed</strong><p>Configurator page waits for transparent product asset.</p><b>Upload</b></article>
+        </section>
+
+        <section class="workflow-column dealer-column">
+          <div class="column-head"><span>Dealer view</span><strong>RFQ / Stock / Price / Warranty</strong></div>
+          <article><span>RFQ-US-119</span><strong>AD9 Race Build</strong><p>Customer fit reviewed. Waiting tier B price approval.</p><b>Create quote</b></article>
+          <article><span>Inventory</span><strong>Size M / L allocation open</strong><p>482 AD9 frames visible with ETA and market split.</p><b>Reserve</b></article>
+          <article><span>Training</span><strong>AD9 launch course</strong><p>4 staff incomplete before dealer locator badge unlock.</p><b>Assign</b></article>
+        </section>
+      </div>
+
+      <section class="b2b-data-row" aria-label="Operational metrics">
+        <article><span>Open RFQs</span><strong>12</strong><p>7 dealer review, 5 price approval</p></article>
+        <article><span>Ready stock</span><strong>482</strong><p>AD9 frames in North America allocation</p></article>
+        <article><span>Warranty SLA</span><strong>92%</strong><p>Cases answered within target</p></article>
+        <article><span>Assets ready</span><strong>18/24</strong><p>Missing side-view and store images</p></article>
+      </section>
+
+      <section class="hifi-sync-note b2b-sync-note" aria-label="Design synchronization note">
+        <span>Design sync principle</span>
+        <strong>PPT recommendations become screen requirements.</strong>
+        <p>Accepted B2B Portal updates must stay synchronized across this hi-fi page, `design.md`, `design-system.html`, RFQ/inventory/warranty/training workflows and implementation notes.</p>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

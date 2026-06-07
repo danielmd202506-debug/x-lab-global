@@ -68,6 +68,7 @@ Design principles:
 - Separate user intent: suppliers, agents/dealers, stores, riders, and public visitors need distinct routes and components.
 - Keep the experience operational: links, cards, dashboards, and forms should lead to real next steps.
 - Preserve brand intensity: use bold type, strong contrast, real imagery, and restrained accent color.
+- Keep design synchronized: accepted PPT recommendations must be reflected in the matching high-fidelity screens, `design.md`, `design-system.html`, and related requirement or implementation documents in the same work cycle.
 
 Avoid:
 
@@ -81,23 +82,28 @@ Avoid:
 
 Current route architecture:
 
-- Brand origin
-- Factory capacity
-- AD9 product route
-- Custom Bike Configurator
-- Supplier route
-- Dealer cooperation
-- Store purchase support
-- B2B operating entrance
+- Bikes: product catalog, product detail, bike finder, model comparison, and custom configurator.
+- Technology: aerodynamics, carbon fiber, wheelsets, components, testing, and technical proof.
+- WorldTour: race validation, team proof, performance claims, and confidence story.
+- Manufacturing: vertical integration, carbon, wheels, assembly, QA, logistics, and supplier handoff.
+- Partners: distributor, supplier, strategic partner recruitment, application, and B2B entry.
+- Dealers: dealer success, margin, supply, training, warranty, launch assets, and RFQ tools.
+- Support: stores, local inventory, pickup, registration, warranty, technical documents, and owner garage.
+- B2B Login: partner operating entrance.
+- Home remains in the public top navigation as the return point for the strategic narrative.
 
 Global official website pages:
 
 - `index.html`
 - `factory.html`
-- `bike-ad9.html`
+- `technology.html`
+- `race-validation.html`
+- `products.html`
 - `custom-bike.html`
+- `partners.html`
 - `supplier.html`
 - `dealers.html`
+- `support.html`
 - `stores.html`
 - `b2b-login.html`
 
@@ -194,12 +200,12 @@ Shared behavior:
 
 Global official website scale:
 
-- `h1`: `clamp(4.6rem, 12vw, 6rem)`, line-height `.84`
-- `h2`: `clamp(3rem, 7vw, 4.75rem)`, line-height `.92`
-- `h3`: `clamp(1.75rem, 3vw, 2.25rem)`, line-height `.98`
-- Hero copy: `clamp(1.1rem, 2vw, 1.35rem)`, line-height about `1.44` to `1.52`
-- Lead copy: about `1.12rem`, line-height about `1.68`
-- Body: `16px`, line-height `1.56`
+- `h1`: `clamp(4.1rem, 10.6vw, 5.75rem)`, line-height `.9`
+- `h2`: `clamp(2.65rem, 5.8vw, 4.25rem)`, line-height `.98`
+- `h3`: `clamp(1.55rem, 2.4vw, 2.05rem)`, line-height about `1.05`
+- Hero copy: `clamp(1.12rem, 1.25vw + .62rem, 1.34rem)`, line-height about `1.58`
+- Lead copy: `clamp(1.06rem, .35vw + .98rem, 1.18rem)`, line-height about `1.72`
+- Body: `16px`, line-height about `1.64`
 - Card copy: concise, usually one short paragraph.
 
 Global typography intent:
@@ -209,13 +215,14 @@ Global typography intent:
 - Fast to understand.
 - Strong hierarchy before detail.
 - More vertical breathing room.
+- High-pressure but not cramped: display headings should feel fast and mechanical without crushing ascenders, wrapping awkwardly, or dominating operational proof.
 
 B2B operations scale:
 
 - Dashboard body: `15px` to `16px`, line-height `1.45` to `1.56`
-- Dashboard `h1`: `clamp(2.45rem, 4vw, 3.55rem)` to `clamp(2.7rem, 5vw, 4.25rem)` depending on density
-- Dashboard `h2`: `clamp(1.72rem, 3vw, 2.35rem)` to `clamp(2.25rem, 4vw, 3.4rem)`
-- KPI numbers: `clamp(2.35rem, 4vw, 3.45rem)` to `clamp(3rem, 6vw, 4.8rem)`
+- Dashboard `h1`: around `clamp(2.35rem, 3.6vw, 3.35rem)` for dense workspaces; high-fidelity concept pages may go larger only when the panel density remains readable.
+- Dashboard `h2`: around `clamp(1.55rem, 2.55vw, 2.15rem)` inside panels, with line-height about `1.06`
+- KPI numbers: around `clamp(2.1rem, 3.3vw, 3.05rem)` inside dashboards; larger values are reserved for concept or showcase screens.
 - Table text: `14px` to `15px`
 - Labels, metadata, table headers: `12px` to `13px`
 
@@ -226,6 +233,7 @@ B2B typography intent:
 - Clear labels over drama.
 - Strong numeric hierarchy.
 - Less campaign language inside panels.
+- Module lanes should favor scan rhythm over maximum column count. Three readable portal lanes beat six cramped lanes on desktop.
 
 ## 6. Spacing, Layout, And Density
 
@@ -239,10 +247,11 @@ Shared foundation:
 Global spacing:
 
 - Major sections use `.section`.
-- Section padding should stay around `clamp(74px, 9vw, 128px) 0` or slightly roomier when page rhythm needs it.
+- Section padding should stay around `clamp(88px, 9vw, 136px) 0` on desktop and `clamp(64px, 16vw, 88px) 0` on mobile.
 - Section heads use a two-column layout: heading first, lead copy second.
 - Cards and grids use generous vertical breathing room.
 - Hero pages should keep a hint of the next section visible where possible.
+- Public cards and proof panels should align content from the top with clear internal rhythm. Avoid forcing short cards to stretch content to top and bottom just to fill height.
 
 Global layout patterns:
 
@@ -293,19 +302,22 @@ Rules:
 - `B2B Login` uses `.nav-cta`.
 - Current page state uses `.is-current` with a cyan/red underline cue only; do not add visible status text such as `Current`, `Page`, or `Section` inside the global navigation.
 - On tablet/mobile, non-CTA nav links can hide to keep the header usable.
+- Breadcrumbs are required on second-level and deeper public pages. Top-level pages do not show breadcrumbs.
+- Breadcrumb format is `Home / Parent section / Current page`; current page is plain text with `aria-current="page"`.
 
 Current public nav order:
 
-- `Brand`
-- `Factory`
-- `AD9`
-- `Custom`
-- `Suppliers`
+- `Home`
+- `Shop Bikes`
+- `Technology`
+- `WorldTour`
+- `Manufacturing`
+- `Partners`
 - `Dealers`
-- `Stores`
+- `Support`
 - `B2B Login`
 
-`Custom` must appear on every public page using `.site-nav`.
+`Custom`, `Suppliers`, `Stores`, warranty, technical documents, registration, inventory and RFQ routes are subordinate entry points. They should remain easy to reach from page CTAs and footer maps, but they should not crowd the public top-level IA.
 
 ### B2B Navigation
 
@@ -337,6 +349,8 @@ Rules:
 - Use dark overlays for contrast.
 - H1 should be short, concrete, and route-specific.
 - Kicker identifies route, role, or system position.
+- First viewport must include the core message and at least one primary CTA. Do not place the first actionable route only in the next section.
+- Internal `.page-hero` sections should stay around 55-60svh with compact copy and CTA buttons inside the hero.
 - B2B screens must not use cinematic heroes.
 
 ### Content Header
@@ -485,7 +499,9 @@ Required structure:
 - Partner-ready proof modules for fit, warranty, service parts, dealer tools, and model clarity when VOC risk is part of the objective.
 - Role or route map.
 - Product/store/dealer/custom entry points.
-- Footer or sitemap with real user-facing page routes only; do not expose internal IA notes, test conclusions, or planning labels on the public homepage.
+- Footer sitemap follows the public IA matrix with Home, Shop Bikes, Proof, Partners, Support, and B2B groups. It may expose subordinate routes such as Custom, Supplier, Stores, Warranty, Registration, Owner Garage, RFQ, and Quality Documents.
+- Public footer must include newsletter signup, social media links, contact email, and contact phone.
+- Footer or sitemap must use real user-facing page routes only; do not expose internal IA notes, test conclusions, or planning labels on the public homepage.
 
 ### Global Route Page Template
 
@@ -572,12 +588,13 @@ B2B portal preview modules:
 
 Global user flow:
 
-- Brand proof
-- Factory capability
-- Product confidence
-- Custom or AD9 exploration
-- Dealer/store route
-- Purchase, test ride, RFQ, or B2B entry
+- Hero declaration: Race Proven. Business Ready.
+- Partner confidence: WorldTour, vertical integration, dealer first model, global scale.
+- Manufacturing proof: built from raw carbon fiber to complete bicycles.
+- WorldTour proof: race validation that sells trust.
+- Bike solutions: AERO, LIGHTWEIGHT, GRAVEL, URBAN.
+- Dealer growth: margin, supply, marketing support, training, warranty, global exposure.
+- Find or apply CTA: find a dealer, become a partner, or open B2B Login.
 
 Supplier flow:
 
@@ -612,7 +629,25 @@ Global imagery:
 - Hero images must show product, factory, road, store, route, or operational context.
 - Product cards must reveal the actual product or business context.
 - Custom-bike scene images must show environments without riders.
+- Image-to-copy match is mandatory. Every hero, card, technical module, route proof, and CTA block image must visibly support the exact claim beside it.
+- Do not use generic race, road, factory, document, or stock imagery when the copy is about a specific technology, workflow, material, product part, or user role.
+- Technical modules require technical imagery: aerodynamics needs airflow, wind-tunnel, drag, or aero product validation; carbon layup needs carbon material, layup, fiber, or inspection; wheelset copy needs rim, spoke, hub, or wheel structure validation.
+- If no matching asset exists, source or create one before shipping. Do not hide a weak match inside polished styling.
 - Avoid abstract decoration as the primary visual.
+
+Current generated visual assets:
+
+- `assets/visuals/hero-race-peloton.png`: homepage and race-validation hero only. Use when the message is race proof, speed, launch energy, or brand intensity.
+- `assets/visuals/card-custom-fit-studio.png`: product catalog, bike finder, model comparison, and custom configurator entry points. Use when the message is product choice, fit, configuration, or model review.
+- `assets/visuals/card-store-test-ride.png`: stores, local inventory, store pickup, fit, test ride, and authorized purchase routes.
+- `assets/visuals/card-dealer-operations.png`: dealer cooperation, dealer training, launch assets, RFQ/orders, B2B login, and partner operations.
+- `assets/visuals/card-factory-qc.png`: factory, supplier, quality documents, carbon inspection, batch validation, and production proof.
+- `assets/visuals/card-service-docs.png`: technical documents, warranty claims, product registration, owner garage, spare parts, and service support.
+- `assets/visuals/tech-aerodynamics-ad9.png`: AD9 aerodynamics, wind resistance, drag reduction, aero validation, and race-frame technology modules.
+- `assets/visuals/tech-carbon-layup-ad9.png`: AD9 Toray T1100 carbon fiber, carbon layup, frame structure, material stiffness, and carbon technology modules.
+- `assets/visuals/tech-wheelset-ad9.png`: AD9 Branta C50 carbon wheelset, rim profile, wheel structure, rolling efficiency, and lateral stiffness modules.
+
+Do not reuse one cycling road image for every module. Each page hero, `.product-card`, and technical card image must match the specific user task described by its heading and CTA.
 
 B2B imagery:
 
@@ -759,6 +794,7 @@ Design governance:
 
 - `design.md` is the design memory for the project.
 - Reusable visual, interaction, or layout changes must update this document.
+- Accepted strategy or PPT optimization recommendations must not remain presentation-only. Once confirmed, mirror them into the high-fidelity page, design-system visual page, and relevant requirement or implementation document before the work is considered synced.
 - One-off page content changes do not require a design-system update unless they create a new reusable pattern.
 - New colors, new type scales, new spacing rhythms, and new component classes must be justified here.
 
@@ -803,10 +839,17 @@ Before adding a new page or module, confirm:
 - Focus, reduced motion, labels, and contrast are preserved.
 - If a reusable pattern changes, this file is updated.
 
-## 修改记录 / Change Log
+## 淇敼璁板綍 / Change Log
 
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
+| 2026-06-07 | Added newsletter, social links, email, and phone to the homepage footer. | User requested footer conversion and contact entries. | `index.html`, `styles.css`, `design.md`. |
+| 2026-06-07 | Added breadcrumbs to second-level public pages only. | User requested breadcrumb navigation while keeping first-level pages clean. | Child public pages, `styles.css`, `design.md`. |
+| 2026-06-07 | Refreshed homepage footer sitemap for the new IA. | User requested the bottom sitemap to match the updated public navigation and narrative structure. | `index.html`, `styles.css`, `design.md`. |
+| 2026-06-07 | Restored Home as the first public navigation item. | User pointed out the PPT IA implementation still needs a clear homepage return route in the top menu. | Public `.site-nav`, `PRODUCT.md`, `design.md`, `design-system.html`. |
+| 2026-06-07 | Applied PPT V2.0 narrative IA to the public website. | User approved the shift from product catalog logic to a global strategic platform narrative: trust, manufacturing, WorldTour, bike solutions, dealer growth, and partner conversion. | `index.html`, `technology.html`, `partners.html`, `factory.html`, `race-validation.html`, `dealers.html`, `products.html`, global navigation, `PRODUCT.md`, `design-system.html`. |
+| 2026-06-07 | Added design synchronization principle for accepted PPT recommendations. | User requested PPT optimization opinions to be synchronized into high-fidelity screens and project documents as a common rule. | `PRODUCT.md`, `design.md`, `design-system.html`, high-fidelity pages, common requirements. |
+| 2026-06-07 | Refined global typography and spacing scale for the full website. | User requested a whole-site typography and layout review; headings, lead copy, public cards, B2B lanes, dashboard hierarchy, footer rhythm, and mobile type scale were adjusted for clearer North American B2B/performance-brand reading. | `styles.css`, `design.md`, public pages, high-fidelity pages, B2B dashboard pages. |
 | 2026-06-06 | Added visual design system page sync rule. | User requested a visual Design System page in the left menu, periodic sync with `design.md`, and an edit log. | `design-system.html`, `design.md`, management menu, design governance. |
 
 ## Visual Sync Page
@@ -816,3 +859,5 @@ Source of truth: `design.md`.
 Visual page: `design-system.html`.
 
 Sync rule: whenever `design.md` changes, update `design-system.html` in the same work cycle. A weekly sync check also reviews whether the visual page has drifted from this source file.
+
+PPT-to-design sync rule: accepted recommendations from the visual strategy PPT must be applied to the matching high-fidelity screens, this design source file, the visual design-system page, and related requirement or implementation documents in the same work cycle.

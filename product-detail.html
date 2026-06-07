@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X-LAB product detail page with bike photos, specs, sizing and store purchase actions.">
+  <title>X-LAB Product Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Global navigation">
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links"><a href="index.html">Home</a><a class="is-current" href="products.html" aria-current="page">Shop Bikes</a><a href="technology.html">Technology</a><a href="race-validation.html">WorldTour</a><a href="factory.html">Manufacturing</a><a href="partners.html">Partners</a><a href="dealers.html">Dealers</a><a href="support.html">Support</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
+  </nav>
+
+  
+  <nav class="breadcrumb-bar" aria-label="Breadcrumb"><div class="wrap breadcrumbs"><a href="index.html">Home</a><b aria-hidden="true">/</b><a href="products.html">Shop Bikes</a><b aria-hidden="true">/</b><span aria-current="page">Product Detail</span></div></nav>
+  <main>
+    <section class="pdp-hero">
+      <div class="wrap pdp-layout">
+        <div class="pdp-gallery">
+          <div class="pdp-main-photo"><img id="productImage" src="" alt="" decoding="async"></div>
+          <div class="pdp-thumbs" id="productThumbs" aria-label="Product images"></div>
+        </div>
+        <aside class="pdp-buybox" aria-label="Purchase options">
+          <div>
+            <span class="tag dark-tag" id="productCategory">Road Bikes</span>
+            <h1 id="productName">AD9</h1>
+            <p class="lead" id="productSummary">Loading product detail.</p>
+          </div>
+          <div class="pdp-price" id="productPrice">$7,999<span>Complete bike, store-assisted purchase</span></div>
+          <div class="pdp-trust-strip" id="productTrustStrip"></div>
+          <div class="option-group">
+            <span>Color</span>
+            <div class="option-row" id="productColors"></div>
+          </div>
+          <div class="option-group">
+            <span>Size</span>
+            <div class="option-row" id="productSizes"></div>
+          </div>
+          <dl class="spec-list" id="productQuickSpecs"></dl>
+          <div class="pdp-rule-stack" id="productRules"></div>
+          <div class="buy-actions">
+            <a class="btn primary" href="stores.html">Find Dealer Support</a>
+            <a class="btn dark" href="custom-bike.html">Configure This Bike</a>
+            <a class="btn light" href="#officialSizeGuideBlock">Check Size Guide</a>
+            <a class="btn light" href="products.html">Back to Products</a>
+          </div>
+          <p class="buy-note">Final fit, delivery and service are confirmed by an authorized store.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section light pdp-confidence-section" id="purchaseConfidence">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Purchase Confidence</div>
+            <h2>Built for the way North America buys bikes online.</h2>
+          </div>
+          <p class="lead">High-consideration buyers want the product page to remove risk before they leave the page: fit, warranty, delivery, financing, service and proof all need to be visible near the purchase path.</p>
+        </div>
+        <div class="pdp-confidence-grid" id="productConfidence"></div>
+      </div>
+    </section>
+
+    <section class="section light">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Specs</div>
+            <h2 id="specTitle">Product details</h2>
+          </div>
+          <p class="lead">The page keeps consumer shopping needs together: product photography, frame use, size range, price, store path and B2B follow-up route for dealers.</p>
+        </div>
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <tbody id="productSpecTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section product-story-section" id="productOfficialContent" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Official Product Content</div>
+            <h2 id="officialTitle">RT9</h2>
+          </div>
+          <p class="lead" id="officialIntro"></p>
+        </div>
+
+        <div class="product-highlight-grid" id="officialHighlights"></div>
+
+        <div class="product-table-block" id="officialSizeGuideBlock">
+          <div class="dash-head">
+            <span>Size Guide</span>
+            <h2>Frame size by rider height</h2>
+          </div>
+          <div class="spec-table-wrap">
+            <table class="spec-table product-matrix-table" id="officialRiderSize"></table>
+          </div>
+        </div>
+
+        <div class="product-content-grid">
+          <article class="product-copy-block">
+            <h3 id="officialStoryTitle"></h3>
+            <div id="officialStory"></div>
+          </article>
+          <article class="product-copy-block">
+            <h3>Purchase path</h3>
+            <dl class="spec-list" id="officialPurchase"></dl>
+          </article>
+        </div>
+
+        <div class="product-table-block">
+          <div class="dash-head">
+            <span>Technical Specifications</span>
+            <h2>Complete build spec</h2>
+          </div>
+          <div class="spec-table-wrap">
+            <table class="spec-table">
+              <tbody id="officialTechSpecs"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="product-table-block">
+          <div class="dash-head">
+            <span>Geometry</span>
+            <h2>Size chart and frame geometry</h2>
+          </div>
+          <div class="spec-table-wrap">
+            <table class="spec-table product-matrix-table" id="officialSizeChart"></table>
+          </div>
+          <div class="spec-table-wrap geometry-wrap">
+            <table class="spec-table product-matrix-table" id="officialGeometry"></table>
+          </div>
+          <div class="spec-table-wrap geometry-wrap">
+            <table class="spec-table product-matrix-table" id="officialComponentGeometry"></table>
+          </div>
+        </div>
+
+        <div class="product-content-grid">
+          <article class="product-copy-block">
+            <h3>General FAQ</h3>
+            <div class="faq-list" id="officialGeneralFaq"></div>
+          </article>
+          <article class="product-copy-block">
+            <h3>Technical FAQ</h3>
+            <div class="faq-list" id="officialTechnicalFaq"></div>
+          </article>
+        </div>
+
+        <div class="product-content-grid">
+          <article class="product-copy-block">
+            <h3>Warranty, returns and shipping</h3>
+            <div class="resource-list" id="officialPolicies"></div>
+          </article>
+          <article class="product-copy-block">
+            <h3>Manual, unboxing and reviews</h3>
+            <div class="resource-list" id="officialResources"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap"><strong>X-LAB Products</strong><span>Catalog / Specs / Images / Configure / Buy through store</span></div></footer>
+
+  <script>
+    const catalog = {
+      "ad9": {
+        name: "AD9",
+        category: "Road Bikes",
+        price: "$7,999",
+        summary: "Astana Team Edition aero road bike for race-focused riders who want the flagship X-LAB platform.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD9-Astana-31.png?v=1776843328&width=1400",
+        thumbs: [
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD9-Astana-31.png?v=1776843328&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD9-Astana-31.png?v=1776843328&width=900",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD9-Astana-31.png?v=1776843328&width=1200"
+        ],
+        colors: ["Astana Team Edition"],
+        sizes: ["XS", "S", "M", "L", "XL"],
+        use: "Road race",
+        frame: "Carbon aero road",
+        drivetrain: "Race complete build",
+        fit: "Authorized store fit review"
+      },
+      "ad8": {
+        name: "AD8",
+        category: "Road Bikes",
+        price: "$4,499",
+        summary: "Aero road platform for fast group rides and race entry with a lower entry price.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD8-sunspot-21.png?v=1775723086&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD8-sunspot-21.png?v=1775723086&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD8-sunspot-21.png?v=1775723086&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/AD8-sunspot-21.png?v=1775723086&width=1200"],
+        colors: ["Sunspot Red/Black"],
+        sizes: ["XS", "S", "M", "L", "XL"],
+        use: "Aero road",
+        frame: "Carbon aero road",
+        drivetrain: "Performance road build",
+        fit: "Store fit confirmation"
+      },
+      "rt9": {
+        name: "RT9",
+        category: "Road Bikes",
+        price: "$9,150",
+        summary: "The lightest production road frame ever built, shaped for climbing, acceleration and confident race handling.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-21.jpg?v=1780314926&width=1400",
+        thumbs: [
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-21.jpg?v=1780314926&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-22.jpg?v=1780314926&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-23.jpg?v=1780314926&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-24.jpg?v=1780314926&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-25.jpg?v=1780314926&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-26.jpg?v=1780314926&width=700",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-27.jpg?v=1780314926&width=700"
+        ],
+        colors: ["Shadowbox"],
+        sizes: ["XS", "S", "M", "L"],
+        use: "Climbing",
+        frame: "Lightweight carbon road",
+        drivetrain: "Dura-Ace Di2 / power meter build",
+        fit: "Climbing fit review",
+        trustStrip: ["Free shipping", "$150/mo financing", "Dealer sizing", "Warranty support"],
+        confidence: [
+          ["Fit risk", "Official size chart and geometry sit before the deep spec tables, with dealer support one click away."],
+          ["Payment risk", "Installment messaging stays near the price so a $9,150 purchase feels easier to evaluate."],
+          ["Delivery risk", "Free Ground Shipping and unboxing support are visible before the customer commits."],
+          ["Ownership risk", "Warranty, return policy, manual downloads and dealer service are grouped into the product page."],
+          ["Spec confidence", "Complete build details include frame, fork, drivetrain, power meter, wheelset, tires and exact listed weight."],
+          ["Local support", "The page preserves the North American habit of researching online, then validating fit and service through a dealer."]
+        ],
+        rules: [
+          ["Free Ground Shipping", "Shown as the primary shipping promise on the RT9 product page."],
+          ["Installments", "As low as $150/mo with financing qualification flow."],
+          ["HSA/FSA", "Eligible for qualified customers where applicable."],
+          ["Notify Me", "Email waitlist captures model, colorway, size and selected variant."],
+          ["Size Guide", "Official rider-height table supports XS, S, M and L."],
+          ["Find A Dealer", "Size uncertainty is routed to nearby dealer support."]
+        ],
+        official: {
+          title: "RT9",
+          intro: "RT9 centers the purchase decision on carbon weight, climbing performance, power measurement, precise size selection and post-purchase support.",
+          storyTitle: "Made for decisive climbs",
+          story: [
+            "The RT9 product page positions the bike around the world's lightest production carbon road frame, a WorldTour-proven climbing platform and the highest performing commercial carbon fiber.",
+            "The shopping flow needs to keep the purchase rules close to the bike: color, size, shipping, payment, dealer support, notify-me rules, size guide, specifications, geometry and support resources."
+          ],
+          highlights: [
+            ["Carbon", "World's lightest production carbon road frame"],
+            ["Climbing", "A WorldTour-proven climbing bike"],
+            ["T1100 + M40X", "Highest performing commercial carbon fiber"],
+            ["Branta C50 ULR", "50mm 1230g carbon wheelset"]
+          ],
+          purchase: [
+            ["Color", "Shadowbox"],
+            ["Price", "$9,150"],
+            ["Shipping", "Free Ground Shipping"],
+            ["Payment", "Financing shown as low as $150/mo for qualified customers"],
+            ["Size options", "XS / S / M / L"],
+            ["Dealer path", "Size uncertainty routes to Find A Dealer"],
+            ["Notify Me", "Waitlist form captures email, model, colorway, size and variant id"]
+          ],
+          techSpecs: [
+            ["Frame", "XDS Carbon Frame, Toray T-1100 + M40X, UDH Compatible"],
+            ["Fork", "XDS Carbon Fork, Toray T-1100, 100x12mm Thru-axle"],
+            ["Handlebar / Stem", "Branta Carbon Integrated"],
+            ["Seatpost", "XDS Carbon Seatpost, 27.2mm"],
+            ["Rear derailleur", "Shimano Dura-Ace RD-R9250 Di2"],
+            ["Front derailleur", "Shimano Dura-Ace FD-R9250 Di2"],
+            ["Shifters", "Shimano Dura-Ace ST-R9270 Di2"],
+            ["Brakes", "Shimano Dura-Ace BR-R9270"],
+            ["Cassette", "Shimano Dura-Ace CS-R9200, 11-34T"],
+            ["Crankset", "Branta Carbon Power Meter Crankset, 52-36T, 29mm Alloy Spindle, Apple Find My Anti-Theft Technology"],
+            ["Bottom bracket", "BSA 29mm"],
+            ["Rotors", "Shimano SM-MT900, F:160mm R:140mm"],
+            ["Chain", "Shimano CN-M9100"],
+            ["Wheelset", "Branta C50 ULR, Carbon Rims & Spokes, Ceramic Bearings"],
+            ["Tires", "Michelin Pro 5 700x28C, Max Tire Clearance: 30C"],
+            ["Saddle", "Selle Italia SLR Boost, Carbon Rails"],
+            ["Weight", "6.20 kg / 13.64 lbs (Size L)"],
+            ["Size options", "XS / S / M / L"]
+          ],
+          riderSize: {
+            headers: ["Frame Size", "Rider Height", "Rider Height"],
+            rows: [
+              ["XS", "148 cm - 158 cm", "4' 10\" - 5' 2\""],
+              ["S", "158 cm - 168 cm", "5' 2\" - 5' 6\""],
+              ["M", "168 cm - 176 cm", "5' 6\" - 5' 9\""],
+              ["L", "176 cm - 183 cm", "5' 9\" - 6' 0\""]
+            ]
+          },
+          sizeChart: {
+            headers: ["Frame Size", "Recommended rider height"],
+            rows: [
+              ["XS", "148-158 cm / 4'10\"-5'2\""],
+              ["S", "158-168 cm / 5'2\"-5'6\""],
+              ["M", "168-176 cm / 5'6\"-5'9\""],
+              ["L", "176-183 cm / 5'9\"-6'0\""]
+            ]
+          },
+          basicGeometry: {
+            headers: ["Size", "XS", "S", "M", "L"],
+            rows: [
+              ["A - Seat Tube Length", "430mm", "460mm", "480mm", "500mm"],
+              ["B - Top Tube Length", "498mm", "520mm", "540mm", "563mm"],
+              ["C - Head Tube Length", "110mm", "120mm", "137mm", "157mm"],
+              ["D - Seat Tube Angle", "75 deg", "74.2 deg", "74 deg", "73.5 deg"],
+              ["E - Head Tube Angle", "70.5 deg", "71.7 deg", "73 deg", "73.5 deg"],
+              ["F - Chainstay", "410mm", "410mm", "410mm", "410mm"],
+              ["G - Wheelbase", "972.5mm", "977mm", "978mm", "992mm"],
+              ["H - Bottom Bracket Drop", "74mm", "74mm", "72mm", "72mm"],
+              ["I - Stack", "510mm", "525mm", "543mm", "567mm"],
+              ["J - Reach", "362mm", "372mm", "384mm", "396mm"],
+              ["K - Front Center", "574mm", "578mm", "578mm", "592mm"],
+              ["O - Stand Over", "704mm", "728mm", "750mm", "769mm"]
+            ]
+          },
+          componentGeometry: {
+            headers: ["Size", "XS", "S", "M", "L"],
+            rows: [
+              ["Fork Rake/Offset", "50mm", "50mm", "44mm", "44mm"],
+              ["Trail", "68mm", "61mm", "59mm", "56mm"],
+              ["Handlebar", "360mm", "360mm", "380mm", "400mm"],
+              ["Stem", "80mm", "100mm", "100mm", "120mm"],
+              ["Crankset", "160mm", "160mm", "165mm", "165mm"],
+              ["Seat Post", "300mm", "300mm", "350mm", "350mm"]
+            ]
+          },
+          generalFaq: [
+            ["What sizes are available?", "RT9 is shown with XS, S, M and L size options."],
+            ["How do I pick a size?", "Use the official Size Chart, then visit a dealer if you are not sure what size you should ride."],
+            ["What happens if my selected size is unavailable?", "The Notify Me flow captures email, model, colorway, size and variant id so the customer can be notified."],
+            ["Is customization part of the purchase path?", "The local page keeps Configure This Bike as the customization path, while the official RT9 PDP focuses on fixed colorway and size selection."]
+          ],
+          technicalFaq: [
+            ["What frame material does RT9 use?", "XDS Carbon Frame, Toray T-1100 + M40X, UDH Compatible."],
+            ["Does the crank include power measurement?", "Yes. The official spec lists a Branta Carbon Power Meter Crankset."],
+            ["What is the maximum tire clearance?", "Michelin Pro 5 700x28C is listed, with max tire clearance: 30C."],
+            ["What is the listed complete-bike weight?", "6.20 kg / 13.64 lbs (Size L)."]
+          ],
+          policies: [
+            ["Shipping", "Free Ground Shipping is shown on the RT9 product page."],
+            ["Warranty", "Warranty is a footer support entry on the official XDS site and should remain visible from product support areas."],
+            ["Return Policy", "Return Policy is a footer support entry on the official XDS site and should remain available before purchase."],
+            ["Dealer Locator", "The official size guidance links unsure customers to Find A Dealer."]
+          ],
+          resources: [
+            ["Manual Downloads", "XDS Acoustic Bike User Manual"],
+            ["Unboxing & Assembling", "Official product page support module for receiving and assembling the bike."],
+            ["Media Reviews", "Official review module retained as a product validation section."]
+          ]
+        }
+      },
+      "gt8": {
+        name: "GT8",
+        category: "Gravel Bikes",
+        price: "$3,199",
+        summary: "All-road carbon gravel bike for mixed-surface riding and longer weekend routes.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/GT8-afterburner-21.png?v=1775723824&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/GT8-afterburner-21.png?v=1775723824&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/GT8-afterburner-21.png?v=1775723824&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/GT8-afterburner-21.png?v=1775723824&width=1200"],
+        colors: ["Afterburner Black"],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        use: "Gravel",
+        frame: "Carbon gravel",
+        drivetrain: "All-road complete build",
+        fit: "Tire clearance and route review"
+      },
+      "rs7": {
+        name: "RS7",
+        category: "Road Bikes",
+        price: "$2,099",
+        summary: "Performance road bike with a practical component path for everyday training.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS7-singularity-21.png?v=1775724087&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS7-singularity-21.png?v=1775724087&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS7-singularity-21.png?v=1775724087&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS7-singularity-21.png?v=1775724087&width=1200"],
+        colors: ["Singularity Black"],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        use: "Road",
+        frame: "Performance road",
+        drivetrain: "Shimano 105 options",
+        fit: "Training fit review"
+      },
+      "rs5": {
+        name: "RS5",
+        category: "Road Bikes",
+        price: "$1,399",
+        summary: "Accessible road platform for new performance cyclists and store-led upgrades.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS5-wavebreaker-21.png?v=1775724725&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS5-wavebreaker-21.png?v=1775724725&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS5-wavebreaker-21.png?v=1775724725&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RS5-wavebreaker-21.png?v=1775724725&width=1200"],
+        colors: ["WaveBreaker White"],
+        sizes: ["XS", "S", "M", "L", "XL"],
+        use: "Road",
+        frame: "Road platform",
+        drivetrain: "Accessible road build",
+        fit: "Store sizing support"
+      },
+      "st5-plus": {
+        name: "ST5+",
+        category: "Electric Bikes",
+        price: "$1,999",
+        summary: "Electric bike for assisted mobility, daily errands and practical utility riding.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/ST5-plus-mercury-21.png?v=1775732127&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/ST5-plus-mercury-21.png?v=1775732127&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/ST5-plus-mercury-21.png?v=1775732127&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/ST5-plus-mercury-21.png?v=1775732127&width=1200"],
+        colors: ["Mercury"],
+        sizes: ["M", "L"],
+        use: "E-bike",
+        frame: "Electric utility",
+        drivetrain: "Assisted complete build",
+        fit: "Battery and range review"
+      },
+      "sp5-plus": {
+        name: "SP5+",
+        category: "Electric Bikes",
+        price: "$1,899",
+        summary: "Electric city bike for practical everyday rides and low-friction ownership.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP5-plus-nimbus-21.png?v=1775732406&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP5-plus-nimbus-21.png?v=1775732406&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP5-plus-nimbus-21.png?v=1775732406&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP5-plus-nimbus-21.png?v=1775732406&width=1200"],
+        colors: ["Nimbus"],
+        sizes: ["S", "M", "L"],
+        use: "Urban e-bike",
+        frame: "Electric city",
+        drivetrain: "Urban assisted build",
+        fit: "Daily route setup"
+      },
+      "sp3": {
+        name: "SP3",
+        category: "City Bikes",
+        price: "$799",
+        summary: "City bike for approachable everyday riding, commuting and store service support.",
+        image: "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP3-frostbite-21.png?v=1775732713&width=1200",
+        thumbs: ["https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP3-frostbite-21.png?v=1775732713&width=700", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP3-frostbite-21.png?v=1775732713&width=900", "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/SP3-frostbite-21.png?v=1775732713&width=1200"],
+        colors: ["Frostbite"],
+        sizes: ["S", "M", "L", "XL"],
+        use: "City",
+        frame: "City platform",
+        drivetrain: "Daily riding build",
+        fit: "Commuter setup"
+      }
+    };
+
+    const modelKey = new URLSearchParams(window.location.search).get("model") || "ad9";
+    const product = catalog[modelKey] || catalog.ad9;
+    const image = document.getElementById("productImage");
+    const quickSpecs = [
+      ["Color", product.colors.join(", ")],
+      ["Sizes", product.sizes.join(" / ")],
+      ["Use", product.use],
+      ["From", product.price]
+    ];
+    const specRows = [
+      ["Model", product.name],
+      ["Category", product.category],
+      ["Primary use", product.use],
+      ["Frame platform", product.frame],
+      ["Build", product.drivetrain],
+      ["Colorway", product.colors.join(", ")],
+      ["Available sizes", product.sizes.join(" / ")],
+      ["Store review", product.fit]
+    ];
+
+    document.title = `X-LAB ${product.name} Product Detail`;
+    document.getElementById("productCategory").textContent = product.category;
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productSummary").textContent = product.summary;
+    document.getElementById("productPrice").innerHTML = `${product.price}<span>Complete bike, store-assisted purchase</span>`;
+    document.getElementById("productTrustStrip").innerHTML = (product.trustStrip || ["Store fit", "Warranty route", "Shipping support", "Dealer service"]).map((item) => `<span>${item}</span>`).join("");
+    document.getElementById("specTitle").textContent = `${product.name} details`;
+    image.src = product.image;
+    image.alt = `XDS X-LAB ${product.name} ${product.colors[0]} bike`;
+    document.getElementById("productColors").innerHTML = product.colors.map((color) => `<button class="btn light" type="button">${color}</button>`).join("");
+    document.getElementById("productSizes").innerHTML = product.sizes.map((size) => `<button class="btn light" type="button">${size}</button>`).join("");
+    document.getElementById("productQuickSpecs").innerHTML = quickSpecs.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("");
+    document.getElementById("productRules").innerHTML = (product.rules || []).map(([title, detail]) => `<details><summary>${title}</summary><p>${detail}</p></details>`).join("");
+    document.getElementById("productConfidence").innerHTML = (product.confidence || [
+      ["Fit", "Confirm sizing and final setup through store support."],
+      ["Delivery", "Review shipping, pickup and assembly expectations before purchase."],
+      ["Warranty", "Keep registration and service support visible from the product path."],
+      ["Specs", "Compare frame, drivetrain, wheelset, tires and use case before committing."]
+    ]).map(([title, detail]) => `<article><strong>${title}</strong><p>${detail}</p></article>`).join("");
+    document.getElementById("productSpecTable").innerHTML = specRows.map(([label, value]) => `<tr><th>${label}</th><td>${value}</td></tr>`).join("");
+    document.getElementById("productThumbs").innerHTML = product.thumbs.map((src, index) => `<button class="pdp-thumb-button" type="button" aria-label="View image ${index + 1}"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`).join("");
+    document.querySelectorAll(".pdp-thumb-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        image.src = button.querySelector("img").src;
+      });
+    });
+
+    function renderMatrix(table, data) {
+      table.innerHTML = `<thead><tr>${data.headers.map((header) => `<th>${header}</th>`).join("")}</tr></thead><tbody>${data.rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody>`;
+    }
+
+    if (product.official) {
+      document.getElementById("productOfficialContent").hidden = false;
+      document.getElementById("officialTitle").textContent = product.official.title;
+      document.getElementById("officialIntro").textContent = product.official.intro;
+      document.getElementById("officialStoryTitle").textContent = product.official.storyTitle;
+      document.getElementById("officialStory").innerHTML = product.official.story.map((text) => `<p>${text}</p>`).join("");
+      document.getElementById("officialHighlights").innerHTML = product.official.highlights.map(([value, label]) => `<article><strong>${value}</strong><span>${label}</span></article>`).join("");
+      document.getElementById("officialPurchase").innerHTML = product.official.purchase.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("");
+      document.getElementById("officialTechSpecs").innerHTML = product.official.techSpecs.map(([label, value]) => `<tr><th>${label}</th><td>${value}</td></tr>`).join("");
+      renderMatrix(document.getElementById("officialRiderSize"), product.official.riderSize);
+      renderMatrix(document.getElementById("officialSizeChart"), product.official.sizeChart);
+      renderMatrix(document.getElementById("officialGeometry"), product.official.basicGeometry);
+      renderMatrix(document.getElementById("officialComponentGeometry"), product.official.componentGeometry);
+      document.getElementById("officialGeneralFaq").innerHTML = product.official.generalFaq.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join("");
+      document.getElementById("officialTechnicalFaq").innerHTML = product.official.technicalFaq.map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join("");
+      document.getElementById("officialPolicies").innerHTML = product.official.policies.map(([title, detail]) => `<div><strong>${title}</strong><span>${detail}</span></div>`).join("");
+      document.getElementById("officialResources").innerHTML = product.official.resources.map(([title, detail]) => `<div><strong>${title}</strong><span>${detail}</span></div>`).join("");
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

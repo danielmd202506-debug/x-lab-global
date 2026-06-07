@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Apply to become an X-LAB distributor, dealer, supplier or regional business partner.">
+  <title>Become an X-LAB Partner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Global navigation">
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="products.html">Shop Bikes</a><a href="technology.html">Technology</a><a href="race-validation.html">WorldTour</a><a href="factory.html">Manufacturing</a><a class="is-current" href="partners.html" aria-current="page">Partners</a><a href="dealers.html">Dealers</a><a href="support.html">Support</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
+  </nav>
+
+  <nav class="breadcrumb-bar" aria-label="Breadcrumb"><div class="wrap breadcrumbs"><a href="index.html">Home</a><b aria-hidden="true">/</b><a href="partners.html">Partners</a><b aria-hidden="true">/</b><span aria-current="page">Become a Partner</span></div></nav>
+
+  <main>
+    <section class="page-hero" style="--hero-image:url('assets/visuals/card-dealer-operations.png')">
+      <div class="wrap">
+        <div class="kicker">Partner application</div>
+        <h1>Become an X-LAB partner.</h1>
+        <p class="hero-copy">Apply as a distributor, dealer, supplier or regional partner. Existing partners should use B2B Login; new applicants should start here.</p>
+        <div class="actions"><a class="btn primary" href="#application">Start Application</a><a class="btn" href="b2b-login.html">Existing Partner Login</a></div>
+      </div>
+    </section>
+
+    <section class="section light" id="application">
+      <div class="wrap finder">
+        <form class="finder-panel" aria-label="Partner application form">
+          <div class="field"><label for="partnerRole">Partner type</label><select id="partnerRole"><option>Distributor / Importer</option><option>Authorized Dealer</option><option>Supplier / Component Partner</option><option>Regional Sales Agent</option><option>Retail Store Group</option></select></div>
+          <div class="field"><label for="companyName">Company name</label><input id="companyName" type="text" autocomplete="organization" placeholder="Company Inc." required></div>
+          <div class="field"><label for="market">Primary market</label><input id="market" type="text" placeholder="United States, Canada, Mexico, or region" required></div>
+          <div class="field"><label for="contactEmail">Business email</label><input id="contactEmail" type="email" autocomplete="email" placeholder="name@company.com" required></div>
+          <div class="field"><label for="businessScale">Current business scale</label><select id="businessScale"><option>1-2 retail locations</option><option>3-10 retail locations</option><option>Regional distributor</option><option>National distributor</option><option>Manufacturing / supply partner</option></select></div>
+          <div class="field"><label for="applicationNotes">Application notes</label><input id="applicationNotes" type="text" placeholder="Brands carried, channels, annual volume, or supply capability"></div>
+          <button class="btn primary" type="button">Submit Partner Interest</button>
+          <p class="buy-note">This intake should route to partner qualification before any B2B account is issued.</p>
+        </form>
+        <div class="result">
+          <span class="kicker">Qualification checklist</span>
+          <strong>Partner fit before portal access.</strong>
+          <p class="lead">X-LAB should review territory, channel capability, store service readiness, warranty ownership, launch support and commercial terms before issuing a B2B login.</p>
+          <div class="spec-list">
+            <div><dt>Distributor</dt><dd>Territory plan, launch allocation, dealer network</dd></div>
+            <div><dt>Dealer</dt><dd>Store fit, service capability, premium bike sales</dd></div>
+            <div><dt>Supplier</dt><dd>Quality system, sample process, production capacity</dd></div>
+            <div><dt>Agent</dt><dd>Regional coverage, channel relationships, support model</dd></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>What happens next.</h2>
+          <p class="lead">The application route should make the commercial process clear before account access.</p>
+        </div>
+        <div class="process">
+          <div><strong>Apply</strong><span>Submit company role, market, scale and partner notes.</span></div>
+          <div><strong>Qualify</strong><span>X-LAB reviews channel fit, service ability, quality or territory scope.</span></div>
+          <div><strong>Onboard</strong><span>Approved partners receive price, training, warranty and launch materials.</span></div>
+          <div><strong>Operate</strong><span>Use B2B portal for RFQ, allocation, orders, logistics and support.</span></div>
+        </div>
+        <div class="actions"><a class="btn primary" href="partners.html">Back to Partner Platform</a><a class="btn" href="supplier-login.html?role=dealer">Existing Account Sign In</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap"><strong>Become an X-LAB Partner</strong><span>Distributor / Dealer / Supplier / Agent intake</span></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>

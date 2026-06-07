@@ -13,9 +13,11 @@
 <body>
   <nav class="site-nav" aria-label="Global navigation">
     <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
-    <div class="nav-links"><a href="index.html">Home</a><a href="factory.html">Factory</a><a href="bike-ad9.html">AD9</a><a class="is-current" href="custom-bike.html" aria-current="page">Custom</a><a href="supplier.html">Suppliers</a><a href="dealers.html">Dealers</a><a href="stores.html">Stores</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
+    <div class="nav-links"><a href="index.html">Home</a><a class="is-current" href="products.html" aria-current="page">Shop Bikes</a><a href="technology.html">Technology</a><a href="race-validation.html">WorldTour</a><a href="factory.html">Manufacturing</a><a href="partners.html">Partners</a><a href="dealers.html">Dealers</a><a href="support.html">Support</a><a class="nav-cta" href="b2b-login.html">B2B Login</a></div>
   </nav>
 
+  
+  <nav class="breadcrumb-bar" aria-label="Breadcrumb"><div class="wrap breadcrumbs"><a href="index.html">Home</a><b aria-hidden="true">/</b><a href="products.html">Shop Bikes</a><b aria-hidden="true">/</b><span aria-current="page">Custom Configurator</span></div></nav>
   <main class="custom-shell">
     <section class="bike-preview" id="previewPane" data-scene="race" data-bike="ad9" aria-label="Configured bike preview">
       <div class="scene scene-race" aria-hidden="true"></div>
@@ -29,17 +31,7 @@
       </div>
 
       <div class="model-stage">
-        <div class="model-part frame-core"></div>
-        <div class="model-part top-tube"></div>
-        <div class="model-part down-tube"></div>
-        <div class="model-part seat-stay"></div>
-        <div class="model-part fork"></div>
-        <div class="model-part cockpit"></div>
-        <div class="model-part wheel wheel-front"></div>
-        <div class="model-part wheel wheel-rear"></div>
-        <div class="model-part drivetrain"></div>
-        <div class="model-part decal decal-top" id="decalTop">X-LAB</div>
-        <div class="model-part decal decal-down" id="decalDown">RACE</div>
+        <img id="bikePhoto" class="bike-photo" src="assets/bike-ad9-aero.png" alt="Configured X-LAB bike preview" decoding="async">
       </div>
 
       <div class="preview-readout">
@@ -123,14 +115,16 @@
           </div>
         </fieldset>
 
-        <div class="config-actions">
-          <a class="btn primary" href="b2b-login.html?role=dealer">Create Dealer RFQ</a>
-          <a class="btn" href="stores.html">Request Sizing Help</a>
-        </div>
       </form>
+
+      <div class="config-actions">
+        <a class="btn primary" href="b2b-login.html?role=dealer">Create Dealer RFQ</a>
+        <a class="btn" href="stores.html">Request Sizing Help</a>
+      </div>
     </section>
   </main>
 
   <script src="app.js"></script>
 </body>
 </html>
+
