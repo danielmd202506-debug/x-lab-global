@@ -95,9 +95,23 @@ if (portalSignIn && accountType) {
 const roleTabs = document.querySelectorAll(".role-tab");
 const rolePanels = document.querySelectorAll("[data-panel]");
 const sidebarToggle = document.querySelector("[data-sidebar-toggle]");
+const legacyModuleHashes = new Set(["leads", "inventory", "quotes", "orders", "demo", "warranty", "parts", "training", "assets", "programs", "notices", "user-center"]);
+
+if (document.body.classList.contains("dashboard-body") && !document.body.classList.contains("module-body")) {
+  const legacyHash = window.location.hash.replace("#", "");
+  if (legacyModuleHashes.has(legacyHash)) {
+    window.location.href = `b2b-module.html?module=${legacyHash === "notices" ? "messages" : legacyHash}`;
+  }
+}
 
 if (sidebarToggle) {
   const storageKey = "xlabSidebarCollapsed";
+  document.querySelectorAll(".app-sidebar .side-menu a").forEach((link) => {
+    if (link.dataset.short) return;
+    const label = link.querySelector("span")?.textContent?.trim() || link.textContent.trim();
+    const words = label.split(/\s+/).filter(Boolean);
+    link.dataset.short = words.length > 1 ? words.map((word) => word[0]).join("").slice(0, 3).toUpperCase() : label.slice(0, 3).toUpperCase();
+  });
   const applySidebarState = (collapsed) => {
     document.body.classList.toggle("sidebar-collapsed", collapsed);
     sidebarToggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
@@ -145,6 +159,422 @@ if (roleTabs.length) {
     sessionStorage.removeItem("xlabB2BRole");
     sessionStorage.removeItem("xlabB2BEmail");
   });
+}
+
+const moduleTable = document.querySelector("#moduleTable");
+
+if (moduleTable) {
+  const moduleParams = new URLSearchParams(window.location.search);
+  const moduleKey = moduleParams.get("module") || "leads";
+  const moduleCatalog = {
+    leads: {
+      kicker: "Sales intake",
+      title: "Customer Leads",
+      topbar: "Retail inquiries and test-ride routing",
+      description: "Manage website inquiries, dealer locator requests, test-ride bookings and customer follow-up SLA.",
+      primaryAction: "Create customer lead",
+      sideCopy: "Prioritize response time, assign store owner and convert qualified retail shoppers into customer quotes.",
+      statuses: ["All status", "New", "Assigned", "Contacted", "Overdue"],
+      summary: [["New today", "17", "3 overdue"], ["Median response", "46m", "Target under 2h"], ["Test rides", "8", "This week"], ["Quote-ready", "5", "Qualified leads"]],
+      columns: ["Customer Lead ID", "Customer", "Assigned store", "Interest", "Source", "Status", "SLA", "Owner", "Next action"],
+      rows: [
+        ["L-8842", "H. Miller", "Denver", "RT9 Astana Blue / M", "Website", "Overdue", "3h 18m", "Unassigned", "Assign sales rep"],
+        ["L-8837", "J. Chen", "Toronto", "AD9 Force AXS / M", "Dealer locator", "New", "41m", "Mia", "Call customer"],
+        ["L-8829", "A. Brooks", "Seattle", "RT9 frameset / L", "Test ride", "Assigned", "1h 05m", "Evan", "Confirm demo slot"],
+        ["L-8818", "N. Patel", "Seattle", "Road lineup", "Chat", "Contacted", "Closed", "Mia", "Send comparison card"],
+        ["L-8814", "S. Walker", "Denver", "AD9 Carbon Black / L", "Website", "Assigned", "1h 42m", "Evan", "Check inventory"],
+        ["L-8809", "M. Garcia", "Toronto", "RT9 complete / S", "Instagram", "New", "22m", "Noah", "Send first reply"],
+        ["L-8802", "R. Nguyen", "Seattle", "AD9 Force AXS / M", "Dealer locator", "Contacted", "Closed", "Mia", "Create quote"],
+        ["L-8798", "P. Wilson", "Denver", "Gravel GT / M", "Website", "Assigned", "58m", "Evan", "Confirm use case"],
+        ["L-8791", "K. Singh", "Toronto", "RT9 frameset / M", "Test ride", "Overdue", "2h 36m", "Unassigned", "Assign store owner"],
+        ["L-8786", "T. Robinson", "Seattle", "Road lineup", "Chat", "Contacted", "Closed", "Mia", "Schedule store visit"],
+        ["L-8782", "B. Lee", "North America HQ", "AD9 / RT9 comparison", "Email", "New", "34m", "Sales", "Route to dealer"],
+        ["L-8776", "C. Martin", "Denver", "AD9 Carbon Black / S", "Dealer locator", "Assigned", "1h 12m", "Evan", "Offer demo slot"],
+        ["L-8771", "D. Young", "Toronto", "RT9 Astana Blue / L", "Website", "Contacted", "Closed", "Noah", "Send finance option"],
+        ["L-8765", "A. Thompson", "Seattle", "RS9 complete / M", "Website", "Overdue", "4h 04m", "Unassigned", "Escalate follow-up"],
+        ["L-8759", "G. Anderson", "North America HQ", "Dealer partnership", "Partner form", "New", "18m", "Sales", "Qualify account"],
+        ["L-8754", "V. Brown", "Denver", "RT9 frameset / XL", "Chat", "Assigned", "1h 55m", "Evan", "Confirm sizing"],
+        ["L-8748", "O. Davis", "Toronto", "AD9 Force AXS / M", "Website", "Contacted", "Closed", "Noah", "Reserve stock"],
+        ["L-8743", "L. Moore", "Seattle", "RT9 Astana Blue / M", "Test ride", "New", "27m", "Mia", "Confirm availability"],
+        ["L-8736", "I. Clark", "Denver", "Road lineup", "Dealer locator", "Assigned", "1h 21m", "Evan", "Send comparison card"],
+        ["L-8730", "F. Hall", "Toronto", "Gravel GT / L", "Website", "Contacted", "Closed", "Noah", "Follow quote"],
+        ["L-8724", "E. Allen", "North America HQ", "AD9 team edition", "Email", "Overdue", "2h 18m", "Sales", "Escalate to distributor"],
+        ["L-8719", "Y. Kim", "Seattle", "RT9 complete / S", "Instagram", "Assigned", "1h 08m", "Mia", "Confirm test ride"],
+        ["L-8713", "W. Scott", "Denver", "AD9 / M", "Website", "New", "12m", "Evan", "Send intro email"]
+      ],
+      detail: [["Selected SLA", "3h 18m"], ["Priority", "High"], ["Conversion path", "Lead to quote"], ["Required data", "Size, color, test-ride time"]],
+      alerts: [["danger", "Overdue customer lead", "Customer Lead L-8842 is older than the North America 2-hour response target."], ["warn", "Missing owner", "Assign store owner before creating a customer quote."]]
+    },
+    inventory: {
+      kicker: "Stock control",
+      title: "Inventory",
+      topbar: "Availability, ETA and reservations",
+      description: "Check available bicycles, size and color coverage, incoming ETA, reserve holds and regional warehouse allocation.",
+      primaryAction: "Reserve stock",
+      sideCopy: "Use this list before quoting. Dealer should know what can be sold now, what is incoming and what is at risk.",
+      statuses: ["All status", "Available", "Reserved", "Incoming", "Low stock"],
+      summary: [["Sellable units", "118", "34 high-demand sizes"], ["Reserved", "26", "7 expire today"], ["Incoming", "42", "Next ETA Jun 18"], ["Low stock", "6", "XS / XL road sizes"]],
+      columns: ["SKU", "Model", "Size", "Color", "Warehouse", "Available", "Reserved", "ETA", "Status"],
+      rows: [
+        ["RT9-AB-M", "RT9", "M", "Astana Blue", "Denver", "7", "4", "In stock", "Available"],
+        ["RT9-AB-L", "RT9", "L", "Astana Blue", "Seattle", "5", "8", "Jun 18", "Reserved"],
+        ["AD9-BK-M", "AD9", "M", "Carbon Black", "Toronto", "11", "2", "In stock", "Available"],
+        ["RS9-WH-XL", "RS9", "XL", "White", "Regional", "1", "0", "Jul 02", "Low stock"]
+      ],
+      detail: [["Reservation window", "72 hours"], ["Best sellers", "RT9 M/L"], ["Warehouse rule", "FIFO by store priority"], ["Risk", "Low XL coverage"]],
+      alerts: [["warn", "Reservation expiry", "Seven reserved units expire today."], ["danger", "Low-stock size", "RS9 XL has one unit available across region."]]
+    },
+    quotes: {
+      kicker: "Sales conversion",
+      title: "Customer Quotes",
+      topbar: "Customer quotes, margin and reservations",
+      description: "Build and track customer quotes with MSRP, dealer cost, margin guardrails, reserve status and expiry.",
+      primaryAction: "Create customer quote",
+      sideCopy: "Customer quote screens should help dealers protect margin while moving fast for online shoppers.",
+      statuses: ["All status", "Draft", "Customer review", "Margin approval", "Expired"],
+      summary: [["Active quotes", "14", "$186K pipeline"], ["Expire soon", "7", "Within 72h"], ["Avg margin", "31.8%", "On target"], ["Reserved units", "9", "Attached to quotes"]],
+      columns: ["Customer Quote", "Customer", "Model", "MSRP", "Dealer cost", "Margin", "Status", "Expiry", "Next action"],
+      rows: [
+        ["Q-US-119", "H. Miller", "RT9 Astana Blue", "$7,899", "$5,360", "32.1%", "Customer review", "Jun 09", "Confirm financing"],
+        ["Q-CA-088", "J. Chen", "AD9 Force AXS", "$6,499", "$4,510", "30.6%", "Margin approval", "Jun 10", "Approve promo"],
+        ["Q-US-104", "A. Brooks", "RT9 frameset", "$4,199", "$2,690", "35.9%", "Draft", "Jun 12", "Send quote"],
+        ["Q-US-092", "N. Patel", "RS9 complete", "$5,899", "$4,080", "30.8%", "Expired", "Jun 05", "Requote"]
+      ],
+      detail: [["Margin guardrail", "28% minimum"], ["Price book", "Q3 NA"], ["Reserve tie", "Optional"], ["Approval", "Required below target"]],
+      alerts: [["warn", "Customer quote expiry", "Seven customer quotes expire within 72 hours."], ["warn", "Approval needed", "Q-CA-088 uses launch promo discount."]]
+    },
+    orders: {
+      kicker: "Fulfillment",
+      title: "Dealer Orders",
+      topbar: "Purchase orders and fulfillment",
+      description: "Track dealer purchase orders, deposits, warehouse pick, shipment status and customer delivery promises.",
+      primaryAction: "Create dealer order",
+      sideCopy: "Dealer order screens need immediate visibility into what is paid, picked, shipped and blocked.",
+      statuses: ["All status", "Deposit hold", "Picking", "Ready to ship", "Delivered"],
+      summary: [["Open orders", "23", "$412K value"], ["Deposit holds", "2", "Release blocked"], ["Ready to ship", "6", "Carrier needed"], ["Delivered", "41", "This month"]],
+      columns: ["Dealer Order", "Customer / store", "Model", "Value", "Stage", "Payment", "Ship ETA", "Owner", "Next action"],
+      rows: [
+        ["PO-US-771", "Seattle Performance", "RT9 frameset", "$24,600", "Deposit hold", "Pending", "Blocked", "Finance", "Verify deposit"],
+        ["PO-US-714", "Denver store", "RT9 complete", "$31,820", "Picking", "Paid", "Jun 13", "Ops", "Confirm pick"],
+        ["PO-CA-026", "North Shore Cycling", "RS9 complete", "$9,870", "Ready to ship", "Paid", "Jun 12", "Logistics", "Book carrier"],
+        ["PO-US-689", "Seattle store", "AD9 Force AXS", "$18,940", "Delivered", "Paid", "Closed", "Ops", "Archive"]
+      ],
+      detail: [["Fulfillment rule", "Payment before release"], ["Carrier SLA", "48h pickup"], ["Customer update", "Required at each stage"], ["Risk", "Deposit hold blocks pick"]],
+      alerts: [["danger", "Payment hold", "PO-US-771 cannot move to fulfillment until deposit is verified."], ["warn", "Pickup needed", "PO-CA-026 is ready to ship."]]
+    },
+    demo: {
+      kicker: "Store fleet",
+      title: "Demo Fleet",
+      topbar: "Demo fleet availability",
+      description: "Manage test-ride bicycles, service readiness, booking calendar and store allocation.",
+      primaryAction: "Add demo unit",
+      sideCopy: "The dealer needs to know which bicycles can be booked today and which need service before a test ride.",
+      statuses: ["All status", "Available", "Booked", "Service due", "Retired"],
+      summary: [["Available", "11", "Across 3 stores"], ["Booked", "18", "This week"], ["Service due", "3", "Before next ride"], ["Utilization", "72%", "Last 14 days"]],
+      columns: ["Demo ID", "Model", "Size", "Store", "Status", "Next booking", "Service item", "Mileage", "Owner"],
+      rows: [
+        ["D-RT9-04", "RT9 Astana Blue", "M", "Denver", "Booked", "Sat 10:00", "None", "318 mi", "Evan"],
+        ["D-AD9-02", "AD9 Force AXS", "M", "Seattle", "Available", "Open", "Firmware check", "244 mi", "Mia"],
+        ["D-RS9-01", "RS9 complete", "S", "Toronto", "Service due", "Blocked", "Brake check", "392 mi", "Noah"],
+        ["D-RT9-07", "RT9 frameset", "L", "Seattle", "Available", "Fri 16:00", "None", "126 mi", "Mia"]
+      ],
+      detail: [["Booking rule", "30 minute buffer"], ["Service threshold", "300 mi check"], ["Customer waiver", "Required"], ["Sales link", "Attach to lead"]],
+      alerts: [["warn", "Service due", "D-RS9-01 is blocked until brake check is complete."]]
+    },
+    warranty: {
+      kicker: "Service",
+      title: "Warranty Claims",
+      topbar: "Claims, evidence and SLA",
+      description: "Review warranty claims, evidence, technical review, parts decision and customer update status.",
+      primaryAction: "Create warranty claim",
+      sideCopy: "Warranty claim screens must make evidence and SLA status obvious, otherwise service teams lose time.",
+      statuses: ["All status", "Evidence missing", "Technical review", "Parts decision", "Closed"],
+      summary: [["Open claims", "13", "5 SLA risks"], ["Evidence missing", "3", "Photos or serial"], ["Parts decision", "4", "Pending"], ["Closed", "22", "This month"]],
+      columns: ["Claim", "Customer", "Model", "Issue", "Evidence", "Stage", "SLA", "Owner", "Next action"],
+      rows: [
+        ["WTY-521", "H. Miller", "RT9", "Paint chip", "Missing serial", "Evidence missing", "At risk", "Service", "Request photos"],
+        ["WTY-508", "A. Brooks", "AD9", "Hanger damage", "Complete", "Parts decision", "On track", "Service", "Approve hanger"],
+        ["WTY-497", "J. Chen", "RS9", "Noise under load", "Complete", "Technical review", "On track", "Factory tech", "Update customer"],
+        ["WTY-492", "N. Patel", "RT9", "Bar tape", "Complete", "Closed", "Closed", "Service", "Archive"]
+      ],
+      detail: [["Evidence required", "Frame, serial, failure close-up"], ["SLA", "2 business days"], ["Parts source", "Local first"], ["Customer update", "Every status change"]],
+      alerts: [["danger", "Evidence missing", "WTY-521 needs serial number and close-up photos."], ["warn", "Parts decision", "Four claims wait for service parts approval."]]
+    },
+    parts: {
+      kicker: "Service inventory",
+      title: "Parts",
+      topbar: "Service parts and backorder list",
+      description: "Manage dealer service parts inventory, critical stock coverage, replenishment and warranty-linked backorders.",
+      primaryAction: "Create parts PO",
+      sideCopy: "Parts should behave like a real service inventory module: stock, reorder point, backorder and warranty link.",
+      statuses: ["All status", "In stock", "Low stock", "Backorder", "Warranty hold"],
+      summary: [["Coverage", "92%", "Critical parts in stock"], ["Backorders", "4", "2 warranty-linked"], ["Low stock", "6", "Below reorder point"], ["Next PO", "Jun 12", "Recommended"]],
+      columns: ["Part", "Category", "Compatible models", "Store stock", "Reorder point", "Backorder", "Status", "Linked case", "Next action"],
+      rows: [
+        ["HGR-RT9", "Derailleur hanger", "RT9 / AD9", "18", "10", "0", "In stock", "-", "Maintain"],
+        ["BRN-CPT-M", "Cockpit", "RT9", "3", "5", "2", "Low stock", "WTY-508", "Reorder"],
+        ["BB-386", "Bottom bracket", "Road lineup", "7", "6", "0", "In stock", "-", "Maintain"],
+        ["AXL-RD-12", "Rear axle", "RS9", "0", "4", "2", "Backorder", "WTY-521", "Escalate ETA"]
+      ],
+      detail: [["Reorder method", "Min / max"], ["Warranty priority", "Open claims first"], ["Critical category", "Hanger, axle, cockpit"], ["PO cadence", "Weekly"]],
+      alerts: [["danger", "Backorder risk", "AXL-RD-12 has zero store stock and two open warranty needs."], ["warn", "Low stock", "BRN-CPT-M is below reorder point."]]
+    },
+    training: {
+      kicker: "Enablement",
+      title: "Training",
+      topbar: "Course and certification list",
+      description: "Assign staff courses, track certification and keep product knowledge current for online shoppers.",
+      primaryAction: "Assign course",
+      sideCopy: "Training is operational: which rep is certified, which store is behind and what blocks sales readiness.",
+      statuses: ["All status", "Not started", "In progress", "Certified", "Overdue"],
+      summary: [["Certified reps", "18", "72% coverage"], ["Overdue", "2", "RT9 fit course"], ["In progress", "6", "This week"], ["Store gaps", "1", "Toronto"]],
+      columns: ["Course", "Audience", "Store", "Assigned", "Completion", "Status", "Due", "Owner", "Next action"],
+      rows: [
+        ["RT9 fit and geometry", "Sales reps", "Denver", "4", "50%", "Overdue", "Jun 09", "Store manager", "Remind reps"],
+        ["Branta cockpit service", "Service techs", "Seattle", "3", "67%", "In progress", "Jun 14", "Service lead", "Complete course"],
+        ["Online purchase handoff", "Sales reps", "All stores", "12", "100%", "Certified", "Jun 01", "Sales ops", "Maintain"],
+        ["Warranty evidence rules", "Service techs", "Toronto", "2", "0%", "Not started", "Jun 16", "Service lead", "Assign"]
+      ],
+      detail: [["Certification rule", "Required before launch"], ["Refresh cycle", "Quarterly"], ["Manager view", "By store"], ["Sales impact", "Quote confidence"]],
+      alerts: [["warn", "Course overdue", "Two Denver reps have not completed RT9 fit and geometry."]]
+    },
+    assets: {
+      kicker: "Enablement",
+      title: "Dealer Sales Assets",
+      topbar: "Approved dealer asset library",
+      description: "Download product images, spec sheets, comparison cards, launch materials and store campaign files.",
+      primaryAction: "Upload asset",
+      sideCopy: "Dealer teams need approved files that can be used in quotes, email, store displays and local web pages.",
+      statuses: ["All status", "Ready", "Review", "Expired", "Localized"],
+      summary: [["Ready files", "31", "Approved for dealer use"], ["Review", "3", "Pending brand check"], ["Localized", "8", "US / Canada"], ["Downloads", "126", "This month"]],
+      columns: ["Asset", "Model", "Use", "Format", "Locale", "Updated", "Status", "Owner", "Action"],
+      rows: [
+        ["RT9 image pack", "RT9", "Website, quote, email", "ZIP", "NA", "Jun 06", "Ready", "Brand", "Download"],
+        ["Geometry sheet", "RT9 / AD9", "Fit consult", "PDF", "NA", "Jun 05", "Ready", "Product", "Download"],
+        ["Astana Blue launch kit", "RT9", "Store campaign", "ZIP", "US", "Jun 03", "Review", "Brand", "Review"],
+        ["Road comparison card", "Road lineup", "Sales floor", "PDF", "CA", "May 31", "Localized", "Sales ops", "Download"]
+      ],
+      detail: [["Approval", "Brand approved only"], ["Usage", "Quote, local web, email"], ["Localization", "US / Canada"], ["Expiry", "Promo files need date check"]],
+      alerts: [["warn", "Review pending", "Astana Blue launch kit needs final brand approval."]]
+    },
+    programs: {
+      kicker: "Commercial policy",
+      title: "Pricing & Programs",
+      topbar: "Dealer pricing and program terms",
+      description: "Review MSRP books, dealer cost, promo programs, demo fleet terms and discount guardrails.",
+      primaryAction: "Request approval",
+      sideCopy: "This is the commercial control center: prices, programs, eligibility and margin rules.",
+      statuses: ["All status", "Active", "Approval needed", "Ending soon", "Expired"],
+      summary: [["Active programs", "6", "Q3 NA"], ["Ending soon", "2", "Within 14 days"], ["Approvals", "3", "Discount requests"], ["Avg margin", "31.8%", "On target"]],
+      columns: ["Program", "Applies to", "Dealer rule", "MSRP impact", "Start", "End", "Status", "Owner", "Next action"],
+      rows: [
+        ["Q3 NA MSRP book", "All road models", "Standard dealer tier", "Baseline", "Jun 01", "Sep 30", "Active", "Sales ops", "Use"],
+        ["RT9 launch promo", "RT9 complete", "Manager approval", "-5% max", "Jun 06", "Jun 30", "Approval needed", "Sales ops", "Approve"],
+        ["Demo fleet terms", "Demo Fleet", "Store allocation", "Net 60", "May 15", "Jul 15", "Active", "Finance", "Review"],
+        ["Staff purchase", "Dealer staff", "One unit per year", "-15%", "Apr 01", "Jun 20", "Ending soon", "Finance", "Renew"]
+      ],
+      detail: [["Guardrail", "Do not drop below 28% margin"], ["Approval", "Required for promo stack"], ["Currency", "USD / CAD"], ["Audit", "Every quote logs price source"]],
+      alerts: [["warn", "Program ending", "Staff purchase window ends Jun 20."], ["warn", "Approval queue", "Three promo discount requests need manager approval."]]
+    },
+    messages: {
+      kicker: "Notifications",
+      title: "Messages",
+      topbar: "Alerts and account updates",
+      description: "View operational notices, customer lead SLA alerts, allocation updates, warranty claim reminders and account messages.",
+      primaryAction: "Create message",
+      sideCopy: "Messages need a list view, not a loose notice feed, so dealers can filter and close operational alerts.",
+      statuses: ["All status", "Unread", "Action required", "Read", "Archived"],
+      summary: [["Unread", "7", "2 action required"], ["Customer Lead SLA", "3", "Over 2 hours"], ["Allocation", "1", "Lock date"], ["Archived", "24", "This month"]],
+      columns: ["Message", "Category", "Priority", "Status", "Related record", "Received", "Owner", "Action"],
+      rows: [
+        ["Three customer leads over SLA", "Customer Lead SLA", "High", "Action required", "Customer Leads", "09:42", "Sales", "Open customer leads"],
+        ["RT9 size split closes Jun 18", "Allocation", "Medium", "Unread", "Inventory", "08:20", "Sales ops", "Review"],
+        ["Warranty claim evidence rule updated", "Warranty Claims", "Medium", "Read", "WTY-521", "Yesterday", "Service", "Review"],
+        ["Q3 MSRP book published", "Program", "Low", "Archived", "Programs", "Jun 06", "Sales ops", "View"]
+      ],
+      detail: [["Notification types", "SLA, allocation, warranty claims, pricing"], ["Action tracking", "Required"], ["Badge rule", "Unread count"], ["Archive", "Manual"]],
+      alerts: [["danger", "Action required", "Customer lead SLA alert has three records waiting for reply."]]
+    },
+    "user-center": {
+      kicker: "Account",
+      title: "User Center",
+      topbar: "Profile, role and access",
+      description: "Manage dealer account identity, role scope, notification preferences and security settings.",
+      primaryAction: "Save changes",
+      sideCopy: "Account center should expose who is logged in, what they can access and how alerts are delivered.",
+      statuses: ["All status", "Active", "Pending", "Disabled"],
+      summary: [["Account", sessionStorage.getItem("xlabB2BEmail") || "dealer@x-lab.global", "North America"], ["Role", "Agent / Dealer", "Price and order access"], ["MFA", "Enabled", "Recommended"], ["Notifications", "7", "Unread"]],
+      columns: ["Setting", "Scope", "Value", "Status", "Owner", "Last updated", "Next action"],
+      rows: [
+        ["Business profile", "Account", sessionStorage.getItem("xlabB2BEmail") || "dealer@x-lab.global", "Active", "Dealer admin", "Today", "Review"],
+        ["Role access", "Permissions", "Agent / Dealer", "Active", "X-LAB ops", "Jun 06", "Request change"],
+        ["Customer lead alerts", "Notifications", "Email and badge", "Active", "Dealer admin", "Today", "Edit"],
+        ["Discount approval", "Controls", "Manager approval required", "Active", "Store manager", "Jun 05", "Review"]
+      ],
+      detail: [["Market", "North America"], ["Default store", "All locations"], ["Data access", "Dealer records only"], ["Logout", "Account menu"]],
+      alerts: [["warn", "Access policy", "Discounts below target margin require manager approval."]]
+    }
+  };
+
+  const moduleData = moduleCatalog[moduleKey] || moduleCatalog.leads;
+  document.querySelectorAll("[data-module-link]").forEach((link) => {
+    link.classList.toggle("active", link.dataset.moduleLink === moduleKey);
+  });
+  const title = `${moduleData.title} | X-LAB Dealer Operations`;
+  document.title = title;
+  const setText = (selector, value) => {
+    const node = document.querySelector(selector);
+    if (node) node.textContent = value;
+  };
+  setText("#moduleTopbarTitle", moduleData.topbar);
+  setText("#moduleKicker", moduleData.kicker);
+  setText("#moduleTitle", moduleData.title);
+  setText("#moduleDescription", moduleData.description);
+  setText("#moduleSideKicker", moduleData.kicker);
+  setText("#moduleSideTitle", moduleData.title);
+  setText("#moduleSideCopy", moduleData.sideCopy);
+  setText("#modulePrimaryAction", moduleData.primaryAction);
+  setText("#moduleTableKicker", moduleData.kicker);
+  setText("#moduleTableTitle", `${moduleData.title} list`);
+  const globalSearch = document.querySelector("#moduleGlobalSearch");
+  if (globalSearch) globalSearch.placeholder = `Search ${moduleData.title.toLowerCase()}`;
+  const tableSearch = document.querySelector("#moduleTableSearch");
+  if (tableSearch) tableSearch.placeholder = `Search ${moduleData.title.toLowerCase()} by ID, customer, model`;
+  const statusFilter = document.querySelector("#moduleStatusFilter");
+  const storeFilter = document.querySelector("#moduleStoreFilter");
+  const ownerFilter = document.querySelector("#moduleOwnerFilter");
+  const resetFilters = document.querySelector("#moduleResetFilters");
+  const resultCount = document.querySelector("#moduleResultCount");
+  const pageInfo = document.querySelector("#modulePageInfo");
+  const prevPage = document.querySelector("#modulePrevPage");
+  const nextPage = document.querySelector("#moduleNextPage");
+  const drawer = document.querySelector("#moduleDetailDrawer");
+  const drawerBackdrop = document.querySelector("#moduleDrawerBackdrop");
+  const closeDrawer = document.querySelector("#moduleCloseDrawer");
+  const detailTitle = document.querySelector("#detailTitle");
+  const detailMetrics = document.querySelector("#detailMetrics");
+  const detailAlerts = document.querySelector("#detailAlerts");
+  const pageSize = moduleKey === "leads" ? 10 : 8;
+  const statusIndex = moduleData.columns.findIndex((column) => /status|stage/i.test(column));
+  const storeIndex = moduleData.columns.findIndex((column) => /store|warehouse|location/i.test(column));
+  const ownerIndex = moduleData.columns.findIndex((column) => /owner/i.test(column));
+  let currentPage = 1;
+  const optionList = (label, values) => {
+    const unique = [...new Set(values.filter(Boolean))].sort();
+    return [`<option value="">${label}</option>`, ...unique.map((value) => `<option value="${value}">${value}</option>`)].join("");
+  };
+  if (statusFilter) statusFilter.innerHTML = moduleData.statuses.map((status, index) => `<option value="${index === 0 ? "" : status}">${status}</option>`).join("");
+  if (storeFilter) {
+    storeFilter.closest(".field").hidden = storeIndex < 0;
+    storeFilter.innerHTML = storeIndex >= 0 ? optionList("All locations", moduleData.rows.map((row) => row[storeIndex])) : "";
+  }
+  if (ownerFilter) {
+    ownerFilter.closest(".field").hidden = ownerIndex < 0;
+    ownerFilter.innerHTML = ownerIndex >= 0 ? optionList("All owners", moduleData.rows.map((row) => row[ownerIndex])) : "";
+  }
+  const summary = document.querySelector("#moduleSummary");
+  if (summary) {
+    summary.innerHTML = moduleData.summary.map(([label, value, note], index) => `
+      <article class="dash-card kpi-card ${index === 3 ? "danger" : ""}">
+        <span class="num">${label}</span>
+        <strong>${value}</strong>
+        <p>${note}</p>
+      </article>
+    `).join("");
+  }
+  const thead = moduleTable.querySelector("thead");
+  const tbody = moduleTable.querySelector("tbody");
+  if (thead) thead.innerHTML = `<tr>${moduleData.columns.map((column) => `<th>${column}</th>`).join("")}<th>Detail</th></tr>`;
+  const pillClassFor = (cell) => /overdue|hold|missing|low stock|backorder|approval|risk|high|action required|unassigned/i.test(cell) ? "high" : /review|pending|incoming|reserved|medium|booked|service due|in progress|ending soon|unread|assigned/i.test(cell) ? "med" : /ready|available|active|certified|closed|delivered|in stock|paid|complete|contacted/i.test(cell) ? "low" : "";
+  const filteredRows = () => {
+    const query = `${tableSearch?.value || globalSearch?.value || ""}`.trim().toLowerCase();
+    return moduleData.rows.filter((row) => {
+      if (statusFilter?.value && statusIndex >= 0 && row[statusIndex] !== statusFilter.value) return false;
+      if (storeFilter?.value && storeIndex >= 0 && row[storeIndex] !== storeFilter.value) return false;
+      if (ownerFilter?.value && ownerIndex >= 0 && row[ownerIndex] !== ownerFilter.value) return false;
+      if (query && !row.join(" ").toLowerCase().includes(query)) return false;
+      return true;
+    });
+  };
+  const openDetail = (row) => {
+    if (!drawer || !detailTitle || !detailMetrics || !detailAlerts) return;
+    detailTitle.textContent = `${row[0]} - ${row[1]}`;
+    detailMetrics.innerHTML = moduleData.columns.slice(2).map((label, index) => {
+      const value = row[index + 2] || "-";
+      return `<div><span>${label}</span><strong>${value}</strong><small>${moduleData.title}</small></div>`;
+    }).join("");
+    const alerts = statusIndex >= 0 && row[statusIndex] === "Overdue"
+      ? [["danger", "SLA overdue", `${row[0]} has been waiting ${row[6] || "past target"}. Assign or contact the customer now.`]]
+      : ownerIndex >= 0 && row[ownerIndex] === "Unassigned"
+        ? [["warn", "Owner missing", "Assign a store owner before the lead can move to quote."]]
+        : moduleData.alerts.slice(0, 1);
+    detailAlerts.innerHTML = alerts.map(([type, label, message]) => `<div class="alert ${type}"><strong>${label}</strong><span>${message}</span></div>`).join("");
+    drawer.removeAttribute("aria-hidden");
+    drawer.classList.add("open");
+    if (drawerBackdrop) drawerBackdrop.hidden = false;
+  };
+  const closeDetail = () => {
+    drawer?.classList.remove("open");
+    drawer?.setAttribute("aria-hidden", "true");
+    if (drawerBackdrop) drawerBackdrop.hidden = true;
+  };
+  const renderTable = () => {
+    const rows = filteredRows();
+    const pages = Math.max(1, Math.ceil(rows.length / pageSize));
+    currentPage = Math.min(currentPage, pages);
+    const start = (currentPage - 1) * pageSize;
+    const pageRows = rows.slice(start, start + pageSize);
+    if (resultCount) resultCount.textContent = `${rows.length} ${moduleData.title.toLowerCase()} found`;
+    if (pageInfo) pageInfo.textContent = `Page ${currentPage} of ${pages} - Showing ${pageRows.length} of ${rows.length}`;
+    if (prevPage) prevPage.disabled = currentPage <= 1;
+    if (nextPage) nextPage.disabled = currentPage >= pages;
+    if (!tbody) return;
+    tbody.innerHTML = pageRows.map((row, rowIndex) => `
+      <tr data-row-index="${start + rowIndex}">
+        ${row.map((cell) => {
+          const pillClass = pillClassFor(cell);
+          return pillClass ? `<td><span class="status-pill ${pillClass}">${cell}</span></td>` : `<td>${cell}</td>`;
+        }).join("")}
+        <td><button class="mini-link row-detail" type="button">Open</button></td>
+      </tr>
+    `).join("");
+    tbody.querySelectorAll("tr").forEach((tr) => {
+      tr.addEventListener("click", () => openDetail(rows[Number(tr.dataset.rowIndex) - start]));
+    });
+  };
+  [tableSearch, globalSearch, statusFilter, storeFilter, ownerFilter].forEach((control) => {
+    control?.addEventListener("input", () => {
+      currentPage = 1;
+      renderTable();
+    });
+  });
+  resetFilters?.addEventListener("click", () => {
+    if (tableSearch) tableSearch.value = "";
+    if (globalSearch) globalSearch.value = "";
+    if (statusFilter) statusFilter.value = "";
+    if (storeFilter) storeFilter.value = "";
+    if (ownerFilter) ownerFilter.value = "";
+    currentPage = 1;
+    renderTable();
+  });
+  prevPage?.addEventListener("click", () => {
+    currentPage = Math.max(1, currentPage - 1);
+    renderTable();
+  });
+  nextPage?.addEventListener("click", () => {
+    currentPage += 1;
+    renderTable();
+  });
+  closeDrawer?.addEventListener("click", closeDetail);
+  drawerBackdrop?.addEventListener("click", closeDetail);
+  document.querySelector("#moduleExport")?.addEventListener("click", () => {
+    const rows = filteredRows();
+    if (resultCount) resultCount.textContent = `${rows.length} ${moduleData.title.toLowerCase()} ready to export`;
+  });
+  document.querySelector("#modulePrimaryAction")?.addEventListener("click", () => {
+    if (resultCount) resultCount.textContent = `${moduleData.primaryAction} started`;
+  });
+  renderTable();
 }
 
 const previewPane = document.querySelector("#previewPane");

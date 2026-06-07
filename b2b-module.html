@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X-LAB Dealer Module</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Source+Sans+3:wght@400;500;600;700;850;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body module-body">
+  <header class="app-topbar">
+    <a class="brand" href="index.html" aria-label="X-LAB Global home"><img class="brand-logo" src="assets/x-lab-logo.webp" alt="X-LAB" decoding="async"></a>
+    <div class="topbar-title">
+      <strong>B2B Operations</strong>
+      <span id="moduleTopbarTitle">North America dealer portal</span>
+    </div>
+    <div class="topbar-tools">
+      <label class="topbar-search" aria-label="Search dealer workspace">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.15a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+        <input id="moduleGlobalSearch" type="search" placeholder="Search current module">
+      </label>
+      <button class="topbar-icon-btn" type="button" aria-label="Alerts">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>
+        <span class="icon-badge">7</span>
+      </button>
+      <button class="topbar-icon-btn" type="button" aria-label="Messages">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>
+        <span class="icon-dot" aria-hidden="true"></span>
+      </button>
+      <details class="account-menu">
+        <summary class="account-chip">
+          <span id="accountRole">Agent / Dealer</span>
+          <strong id="accountName">dealer@x-lab.global</strong>
+        </summary>
+        <div class="account-menu-panel">
+          <a href="b2b-module.html?module=user-center">User Center</a>
+          <a href="b2b-module.html?module=messages">Notifications</a>
+          <a href="b2b-module.html?module=programs">Programs</a>
+          <a href="supplier-login.html" id="dashboardSignOut">Logout</a>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="app-sidebar" aria-label="Dealer module menu">
+      <div class="sidebar-head">
+        <button class="mini-link sidebar-toggle" type="button" data-sidebar-toggle aria-expanded="true">Collapse sidebar</button>
+      </div>
+      <nav class="side-menu" id="moduleSideMenu">
+        <p class="menu-group">Workspace</p>
+        <a data-module-link="dashboard" href="b2b-dashboard.html?role=dealer"><span>Dashboard</span><small>Overview and risk</small></a>
+        <p class="menu-group">Retail Sales</p>
+        <a data-module-link="leads" href="b2b-module.html?module=leads"><span>Customer Leads</span><small>Retail inquiry routing</small></a>
+        <a data-module-link="quotes" href="b2b-module.html?module=quotes"><span>Customer Quotes</span><small>Quotes and reservations</small></a>
+        <p class="menu-group">Dealer Operations</p>
+        <a data-module-link="inventory" href="b2b-module.html?module=inventory"><span>Inventory</span><small>Availability and ETA</small></a>
+        <a data-module-link="orders" href="b2b-module.html?module=orders"><span>Dealer Orders</span><small>POs and fulfillment</small></a>
+        <a data-module-link="demo" href="b2b-module.html?module=demo"><span>Demo Fleet</span><small>Test-ride bicycles</small></a>
+        <p class="menu-group">Service</p>
+        <a data-module-link="warranty" href="b2b-module.html?module=warranty"><span>Warranty Claims</span><small>Service claim workflow</small></a>
+        <a data-module-link="parts" href="b2b-module.html?module=parts"><span>Parts</span><small>Service parts list</small></a>
+        <p class="menu-group">Enablement</p>
+        <a data-module-link="training" href="b2b-module.html?module=training"><span>Training</span><small>Course list</small></a>
+        <a data-module-link="assets" href="b2b-module.html?module=assets"><span>Dealer Sales Assets</span><small>Approved asset library</small></a>
+        <a data-module-link="programs" href="b2b-module.html?module=programs"><span>Pricing & Programs</span><small>Dealer terms and policy</small></a>
+        <a data-module-link="messages" href="b2b-module.html?module=messages"><span>Messages</span><small>Notice list</small></a>
+        <a data-module-link="user-center" href="b2b-module.html?module=user-center"><span>User Center</span><small>Profile and access</small></a>
+      </nav>
+      <div class="side-panel">
+        <span class="num" id="moduleSideKicker">Module</span>
+        <strong id="moduleSideTitle">List workspace</strong>
+        <p id="moduleSideCopy">Filter, review, update and export records from the selected module.</p>
+      </div>
+    </aside>
+
+    <main class="app-content">
+      <section class="content-header module-header">
+        <div>
+          <div class="kicker" id="moduleKicker">Dealer module</div>
+          <h1 id="moduleTitle">Module list</h1>
+          <p class="lead" id="moduleDescription">Select a module from the left menu to manage records.</p>
+        </div>
+      </section>
+
+      <section class="module-summary dashboard-grid kpi-grid" aria-label="Module summary" id="moduleSummary"></section>
+
+      <section class="module-workspace">
+        <article class="dash-card workbench-card module-list-card">
+          <div class="module-table-head">
+            <div>
+              <span class="num" id="moduleTableKicker">Records</span>
+              <h2 id="moduleTableTitle">List</h2>
+            </div>
+            <div class="module-table-actions">
+              <button class="btn ghost" type="button" id="moduleExport">Export CSV</button>
+              <button class="btn dark" type="button" id="modulePrimaryAction">Create record</button>
+              <button class="mini-link" type="button">Columns</button>
+            </div>
+          </div>
+          <div class="module-table-tools" aria-label="Table filters">
+            <label class="module-search">
+              <span>Search</span>
+              <input id="moduleTableSearch" type="search" placeholder="Search records">
+            </label>
+            <div class="field compact"><label for="moduleStatusFilter">Status</label><select id="moduleStatusFilter"></select></div>
+            <div class="field compact"><label for="moduleStoreFilter">Store</label><select id="moduleStoreFilter"></select></div>
+            <div class="field compact"><label for="moduleOwnerFilter">Owner</label><select id="moduleOwnerFilter"></select></div>
+            <button class="mini-link" type="button" id="moduleResetFilters">Reset</button>
+          </div>
+          <div class="module-table-meta">
+            <span id="moduleResultCount">0 records</span>
+            <div class="module-bulk-actions">
+              <button class="mini-link" type="button">Assign owner</button>
+              <button class="mini-link" type="button">Bulk update</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table id="moduleTable">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="module-pagination" aria-label="Table pagination">
+            <span id="modulePageInfo">Page 1 of 1</span>
+            <div>
+              <button class="mini-link" type="button" id="modulePrevPage">Previous</button>
+              <button class="mini-link" type="button" id="moduleNextPage">Next</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <div class="module-drawer-backdrop" id="moduleDrawerBackdrop" hidden></div>
+  <aside class="module-detail-drawer" id="moduleDetailDrawer" aria-label="Selected record detail" aria-hidden="true">
+    <div class="drawer-head">
+      <div><span class="num">Detail</span><h2 id="detailTitle">Selected record</h2></div>
+      <button class="topbar-icon-btn" type="button" id="moduleCloseDrawer" aria-label="Close detail">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="metric-list" id="detailMetrics"></div>
+    <div class="alert-list" id="detailAlerts"></div>
+    <div class="drawer-actions">
+      <button class="btn dark" type="button">Convert to quote</button>
+      <button class="btn ghost" type="button">Add note</button>
+    </div>
+  </aside>
+  <script src="app.js"></script>
+</body>
+</html>
