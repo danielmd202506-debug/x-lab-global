@@ -481,6 +481,8 @@ Component rules:
 - `.bike-preview` owns scene state through `data-scene`, model state through `data-bike`, and accent placement through `data-accent-zone`.
 - `.model-stage` and `.model-part` create the current product visual when no transparent side-view bike asset exists.
 - Replace the CSS-built bike visual with real transparent side-view model images when production assets are available.
+- Product listing cards should use transparent PNG/WebP assets or light-background product crops. Do not place dark studio JPGs directly inside light commerce cards unless the card itself is intentionally dark.
+- Product detail galleries may use a multi-angle 360 viewer when approved angle frames are available. Label it as 360 or multi-angle view; reserve true 3D claims for GLB/USDZ or equivalent model assets.
 - RFQ actions should send users to dealer or B2B routes.
 - Scene imagery must not show a rider; use empty road, mountain road, open endurance road, or dealer showroom/store contexts.
 
@@ -843,6 +845,7 @@ Before adding a new page or module, confirm:
 
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
+| 2026-06-07 | Replaced the RT9 dark-background listing image and added RT9 multi-angle viewer guidance. | User noted the RT9 product image showed a black background and asked whether users can drag, rotate, zoom, and inspect more angles. | `products.html`, `product-detail.html`, `styles.css`, `assets/rt9-light-product.png`, `design.md`, `design-system.html`. |
 | 2026-06-07 | Added newsletter, social links, email, and phone to the homepage footer. | User requested footer conversion and contact entries. | `index.html`, `styles.css`, `design.md`. |
 | 2026-06-07 | Added breadcrumbs to second-level public pages only. | User requested breadcrumb navigation while keeping first-level pages clean. | Child public pages, `styles.css`, `design.md`. |
 | 2026-06-07 | Refreshed homepage footer sitemap for the new IA. | User requested the bottom sitemap to match the updated public navigation and narrative structure. | `index.html`, `styles.css`, `design.md`. |

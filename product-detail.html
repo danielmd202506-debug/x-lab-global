@@ -24,6 +24,14 @@
         <div class="pdp-gallery">
           <div class="pdp-main-photo"><img id="productImage" src="" alt="" decoding="async"></div>
           <div class="pdp-thumbs" id="productThumbs" aria-label="Product images"></div>
+          <div class="pdp-viewer-tools" id="productViewerTools" hidden>
+            <div><strong>360 view</strong><span id="viewerFrameStatus">Drag to rotate</span></div>
+            <div class="pdp-viewer-actions" aria-label="Product viewer controls">
+              <button type="button" data-viewer-action="zoom-out" aria-label="Zoom out">-</button>
+              <button type="button" data-viewer-action="reset" aria-label="Reset view">Reset</button>
+              <button type="button" data-viewer-action="zoom-in" aria-label="Zoom in">+</button>
+            </div>
+          </div>
         </div>
         <aside class="pdp-buybox" aria-label="Purchase options">
           <div>
@@ -220,6 +228,15 @@
           "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-25.jpg?v=1780314926&width=700",
           "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-26.jpg?v=1780314926&width=700",
           "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-27.jpg?v=1780314926&width=700"
+        ],
+        view360: [
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-21.jpg?v=1780314926&width=1100",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-22.jpg?v=1780314926&width=1100",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-23.jpg?v=1780314926&width=1100",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-24.jpg?v=1780314926&width=1100",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-25.jpg?v=1780314926&width=1100",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-26.jpg?v=1780314926&width=1100",
+          "https://cdn.shopify.com/s/files/1/0790/2504/5719/files/RT9-shadowbox-27.jpg?v=1780314926&width=1100"
         ],
         colors: ["Shadowbox"],
         sizes: ["XS", "S", "M", "L"],
@@ -490,6 +507,69 @@
         image.src = button.querySelector("img").src;
       });
     });
+
+    const viewerTools = document.getElementById("productViewerTools");
+    const viewerStatus = document.getElementById("viewerFrameStatus");
+    const gallery = document.querySelector(".pdp-gallery");
+    const mainPhoto = document.querySelector(".pdp-main-photo");
+    let frameIndex = 0;
+    let zoomLevel = 1;
+    let dragStartX = 0;
+    let dragStartFrame = 0;
+    let isDragging = false;
+
+    function updateViewerFrame() {
+      if (!product.view360) return;
+      image.src = product.view360[frameIndex];
+      image.style.transform = `scale(${zoomLevel})`;
+      if (viewerStatus) viewerStatus.textContent = `Angle ${frameIndex + 1} of ${product.view360.length}`;
+    }
+
+    if (product.view360 && viewerTools && gallery && mainPhoto) {
+      viewerTools.hidden = false;
+      gallery.classList.add("is-interactive-viewer");
+      updateViewerFrame();
+
+      mainPhoto.addEventListener("pointerdown", (event) => {
+        isDragging = true;
+        dragStartX = event.clientX;
+        dragStartFrame = frameIndex;
+        mainPhoto.setPointerCapture(event.pointerId);
+        mainPhoto.classList.add("is-dragging");
+      });
+
+      mainPhoto.addEventListener("pointermove", (event) => {
+        if (!isDragging) return;
+        const delta = event.clientX - dragStartX;
+        const frameDelta = Math.round(delta / 42);
+        frameIndex = (dragStartFrame + frameDelta) % product.view360.length;
+        if (frameIndex < 0) frameIndex += product.view360.length;
+        updateViewerFrame();
+      });
+
+      const endDrag = (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+        mainPhoto.releasePointerCapture?.(event.pointerId);
+        mainPhoto.classList.remove("is-dragging");
+      };
+
+      mainPhoto.addEventListener("pointerup", endDrag);
+      mainPhoto.addEventListener("pointercancel", endDrag);
+
+      viewerTools.querySelectorAll("[data-viewer-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.dataset.viewerAction;
+          if (action === "zoom-in") zoomLevel = Math.min(1.9, +(zoomLevel + .15).toFixed(2));
+          if (action === "zoom-out") zoomLevel = Math.max(1, +(zoomLevel - .15).toFixed(2));
+          if (action === "reset") {
+            zoomLevel = 1;
+            frameIndex = 0;
+          }
+          updateViewerFrame();
+        });
+      });
+    }
 
     function renderMatrix(table, data) {
       table.innerHTML = `<thead><tr>${data.headers.map((header) => `<th>${header}</th>`).join("")}</tr></thead><tbody>${data.rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody>`;
