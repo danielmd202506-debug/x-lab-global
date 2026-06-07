@@ -342,21 +342,13 @@
           ["Spec confidence", "Complete build details include frame, fork, drivetrain, power meter, wheelset, tires and exact listed weight."],
           ["Local support", "The page preserves the North American habit of researching online, then validating fit and service through a dealer."]
         ],
-        rules: [
-          ["Free Ground Shipping", "Shown as the primary shipping promise on the RT9 product page."],
-          ["Installments", "As low as $150/mo with financing qualification flow."],
-          ["HSA/FSA", "Eligible for qualified customers where applicable."],
-          ["Notify Me", "Email waitlist captures model, colorway, size and selected variant."],
-          ["Size Guide", "Official rider-height table supports XS, S, M and L."],
-          ["Find A Dealer", "Size uncertainty is routed to nearby dealer support."]
-        ],
         official: {
           title: "RT9",
           intro: "RT9 centers the purchase decision on carbon weight, climbing performance, power measurement, precise size selection and post-purchase support.",
           storyTitle: "Made for decisive climbs",
           story: [
             "The RT9 product page positions the bicycle around the world's lightest production carbon road frame, a WorldTour-proven climbing platform and the highest performing commercial carbon fiber.",
-            "The shopping flow needs to keep the purchase rules close to the bicycle: color, size, shipping, payment, dealer support, notify-me rules, size guide, specifications, geometry and support resources."
+            "The page keeps the buying decision grounded in the essentials: color, size, shipping, payment, dealer support, specifications, geometry and support resources."
           ],
           highlights: [
             ["Carbon", "World's lightest production carbon road frame"],
@@ -370,8 +362,7 @@
             ["Shipping", "Free Ground Shipping"],
             ["Payment", "Financing shown as low as $150/mo for qualified customers"],
             ["Size options", "XS / S / M / L"],
-            ["Dealer path", "Size uncertainty routes to Find A Dealer"],
-            ["Notify Me", "Waitlist form captures email, model, colorway, size and variant id"]
+            ["Dealer support", "A nearby dealer can help confirm fit before purchase"]
           ],
           techSpecs: [
             ["Frame", "XDS Carbon Frame, Toray T-1100 + M40X, UDH Compatible"],
@@ -442,7 +433,7 @@
           generalFaq: [
             ["What sizes are available?", "RT9 is shown with XS, S, M and L size options."],
             ["How do I pick a size?", "Use the official Size Chart, then visit a dealer if you are not sure what size you should ride."],
-            ["What happens if my selected size is unavailable?", "The Notify Me flow captures email, model, colorway, size and variant id so the customer can be notified."],
+            ["What happens if my selected size is unavailable?", "Customers can join a back-in-stock email list when a selected size is not available."],
             ["Is customization part of the purchase path?", "The local page keeps Configure This Bicycle as the customization path, while the official RT9 PDP focuses on fixed colorway and size selection."]
           ],
           technicalFaq: [
@@ -582,7 +573,10 @@
     document.getElementById("productColors").innerHTML = product.colors.map((color) => `<button class="btn light" type="button">${color}</button>`).join("");
     document.getElementById("productSizes").innerHTML = product.sizes.map((size) => `<button class="btn light" type="button">${size}</button>`).join("");
     document.getElementById("productQuickSpecs").innerHTML = quickSpecs.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("");
-    document.getElementById("productRules").innerHTML = (product.rules || []).map(([title, detail]) => `<details><summary>${title}</summary><p>${detail}</p></details>`).join("");
+    const productRules = document.getElementById("productRules");
+    const rules = product.rules || [];
+    productRules.hidden = !rules.length;
+    productRules.innerHTML = rules.map(([title, detail]) => `<details><summary>${title}</summary><p>${detail}</p></details>`).join("");
     document.getElementById("productConfidence").innerHTML = (product.confidence || [
       ["Fit", "Confirm sizing and final setup through store support."],
       ["Delivery", "Review shipping, pickup and assembly expectations before purchase."],

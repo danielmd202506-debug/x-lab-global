@@ -895,6 +895,7 @@ Before adding a new page or module, confirm:
 
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
+| 2026-06-07 | Removed unverified external reference, fulfillment promise and rule-copy from product routes. | Product pages should keep the X-LAB catalog experience self-contained and avoid promises that are not yet backed by confirmed operations rules; empty policy modules should not render. | `products.html`, `product-detail.html`, `design.md`, product route hero, RT9 policy copy and empty rules module. |
 | 2026-06-07 | Replaced the RT9 dark-background listing image and added RT9 multi-angle viewer guidance. | User noted the RT9 product image showed a black background and asked whether users can drag, rotate, zoom, and inspect more angles. | `products.html`, `product-detail.html`, `styles.css`, `assets/rt9-light-product.png`, `design.md`, `design-system.html`. |
 | 2026-06-07 | Unified public page footers with the homepage footer pattern. | User requested every page footer to match the homepage with logo, newsletter, contact, social links and sitemap. | Public HTML pages, `custom-bike.html`, shared footer pattern. |
 | 2026-06-07 | Expanded WorldTour page into race-to-retail, dealer story kit and partner confidence modules. | User noted WorldTour content was too thin and overlapped with Technology; page now separates race evidence from engineering explanation. | `race-validation.html`, `styles.css`, `design.md`, WorldTour route. |
