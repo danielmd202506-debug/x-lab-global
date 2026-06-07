@@ -83,8 +83,8 @@ Avoid:
 Current route architecture:
 
 - Bikes: product catalog, product detail, bike finder, model comparison, and custom configurator.
-- Technology: aerodynamics, carbon fiber, wheelsets, components, testing, and technical proof.
-- WorldTour: race validation, team proof, performance claims, and confidence story.
+- Technology: aerodynamics, carbon fiber, wheelsets, components, testing, technical proof, materials, structure and engineering explanation.
+- WorldTour: race validation, team proof, professional-use context, race-to-retail lineage, dealer story assets and partner confidence.
 - Manufacturing: vertical integration, carbon, wheels, assembly, QA, logistics, and supplier handoff.
 - Partners: distributor, supplier, strategic partner recruitment, application, and B2B entry.
 - Dealers: dealer success, margin, supply, training, warranty, launch assets, and RFQ tools.
@@ -661,6 +661,15 @@ Cross-system flow:
 - B2B may reference public product pages as sales or training context.
 - B2B workspaces should not become public marketing pages.
 
+WorldTour versus Technology content boundary:
+
+- Technology answers why the bicycle can perform: aerodynamics, carbon layup, wheel structure, test logic, materials, tolerances and engineering proof.
+- WorldTour answers why the market should believe the brand: team context, race bike to retail bike lineage, professional-use pressure, dealer story kit, launch assets, staff training and partner risk reduction.
+- Do not repeat technical module copy on the WorldTour page unless it is framed as race-use evidence or retail confidence.
+- WorldTour proof should answer North American buyer questions: is this the same platform I can buy, what was proven under pressure, how does this affect handling or reliability, where can I get fit and service support.
+- WorldTour proof should answer partner and dealer questions: how does this help sell-in, what assets can the shop use, which model carries the proof, how does it reduce new-brand hesitation, what rights-approved materials are available.
+- Team, event, league, race and third-party logos or marks require confirmed usage rights before being displayed. Prefer approved X-LAB and XDS-owned imagery and text when rights are unclear.
+
 ## 10. Imagery And Media
 
 Global imagery:
@@ -885,6 +894,7 @@ Before adding a new page or module, confirm:
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
 | 2026-06-07 | Replaced the RT9 dark-background listing image and added RT9 multi-angle viewer guidance. | User noted the RT9 product image showed a black background and asked whether users can drag, rotate, zoom, and inspect more angles. | `products.html`, `product-detail.html`, `styles.css`, `assets/rt9-light-product.png`, `design.md`, `design-system.html`. |
+| 2026-06-07 | Expanded WorldTour page into race-to-retail, dealer story kit and partner confidence modules. | User noted WorldTour content was too thin and overlapped with Technology; page now separates race evidence from engineering explanation. | `race-validation.html`, `styles.css`, `design.md`, WorldTour route. |
 | 2026-06-07 | Added right-side cart and user-center utility icons to public navigation. | User requested shopping cart and user center entries in the top-right navigation using icons. | `app.js`, `styles.css`, `cart.html`, `design.md`, public `.site-nav`. |
 | 2026-06-07 | Reduced public body-section heading scale and removed repeated homepage partner proof lead copy. | User noted the homepage partner proof description was still present and section titles felt too large for North American B2B reading. | `index.html`, `styles.css`, `design.md`, public `h2` scale. |
 | 2026-06-07 | Reduced internal public page hero heading scale. | User questioned whether the Partners hero title was too large for North American B2B readers; route pages now sit one tier below the homepage declaration. | `styles.css`, `design.md`, `.page-hero h1`. |

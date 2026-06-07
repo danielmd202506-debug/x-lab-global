@@ -1404,6 +1404,50 @@ h3 {
   line-height: 1.42;
 }
 
+.race-lineage {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.14);
+  gap: 1px;
+}
+
+.race-lineage article {
+  min-height: 280px;
+  display: grid;
+  align-content: start;
+  gap: var(--space-md);
+  padding: clamp(var(--space-md), 2.4vw, var(--space-xl));
+  background:
+    linear-gradient(135deg, rgba(83,199,223,.12), transparent 40%),
+    #0b0f12;
+}
+
+.race-lineage h3 {
+  max-width: 12ch;
+  color: #fff;
+}
+
+.race-lineage p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 720;
+  line-height: 1.56;
+}
+
+.dealer-kit-grid article {
+  border-color: rgba(8,11,13,.12);
+  background: #fff;
+}
+
+.dealer-kit-grid strong {
+  color: var(--paper-ink);
+}
+
+.dealer-kit-grid p {
+  color: var(--paper-muted);
+}
+
 .factory-proof {
   display: grid;
   grid-template-columns: minmax(0, 1.04fr) minmax(360px, .96fr);
@@ -4838,7 +4882,7 @@ body.js .reveal.visible { opacity: 1; transform: translateY(0); }
     display: none;
   }
   .section-head, .route-map, .finder, .factory-proof, .content-header, .content-grid, .toolbar, .chart-grid, .risk-grid, .priority-grid, .compact-grid, .catalog-toolbar, .catalog-grid, .catalog-card, .catalog-card.featured, .commerce-grid, .commerce-card.featured, .pdp-layout, .catalog-header-inner, .product-content-grid, .pdp-confidence-grid, .module-workspace, .module-toolbar, .dashboard-main-grid { grid-template-columns: 1fr; }
-  .grid-4, .grid-3, .grid-2, .chain-strip, .process, .kpi-grid, .sitemap, .trust-rail, .proof-grid, .portal-grid, .portal-lanes { grid-template-columns: repeat(2, 1fr); }
+  .grid-4, .grid-3, .grid-2, .chain-strip, .process, .race-lineage, .kpi-grid, .sitemap, .trust-rail, .proof-grid, .portal-grid, .portal-lanes { grid-template-columns: repeat(2, 1fr); }
   .factory-proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .factory-tech-grid,
   .factory-tech-strip { grid-template-columns: 1fr; }
@@ -4985,7 +5029,7 @@ body.js .reveal.visible { opacity: 1; transform: translateY(0); }
   .section { padding: clamp(64px, 16vw, 88px) 0; }
   .section-head { margin-bottom: var(--space-xl); }
   .card, .proof-item, .portal-grid article { min-height: auto; }
-  .grid-4, .grid-3, .grid-2, .chain-strip, .process, .factory-proof-grid, .photo-grid, .kpi-grid, .sitemap, .trust-rail, .proof-grid, .portal-grid, .portal-lanes, .product-highlight-grid { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2, .chain-strip, .process, .race-lineage, .factory-proof-grid, .photo-grid, .kpi-grid, .sitemap, .trust-rail, .proof-grid, .portal-grid, .portal-lanes, .product-highlight-grid { grid-template-columns: 1fr; }
   .factory-video-copy,
   .factory-proof-card div { padding: 18px; }
   .factory-tech-card { min-height: auto; }
