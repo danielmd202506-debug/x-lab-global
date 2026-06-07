@@ -3057,14 +3057,98 @@ footer strong {
   gap: 10px;
 }
 
-.icon-btn {
+.topbar-search {
+  width: min(32vw, 360px);
+  min-width: 240px;
   min-height: 38px;
-  padding: 0 var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.07);
+  color: #fff;
+}
+
+.topbar-search svg,
+.topbar-icon-btn svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.topbar-search input {
+  width: 100%;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font-size: .9rem;
+  font-weight: 750;
+}
+
+.topbar-search input::placeholder {
+  color: rgba(255,255,255,.56);
+}
+
+.topbar-icon-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: inline-grid;
+  place-items: center;
   border: 1px solid rgba(255,255,255,.16);
   background: rgba(255,255,255,.06);
   color: #fff;
-  font-weight: 800;
   cursor: pointer;
+}
+
+.icon-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 5px;
+  border: 2px solid #080b0d;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.icon-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #080b0d;
+  border-radius: 999px;
+  background: var(--red);
+}
+
+.account-menu {
+  position: relative;
+}
+
+.account-menu summary {
+  list-style: none;
+}
+
+.account-menu summary::-webkit-details-marker {
+  display: none;
 }
 
 .account-chip {
@@ -3072,6 +3156,7 @@ footer strong {
   padding: var(--space-2xs) var(--space-sm);
   border: 1px solid rgba(255,255,255,.16);
   background: rgba(255,255,255,.06);
+  cursor: pointer;
 }
 
 .account-chip span,
@@ -3090,6 +3175,41 @@ footer strong {
   color: #fff;
   font-size: .94rem;
   line-height: 1.2;
+}
+
+.account-menu-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 80;
+  width: 220px;
+  display: grid;
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: #10161a;
+  box-shadow: 0 16px 40px rgba(0,0,0,.32);
+}
+
+.account-menu-panel a {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: rgba(255,255,255,.78);
+  font-size: .9rem;
+  font-weight: 850;
+}
+
+.account-menu-panel a:hover,
+.account-menu-panel a:focus-visible {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+
+.account-menu-panel a:last-child {
+  margin-top: 4px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  color: #ffb8bd;
 }
 
 .app-layout {
@@ -4274,6 +4394,14 @@ body.js .reveal.visible { opacity: 1; transform: translateY(0); }
   .app-topbar { grid-template-columns: 132px 1fr; height: auto; min-height: 68px; }
   .sidebar-toggle { grid-column: 1 / -1; justify-self: stretch; }
   .topbar-tools { grid-column: 1 / -1; overflow-x: auto; padding-bottom: 10px; }
+  .topbar-search {
+    width: min(100%, 420px);
+    min-width: 260px;
+  }
+  .account-menu-panel {
+    left: auto;
+    right: 0;
+  }
   .app-layout { grid-template-columns: 1fr; height: auto; }
   .app-sidebar { position: sticky; top: 68px; z-index: 40; padding: 10px 14px; }
   .requirement-shell,
@@ -4388,10 +4516,14 @@ body.js .reveal.visible { opacity: 1; transform: translateY(0); }
   .price-row { display: grid; }
   .app-content { padding: 16px 14px; }
   .app-topbar { padding-inline: 14px; }
+  .topbar-tools { gap: 8px; }
+  .topbar-search { min-width: 220px; }
+  .topbar-search input { font-size: .84rem; }
   .topbar-title span,
   .icon-btn { display: none; }
   .sidebar-toggle { display: inline-flex; }
-  .account-chip { min-width: 150px; }
+  .account-chip { min-width: 172px; }
+  .account-menu-panel { width: 210px; }
   .role-switch { display: grid; }
   .order-bars div { grid-template-columns: 1fr; }
   .requirement-form-grid { grid-template-columns: 1fr; }

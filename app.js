@@ -114,13 +114,18 @@ if (sidebarToggle) {
 }
 
 function setDashboardRole(role) {
-  if (!roleTabs.length) return;
   roleTabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.role === role));
   rolePanels.forEach((panel) => panel.classList.toggle("muted-panel", panel.dataset.panel !== role));
   const accountRole = document.querySelector("#accountRole");
   const accountName = document.querySelector("#accountName");
-  if (accountRole) accountRole.textContent = role === "dealer" ? "Agent / dealer account" : "Supplier account";
-  if (accountName) accountName.textContent = sessionStorage.getItem("xlabB2BEmail") || "X-LAB Partner";
+  const userCenterRole = document.querySelector("#userCenterRole");
+  const userCenterName = document.querySelector("#userCenterName");
+  const roleName = role === "dealer" ? "Agent / Dealer" : "Supplier";
+  const accountEmail = sessionStorage.getItem("xlabB2BEmail") || (role === "dealer" ? "dealer@x-lab.global" : "supplier@x-lab.global");
+  if (accountRole) accountRole.textContent = roleName;
+  if (accountName) accountName.textContent = accountEmail;
+  if (userCenterRole) userCenterRole.textContent = roleName;
+  if (userCenterName) userCenterName.textContent = accountEmail;
 }
 
 if (roleTabs.length) {
@@ -128,6 +133,18 @@ if (roleTabs.length) {
   const storedRole = sessionStorage.getItem("xlabB2BRole");
   setDashboardRole(params.get("role") === "dealer" || storedRole === "dealer" ? "dealer" : "supplier");
   roleTabs.forEach((tab) => tab.addEventListener("click", () => setDashboardRole(tab.dataset.role)));
+  document.querySelector("#dashboardSignOut")?.addEventListener("click", () => {
+    sessionStorage.removeItem("xlabB2BRole");
+    sessionStorage.removeItem("xlabB2BEmail");
+  });
+} else if (document.querySelector(".dashboard-body")) {
+  const params = new URLSearchParams(window.location.search);
+  const storedRole = sessionStorage.getItem("xlabB2BRole");
+  setDashboardRole(params.get("role") === "supplier" || storedRole === "supplier" ? "supplier" : "dealer");
+  document.querySelector("#dashboardSignOut")?.addEventListener("click", () => {
+    sessionStorage.removeItem("xlabB2BRole");
+    sessionStorage.removeItem("xlabB2BEmail");
+  });
 }
 
 const previewPane = document.querySelector("#previewPane");
