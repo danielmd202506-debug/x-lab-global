@@ -542,6 +542,7 @@ Required structure:
 - Footer sitemap follows the public IA matrix with Home, Bicycles, Proof, Partners, Support, and B2B groups. It may expose subordinate routes such as Custom, Supplier, Stores, Warranty, Registration, Owner Garage, RFQ, and Quality Documents.
 - Public footer must include newsletter signup, social media links, contact email, and contact phone.
 - Footer or sitemap must use real user-facing page routes only; do not expose internal IA notes, test conclusions, or planning labels on the public homepage.
+- Public website pages must use the same footer pattern as the homepage: `footer-map`, brand logo, newsletter form, contact links, social links and sitemap. Dashboard, management and high-fidelity app shells may omit the public footer when it would break the app layout.
 
 ### Global Route Page Template
 
@@ -555,6 +556,7 @@ Required structure:
 - Role-specific cards or process strip
 - Route actions
 - Footer with next route or related route
+- Public route pages must use the shared homepage footer pattern rather than page-specific minimal footers.
 
 ### Custom Bike Template
 
@@ -894,6 +896,7 @@ Before adding a new page or module, confirm:
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
 | 2026-06-07 | Replaced the RT9 dark-background listing image and added RT9 multi-angle viewer guidance. | User noted the RT9 product image showed a black background and asked whether users can drag, rotate, zoom, and inspect more angles. | `products.html`, `product-detail.html`, `styles.css`, `assets/rt9-light-product.png`, `design.md`, `design-system.html`. |
+| 2026-06-07 | Unified public page footers with the homepage footer pattern. | User requested every page footer to match the homepage with logo, newsletter, contact, social links and sitemap. | Public HTML pages, `custom-bike.html`, shared footer pattern. |
 | 2026-06-07 | Expanded WorldTour page into race-to-retail, dealer story kit and partner confidence modules. | User noted WorldTour content was too thin and overlapped with Technology; page now separates race evidence from engineering explanation. | `race-validation.html`, `styles.css`, `design.md`, WorldTour route. |
 | 2026-06-07 | Added right-side cart and user-center utility icons to public navigation. | User requested shopping cart and user center entries in the top-right navigation using icons. | `app.js`, `styles.css`, `cart.html`, `design.md`, public `.site-nav`. |
 | 2026-06-07 | Reduced public body-section heading scale and removed repeated homepage partner proof lead copy. | User noted the homepage partner proof description was still present and section titles felt too large for North American B2B reading. | `index.html`, `styles.css`, `design.md`, public `h2` scale. |
