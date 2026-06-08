@@ -1,6 +1,6 @@
 # X-LAB Design System & Product UI Guidelines
 
-Last updated: 2026-06-06
+Last updated: 2026-06-07
 Status: Living guideline
 Primary source files: `styles.css`, public HTML pages, B2B dashboard pages, `app.js`
 
@@ -83,8 +83,8 @@ Avoid:
 Current route architecture:
 
 - Bikes: product catalog, product detail, bike finder, model comparison, and custom configurator.
-- Technology: aerodynamics, carbon fiber, wheelsets, components, testing, and technical proof.
-- WorldTour: race validation, team proof, performance claims, and confidence story.
+- Technology: aerodynamics, carbon fiber, wheelsets, components, testing, technical proof, materials, structure and engineering explanation.
+- WorldTour: race validation, team proof, professional-use context, race-to-retail lineage, dealer story assets and partner confidence.
 - Manufacturing: vertical integration, carbon, wheels, assembly, QA, logistics, and supplier handoff.
 - Partners: distributor, supplier, strategic partner recruitment, application, and B2B entry.
 - Dealers: dealer success, margin, supply, training, warranty, launch assets, and RFQ tools.
@@ -201,7 +201,8 @@ Shared behavior:
 Global official website scale:
 
 - `h1`: `clamp(4.1rem, 10.6vw, 5.75rem)`, line-height `.9`
-- `h2`: `clamp(2.65rem, 5.8vw, 4.25rem)`, line-height `.98`
+- Internal `.page-hero h1`: `clamp(3.45rem, 7.2vw, 4.85rem)`, line-height `.94`
+- `h2`: `clamp(2.25rem, 4.6vw, 3.55rem)`, line-height `1.02`
 - `h3`: `clamp(1.55rem, 2.4vw, 2.05rem)`, line-height about `1.05`
 - Hero copy: `clamp(1.12rem, 1.25vw + .62rem, 1.34rem)`, line-height about `1.58`
 - Lead copy: `clamp(1.06rem, .35vw + .98rem, 1.18rem)`, line-height about `1.72`
@@ -211,11 +212,12 @@ Global official website scale:
 Global typography intent:
 
 - Expressive.
-- Large.
+- Large only where the page is making a brand declaration.
 - Fast to understand.
 - Strong hierarchy before detail.
 - More vertical breathing room.
 - High-pressure but not cramped: display headings should feel fast and mechanical without crushing ascenders, wrapping awkwardly, or dominating operational proof.
+- Body-section headings should stay one tier below hero and route-hero headings so North American B2B visitors can scan proof, operations, and CTA logic without every block feeling like a campaign poster.
 
 B2B operations scale:
 
@@ -300,6 +302,8 @@ Rules:
 - Logo left at about `132px x 30px`, shrinking on mobile.
 - Links are compact and bold.
 - `B2B Login` uses `.nav-cta`.
+- Right-side utility tools use icon-only entries after the primary navigation: cart links to `cart.html`, user center links to `owner-garage.html`.
+- Public nav utility icons must use the industrial line-icon style: hard-edged SVG linework, square caps, miter joins, neutral/cyan states, accessible labels, and no red decoration.
 - Current page state uses `.is-current` with a cyan/red underline cue only; do not add visible status text such as `Current`, `Page`, or `Section` inside the global navigation.
 - On tablet/mobile, non-CTA nav links can hide to keep the header usable.
 - Breadcrumbs are required on second-level and deeper public pages. Top-level pages do not show breadcrumbs.
@@ -316,6 +320,8 @@ Current public nav order:
 - `Dealers`
 - `Support`
 - `B2B Login`
+- Cart icon
+- User center icon
 
 `Custom`, `Suppliers`, `Stores`, warranty, technical documents, registration, inventory and RFQ routes are subordinate entry points. They should remain easy to reach from page CTAs and footer maps, but they should not crowd the public top-level IA.
 
@@ -351,6 +357,7 @@ Rules:
 - Kicker identifies route, role, or system position.
 - First viewport must include the core message and at least one primary CTA. Do not place the first actionable route only in the next section.
 - Internal `.page-hero` sections should stay around 55-60svh with compact copy and CTA buttons inside the hero.
+- Internal `.page-hero h1` should be one tier smaller than the homepage hero. Homepage owns the brand declaration; strategic route pages such as Partners, Dealers, Manufacturing, Support, and WorldTour need strong but more business-readable hierarchy for North American B2B visitors.
 - B2B screens must not use cinematic heroes.
 
 ### Content Header
@@ -364,6 +371,37 @@ Rules:
 - Use practical heading, role/location kicker, short lead, and immediate controls.
 - Pair with toolbar, KPI row, table, or task queue.
 - Keep copy shorter than public hero copy.
+
+### Iconography
+
+Classes:
+
+- `.proof-icon`
+- `.icon-btn`
+
+Shared icon rules:
+
+- Icons must feel aligned with the X-LAB wordmark: hard-edged, mechanical, direct, and low-roundness.
+- Prefer open SVG linework with square line caps, miter joins, straight segments, cut corners, technical-diagram geometry, and restrained detail.
+- Avoid generic soft SaaS icons, rounded app-style pictograms, hand-drawn symbols, emoji-like marks, and decorative illustration icons.
+- Do not place proof or marketing icons inside colored square containers unless the container is a real control affordance.
+- Do not use red for decorative or proof icons. Red stays reserved for primary CTAs, urgent states, and dangerous states.
+- Use dark industrial neutrals on light surfaces, such as `#172229`, `#101820`, `#59656d`, or the closest existing token.
+- Use cyan only as a small route, focus, technical, or active-state accent. Do not make cyan the default icon fill.
+- Keep icon stroke weight consistent within one module. Current homepage proof icons use open inline SVG at `32px`, `stroke-width: 1.85`, `stroke-linecap: square`, and `stroke-linejoin: miter`.
+- Icons should identify operational meaning: risk reduction, dealer story, supply confidence, growth, RFQ, warranty, allocation, training, service, documents, or factory proof.
+
+Global proof-card icon behavior:
+
+- Use `.proof-icon` as a visual identifier paired with `.num`, not as a decorative badge.
+- Keep `.proof-icon` unframed on light proof cards.
+- Pair icon color with muted numeric labels so the card hierarchy remains heading-first.
+
+B2B icon behavior:
+
+- Use `.icon-btn` only for clear controls such as export, upload, filter, view, download, approve, release, or open.
+- Tool icons in B2B workspaces may use framed button shapes because the frame communicates clickability, not decoration.
+- Every icon-only control needs an accessible label through visible text, `aria-label`, or a nearby table/action context.
 
 ### Buttons
 
@@ -479,8 +517,12 @@ Component rules:
 - `.custom-shell` is a two-panel page: immersive preview left, configuration controls right.
 - `.review-strip` summarizes fit, lead-time, warranty, or dealer-review checkpoints before the detailed controls.
 - `.bike-preview` owns scene state through `data-scene`, model state through `data-bike`, and accent placement through `data-accent-zone`.
+- `.bike-preview` uses a three-zone layout: top scene/model identity, centered product visual, bottom `.preview-readout`. Environment, platform and fit readouts must stay anchored to the preview bottom, not flow below the viewport.
+- `.configurator` uses a fixed header, scrollable `.config-form`, and bottom `.config-actions` so Create RFQ and sizing-help actions remain visible after configuration.
 - `.model-stage` and `.model-part` create the current product visual when no transparent side-view bike asset exists.
 - Replace the CSS-built bike visual with real transparent side-view model images when production assets are available.
+- Product listing cards should use transparent PNG/WebP assets or light-background product crops. Do not place dark studio JPGs directly inside light commerce cards unless the card itself is intentionally dark.
+- Product detail galleries may use a multi-angle 360 viewer when approved angle frames are available. Label it as 360 or multi-angle view; reserve true 3D claims for GLB/USDZ or equivalent model assets.
 - RFQ actions should send users to dealer or B2B routes.
 - Scene imagery must not show a rider; use empty road, mountain road, open endurance road, or dealer showroom/store contexts.
 
@@ -502,6 +544,7 @@ Required structure:
 - Footer sitemap follows the public IA matrix with Home, Bicycles, Proof, Partners, Support, and B2B groups. It may expose subordinate routes such as Custom, Supplier, Stores, Warranty, Registration, Owner Garage, RFQ, and Quality Documents.
 - Public footer must include newsletter signup, social media links, contact email, and contact phone.
 - Footer or sitemap must use real user-facing page routes only; do not expose internal IA notes, test conclusions, or planning labels on the public homepage.
+- Public website pages must use the same footer pattern as the homepage: `footer-map`, brand logo, newsletter form, contact links, social links and sitemap. Dashboard, management and high-fidelity app shells may omit the public footer when it would break the app layout.
 
 ### Global Route Page Template
 
@@ -515,6 +558,7 @@ Required structure:
 - Role-specific cards or process strip
 - Route actions
 - Footer with next route or related route
+- Public route pages must use the shared homepage footer pattern rather than page-specific minimal footers.
 
 ### Custom Bike Template
 
@@ -620,6 +664,15 @@ Cross-system flow:
 - Global pages may invite suppliers, agents, or dealers into B2B.
 - B2B may reference public product pages as sales or training context.
 - B2B workspaces should not become public marketing pages.
+
+WorldTour versus Technology content boundary:
+
+- Technology answers why the bicycle can perform: aerodynamics, carbon layup, wheel structure, test logic, materials, tolerances and engineering proof.
+- WorldTour answers why the market should believe the brand: team context, race bike to retail bike lineage, professional-use pressure, dealer story kit, launch assets, staff training and partner risk reduction.
+- Do not repeat technical module copy on the WorldTour page unless it is framed as race-use evidence or retail confidence.
+- WorldTour proof should answer North American buyer questions: is this the same platform I can buy, what was proven under pressure, how does this affect handling or reliability, where can I get fit and service support.
+- WorldTour proof should answer partner and dealer questions: how does this help sell-in, what assets can the shop use, which model carries the proof, how does it reduce new-brand hesitation, what rights-approved materials are available.
+- Team, event, league, race and third-party logos or marks require confirmed usage rights before being displayed. Prefer approved X-LAB and XDS-owned imagery and text when rights are unclear.
 
 ## 10. Imagery And Media
 
@@ -832,6 +885,7 @@ Before adding a new page or module, confirm:
 - Proof appears before cooperation, login, purchase, or contact requests.
 - Global CTAs use existing `.btn` variants.
 - B2B actions use `.icon-btn`, `.mini-link`, `.role-tab`, compact `.btn`, forms, tables, and task states.
+- Reusable proof and module icons follow the hard-edged industrial iconography rules: open linework, no decorative square container, no red unless the icon communicates a true urgent/danger state.
 - Global cards follow the `.num` plus `h3` plus concise paragraph pattern.
 - B2B panels use `.dash-card`, KPI, toolbar, alert, task-list, status-list, and table patterns.
 - Images reveal product, factory, store, route, or operational context.
@@ -843,6 +897,15 @@ Before adding a new page or module, confirm:
 
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
+| 2026-06-07 | Anchored custom configurator readouts and action buttons to panel bottoms. | User noted Environment, Platform, Fit and post-configuration actions were running below the visible page; custom configurator now uses fixed preview/readout and scrollable controls. | `custom-bike.html`, `styles.css`, `design.md`, custom configurator layout. |
+| 2026-06-07 | Removed unverified external reference, fulfillment promise and rule-copy from product routes. | Product pages should keep the X-LAB catalog experience self-contained and avoid promises that are not yet backed by confirmed operations rules; empty policy modules should not render. | `products.html`, `product-detail.html`, `design.md`, product route hero, RT9 policy copy and empty rules module. |
+| 2026-06-07 | Replaced the RT9 dark-background listing image and added RT9 multi-angle viewer guidance. | User noted the RT9 product image showed a black background and asked whether users can drag, rotate, zoom, and inspect more angles. | `products.html`, `product-detail.html`, `styles.css`, `assets/rt9-light-product.png`, `design.md`, `design-system.html`. |
+| 2026-06-07 | Unified public page footers with the homepage footer pattern. | User requested every page footer to match the homepage with logo, newsletter, contact, social links and sitemap. | Public HTML pages, `custom-bike.html`, shared footer pattern. |
+| 2026-06-07 | Expanded WorldTour page into race-to-retail, dealer story kit and partner confidence modules. | User noted WorldTour content was too thin and overlapped with Technology; page now separates race evidence from engineering explanation. | `race-validation.html`, `styles.css`, `design.md`, WorldTour route. |
+| 2026-06-07 | Added right-side cart and user-center utility icons to public navigation. | User requested shopping cart and user center entries in the top-right navigation using icons. | `app.js`, `styles.css`, `cart.html`, `design.md`, public `.site-nav`. |
+| 2026-06-07 | Reduced public body-section heading scale and removed repeated homepage partner proof lead copy. | User noted the homepage partner proof description was still present and section titles felt too large for North American B2B reading. | `index.html`, `styles.css`, `design.md`, public `h2` scale. |
+| 2026-06-07 | Reduced internal public page hero heading scale. | User questioned whether the Partners hero title was too large for North American B2B readers; route pages now sit one tier below the homepage declaration. | `styles.css`, `design.md`, `.page-hero h1`. |
+| 2026-06-07 | Added industrial iconography rules for proof cards and reusable UI icons. | User requested the homepage icon style to match the X-LAB logo better: no decorative square frame, no red, harder industrial linework. | `design.md`, `.proof-icon`, `.icon-btn`, reusable proof modules. |
 | 2026-06-07 | Added newsletter, social links, email, and phone to the homepage footer. | User requested footer conversion and contact entries. | `index.html`, `styles.css`, `design.md`. |
 | 2026-06-07 | Added breadcrumbs to second-level public pages only. | User requested breadcrumb navigation while keeping first-level pages clean. | Child public pages, `styles.css`, `design.md`. |
 | 2026-06-07 | Refreshed homepage footer sitemap for the new IA. | User requested the bottom sitemap to match the updated public navigation and narrative structure. | `index.html`, `styles.css`, `design.md`. |
