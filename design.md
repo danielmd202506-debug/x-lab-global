@@ -517,6 +517,8 @@ Component rules:
 - `.custom-shell` is a two-panel page: immersive preview left, configuration controls right.
 - `.review-strip` summarizes fit, lead-time, warranty, or dealer-review checkpoints before the detailed controls.
 - `.bike-preview` owns scene state through `data-scene`, model state through `data-bike`, and accent placement through `data-accent-zone`.
+- `.bike-preview` uses a three-zone layout: top scene/model identity, centered product visual, bottom `.preview-readout`. Environment, platform and fit readouts must stay anchored to the preview bottom, not flow below the viewport.
+- `.configurator` uses a fixed header, scrollable `.config-form`, and bottom `.config-actions` so Create RFQ and sizing-help actions remain visible after configuration.
 - `.model-stage` and `.model-part` create the current product visual when no transparent side-view bike asset exists.
 - Replace the CSS-built bike visual with real transparent side-view model images when production assets are available.
 - Product listing cards should use transparent PNG/WebP assets or light-background product crops. Do not place dark studio JPGs directly inside light commerce cards unless the card itself is intentionally dark.
@@ -895,6 +897,7 @@ Before adding a new page or module, confirm:
 
 | Date | Change | Reason | Affected Scope |
 | --- | --- | --- | --- |
+| 2026-06-07 | Anchored custom configurator readouts and action buttons to panel bottoms. | User noted Environment, Platform, Fit and post-configuration actions were running below the visible page; custom configurator now uses fixed preview/readout and scrollable controls. | `custom-bike.html`, `styles.css`, `design.md`, custom configurator layout. |
 | 2026-06-07 | Removed unverified external reference, fulfillment promise and rule-copy from product routes. | Product pages should keep the X-LAB catalog experience self-contained and avoid promises that are not yet backed by confirmed operations rules; empty policy modules should not render. | `products.html`, `product-detail.html`, `design.md`, product route hero, RT9 policy copy and empty rules module. |
 | 2026-06-07 | Replaced the RT9 dark-background listing image and added RT9 multi-angle viewer guidance. | User noted the RT9 product image showed a black background and asked whether users can drag, rotate, zoom, and inspect more angles. | `products.html`, `product-detail.html`, `styles.css`, `assets/rt9-light-product.png`, `design.md`, `design-system.html`. |
 | 2026-06-07 | Unified public page footers with the homepage footer pattern. | User requested every page footer to match the homepage with logo, newsletter, contact, social links and sitemap. | Public HTML pages, `custom-bike.html`, shared footer pattern. |
