@@ -55,7 +55,7 @@
 
       <section class="dashboard-grid kpi-grid" aria-label="Design system sync state">
         <article class="dash-card kpi-card"><span class="num">Source file</span><strong>design.md</strong><p>Primary design memory for token, layout, component and governance rules.</p></article>
-        <article class="dash-card kpi-card"><span class="num">Last sync</span><strong>2026-06-07</strong><p>PPT narrative IA applied to homepage, global navigation and core public routes.</p></article>
+        <article class="dash-card kpi-card"><span class="num">Last sync</span><strong>2026-06-12</strong><p>Synced tokens, typography scales, shared iconography, visual asset guidance and governance trace from `design.md`.</p></article>
         <article class="dash-card kpi-card"><span class="num">Top IA</span><strong>9</strong><p>Home, Bicycles, Technology, WorldTour, Manufacturing, Partners, Dealers, Support and B2B Login.</p></article>
         <article class="dash-card kpi-card danger"><span class="num">Sync rule</span><strong>PPT + weekly</strong><p>Accepted PPT recommendations must sync to hi-fi pages and docs, then check weekly for drift.</p></article>
       </section>
@@ -90,16 +90,53 @@
         <div class="token-grid">
           <div class="token-swatch" style="--swatch:#050607"><i></i><strong>--bg</strong><span>#050607</span></div>
           <div class="token-swatch" style="--swatch:#f7f8f8"><i></i><strong>--ink</strong><span>#f7f8f8</span></div>
+          <div class="token-swatch" style="--swatch:#aeb7bd"><i></i><strong>--muted</strong><span>#aeb7bd</span></div>
+          <div class="token-swatch" style="--swatch:#6f7a82"><i></i><strong>--dim</strong><span>#6f7a82</span></div>
           <div class="token-swatch" style="--swatch:#11161a"><i></i><strong>--panel</strong><span>#11161a</span></div>
+          <div class="token-swatch" style="--swatch:#171d22"><i></i><strong>--panel-2</strong><span>#171d22</span></div>
+          <div class="token-swatch" style="--swatch:rgba(255,255,255,.14)"><i></i><strong>--line</strong><span>rgba(255,255,255,.14)</span></div>
           <div class="token-swatch" style="--swatch:#d91f2d"><i></i><strong>--red</strong><span>#d91f2d</span></div>
           <div class="token-swatch" style="--swatch:#53c7df"><i></i><strong>--cyan</strong><span>#53c7df</span></div>
           <div class="token-swatch" style="--swatch:#d8b15f"><i></i><strong>--gold</strong><span>#d8b15f</span></div>
           <div class="token-swatch" style="--swatch:#67c98f"><i></i><strong>--green</strong><span>#67c98f</span></div>
           <div class="token-swatch" style="--swatch:#f5f6f4"><i></i><strong>--paper</strong><span>#f5f6f4</span></div>
+          <div class="token-swatch" style="--swatch:#080b0d"><i></i><strong>--paper-ink</strong><span>#080b0d</span></div>
+          <div class="token-swatch" style="--swatch:#4d5961"><i></i><strong>--paper-muted</strong><span>#4d5961</span></div>
+          <div class="token-swatch" style="--swatch:#1180ff"><i></i><strong>--max</strong><span>1180px</span></div>
         </div>
         <div class="type-samples">
           <div><span>Display</span><strong>Barlow Condensed</strong><p>Headings stay uppercase and heavy, with enough line-height to feel fast without crowding.</p></div>
           <div><span>Body</span><strong>Source Sans 3</strong><p>Body copy uses a roomier line-height for public proof sections and B2B repeated scanning.</p></div>
+        </div>
+        <div class="rule-list">
+          <p><strong>Role tokens:</strong> future CSS extensions should prefer `--text-*`, `--lh-*` and `--space-*` role tokens instead of page-only one-offs.</p>
+          <p><strong>Color behavior:</strong> Global uses dark cinematic fields; B2B keeps the same palette meanings on light operational surfaces.</p>
+        </div>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">Typography / &#23383;&#20307;</span><h2>Global and B2B scale references</h2></div>
+        </div>
+        <div class="spec-grid">
+          <article>
+            <h3>Global official website scale</h3>
+            <ul>
+              <li>`h1`: `clamp(4.1rem, 10.6vw, 5.75rem)` with `.9` line-height.</li>
+              <li>`.page-hero h1`: `clamp(3.45rem, 7.2vw, 4.85rem)` with `.94` line-height.</li>
+              <li>`h2`: `clamp(2.25rem, 4.6vw, 3.55rem)`; `h3`: `clamp(1.55rem, 2.4vw, 2.05rem)`.</li>
+              <li>Hero copy: `clamp(1.12rem, 1.25vw + .62rem, 1.34rem)`; body: `16px` around `1.64` line-height.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>B2B operations scale</h3>
+            <ul>
+              <li>Dashboard body: `15px` to `16px` with `1.45` to `1.56` line-height.</li>
+              <li>Dashboard `h1`: about `clamp(2.35rem, 3.6vw, 3.35rem)`; `h2`: about `clamp(1.55rem, 2.55vw, 2.15rem)`.</li>
+              <li>KPI numbers: about `clamp(2.1rem, 3.3vw, 3.05rem)`.</li>
+              <li>Table text: `14px` to `15px`; labels and metadata: `12px` to `13px`.</li>
+            </ul>
+          </article>
         </div>
       </section>
 
@@ -115,6 +152,7 @@
               <li>Dark industrial backgrounds.</li>
               <li>Real product, factory, route or store imagery.</li>
               <li>Top navigation follows Home, Bicycles, Technology, WorldTour, Manufacturing, Partners, Dealers, Support and B2B Login.</li>
+              <li>Utility icons for cart and user center sit after the primary navigation in the same industrial line-icon language.</li>
               <li>Homepage narrative follows trust first: Hero, partner confidence, manufacturing, WorldTour, bicycle solutions, dealer growth, find/apply CTA.</li>
               <li>Every visual must match the exact module claim, especially technology, material and wheelset sections.</li>
               <li>Hero, route sections, top-aligned proof cards and custom bicycle layouts.</li>
@@ -127,6 +165,7 @@
               <li>Topbar plus sidebar app shell.</li>
               <li>Readable three-column portal lanes, KPI row, toolbar, table, task queue and status panels.</li>
               <li>Light operational content surfaces with compact controls.</li>
+              <li>Supplier and agent/dealer pages reuse the same shell model, but keep role-specific module order and labels.</li>
             </ul>
           </article>
         </div>
@@ -150,11 +189,25 @@
           <p><strong>Tables:</strong> use `.table-wrap` for overflow; keep headers small, uppercase and sortable where useful.</p>
           <p><strong>Navigation:</strong> public pages use the PPT IA matrix; management pages use `.app-sidebar` and `.side-menu`.</p>
           <p><strong>Breadcrumbs:</strong> show breadcrumbs on second-level and deeper public pages only; top-level routes stay clean.</p>
+          <p><strong>Iconography:</strong> use hard-edged SVG linework with square caps, miter joins, no decorative red, and no framed proof icons unless the frame communicates control affordance.</p>
           <p><strong>Imagery:</strong> image-to-copy match is mandatory; source or create a matching asset before shipping specific technical claims.</p>
           <p><strong>Product assets:</strong> commerce cards use transparent or light-background product crops; dark studio JPGs belong only in intentionally dark modules.</p>
           <p><strong>Product viewer:</strong> multi-angle frame sets may be labeled 360 view; use true 3D language only when model assets such as GLB or USDZ are available.</p>
+          <p><strong>Forms:</strong> public and login inputs stay at least `46px` high; B2B filters may be compact but must remain readable and workflow-grouped.</p>
           <p><strong>Governance:</strong> reusable visual, interaction or layout changes must update `design.md` and this page.</p>
           <p><strong>Design sync:</strong> accepted PPT optimization recommendations must be reflected in matching hi-fi screens, `design.md`, this page and related requirement documents in the same work cycle.</p>
+        </div>
+      </section>
+
+      <section class="dash-card workbench-card">
+        <div class="dash-head">
+          <div><span class="num">Assets + governance / &#36164;&#20135;&#19982;&#27835;&#29702;</span><h2>Visual sources and sync checks</h2></div>
+        </div>
+        <div class="rule-list">
+          <p><strong>Generated assets:</strong> use route-specific visuals such as `hero-race-peloton`, `card-custom-fit-studio`, `card-store-test-ride`, `card-dealer-operations`, `card-factory-qc`, `card-service-docs`, `tech-aerodynamics-ad9`, `tech-carbon-layup-ad9` and `tech-wheelset-ad9` only where the adjacent claim matches.</p>
+          <p><strong>Logo:</strong> default brand mark remains `assets/x-lab-logo.webp` unless the core identity asset is intentionally replaced.</p>
+          <p><strong>Definition of done:</strong> each new page declares the user category, picks Global or B2B correctly, preserves accessibility and mobile behavior, and exposes the next route or workflow action.</p>
+          <p><strong>Requirement trace:</strong> FR-052 governs this visual page; FR-043 keeps Markdown and Notion archive sync visible in the related project documents.</p>
         </div>
       </section>
 
@@ -173,6 +226,12 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td>2026-06-12</td>
+                <td>Resynced the visual page to the current design source for tokens, typography scales, iconography, visual asset guidance and governance trace.</td>
+                <td>`design.md` had moved beyond the visual page summary, leaving drift in the token inventory and reusable rule coverage.</td>
+                <td>design-system.html, design.md, requirement log, common rules</td>
+              </tr>
               <tr>
                 <td>2026-06-07</td>
                 <td>Added RT9 light product-card asset guidance and 360 viewer naming rules.</td>
